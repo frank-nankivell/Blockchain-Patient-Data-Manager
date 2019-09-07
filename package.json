@@ -1,0 +1,40 @@
+{
+  "name": "final-project-api-and-front",
+  "version": "1.0.0",
+  "description": "A final project with both api and front and captured together",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "webpack --mode development && node server/index.js",
+    "build": "webpack --mode production",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "frank nankivell",
+  "license": "ISC",
+  "dependencies": {
+    "bigchaindb-driver": "^4.1.1",
+    "cookie-parser": "^1.4.4",
+    "core-js": "^3.2.1",
+    "debug": "^4.1.1",
+    "express": "^4.17.1",
+    "express-mongo-db": "^2.0.4",
+    "http-errors": "^1.7.3",
+    "jade": "^1.11.0",
+    "mongodb": "^3.3.2",
+    "morgan": "^1.9.1",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "regenerator-runtime": "^0.13.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.0",
+    "@babel/preset-env": "^7.6.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.6",
+    "file-loader": "^4.2.0",
+    "html-webpack-plugin": "^3.2.0",
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.3.8",
+    "wepback": "^1.0.0"
+  }
+}

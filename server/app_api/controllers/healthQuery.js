@@ -1,0 +1,78 @@
+var sendJSONresponse = function(res, status, content) {
+    res.status(status);
+    res.json(content);
+  };
+
+
+module.exports.getName_ID = function (req, res) {
+  var db = req.db;
+  console.log('db is active',db)
+
+  console.log("Finding data by ID: " + req.params._id);
+   // var db = Connection;
+    if (req.params && req.params._id) {
+      db.collection('assets').find({},{"name" : req.params._id}).toArray()
+                .then(response => res.status(200).json(response))
+                .catch(error => console.error(error));
+    } else {
+    console.log('No value entered',req.params._id)
+    sendJSONresponse(res, 400, {
+      "message": "Incorrect params given"
+    });
+  };
+};
+
+module.exports.getAllAssets= function (req, res) {
+  var db = req.db;
+  console.log('db is active',db)
+
+      db.collection('assets').find().toArray()
+                .then(response => res.status(200).json(response))
+                .catch(error => console.error(error));
+};
+
+
+module.exports.getDisease_ID = function(req, res) {
+  var db = req.db;
+  console.log('db is active',db)
+
+  console.log("Finding data by ID: " + req.params._id);
+   // var db = Connection;
+    if (req.params && req.params._id) {
+      db.collection('assets').find({"Disease1" : req.params._id}).toArray()
+                .then(response => res.status(200).json(response))
+                .catch(error => console.error(error));
+    }
+    else {
+    console.log('No value entered',req.params._id)
+    sendJSONresponse(res, 400, {
+      "message": "Incorrect params given"
+    });
+  };
+};
+
+module.exports.getResponse_ID = function(req, res) {
+  var db = req.db;
+  console.log('db is active',db)
+
+  console.log("Finding data by ID: " + req.params._id);
+   // var db = Connection;
+    if (req.params && req.params._id) {
+      db.collection('assets').find({"Response 1" :{$regex: req.params._id, $options: 'i'}}).toArray()
+        .then(response => res.status(200).json(response[1]))
+        .catch(error => console.error(error));//,sendJSONresponse(res,404, {"message": "System error"}));
+    } else {
+    console.log('No value entered',req.params._id)
+    sendJSONresponse(res, 400, {
+      "message": "Incorrect params given"
+    });
+  }
+};
+
+
+module.exports.getDisease_Summary = function(req, res) {};
+
+
+
+module.exports.getResponse_Summary = function(req, res) {};
+
