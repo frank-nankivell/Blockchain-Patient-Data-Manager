@@ -5,11 +5,12 @@ const htmlPlugin = new HtmlWebPackPlugin({
   filename: "./index.html"
 });
 module.exports = {
-  entry: "./src/index.js",
-  output: { // NEW
+  entry: ['babel-polyfill',"./src/index.js"],
+  output: { 
     path: path.join(__dirname, 'dist'),
-    filename: "[name].js"
-  }, // NEW Ends
+    filename:  '[name].[hash:8].js',
+    sourceMapFilename: '[name].[hash:8].map',
+  }, 
   plugins: [htmlPlugin],
   module: {
     rules: [
@@ -26,9 +27,32 @@ module.exports = {
         options: { name: '/static/[name].[ext]' }
       },
       {
+        test: /\.sol/, 
+        loader: 'truffle-solidity'
+      },
+      {
         test: /\.jade$/,
         loader: 'jade'
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader','css-loader'],
+        include: [/src/, /node_modules/]
+      }, 
+      {
+        test: /\.jsx?$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+        query: {
+          presets: ['@babel/env','@babel/react'] //'stage-2']
+        }
       }
+      
     ]
+  },
+   resolve: {
+    alias: {
+      'react-native$': 'react-native-web'
+    }
   }
 };
