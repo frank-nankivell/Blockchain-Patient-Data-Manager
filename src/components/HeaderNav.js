@@ -5,7 +5,7 @@ import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
 // Screens import
 
 import Login from '../screens/Login';
-import DataHome from '../screens/DataHome';
+import DataHome from '../screens/Home';
 import DataLogin from '../screens/DataLogin';
 import ResearchRequest from '../screens/ResearchRequest';
 // Static content import 

@@ -20,6 +20,7 @@
     "babel-loader": "^8.0.6",
     "babel-plugin-root-import": "^6.4.1",
     "bigchaindb-driver": "^4.1.1",
+    "bootstrap": "^4.3.1",
     "cookie-parser": "^1.4.4",
     "core-js": "^3.2.1",
     "debug": "^4.1.1",
@@ -28,6 +29,7 @@
     "http-errors": "^1.7.3",
     "jade": "^1.11.0",
     "mongodb": "^3.3.2",
+    "monk": "^7.0.0",
     "morgan": "^1.9.1",
     "react": "^16.9.0",
     "react-bootstrap": "^1.0.0-beta.12",
@@ -37,6 +39,7 @@
     "react-router-dom": "^5.0.1",
     "react-scripts": "^3.1.1",
     "regenerator-runtime": "^0.13.3",
+    "styled-components": "^4.3.2",
     "truffle-contract": "^4.0.31",
     "web3": "^1.2.1"
   },

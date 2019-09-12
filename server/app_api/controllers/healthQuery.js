@@ -1,3 +1,5 @@
+//const db = require('../db/connectDb');
+
 var sendJSONresponse = function(res, status, content) {
     res.status(status);
     res.json(content);
@@ -11,7 +13,7 @@ module.exports.getName_ID = function (req, res) {
   console.log("Finding data by ID: " + req.params._id);
    // var db = Connection;
     if (req.params && req.params._id) {
-      db.collection('assets').find({},{"name" : req.params._id}).toArray()
+      database.collection('assets').find({},{"name" : req.params._id}).toArray()
                 .then(response => res.status(200).json(response))
                 .catch(error => console.error(error));
     } else {
@@ -22,11 +24,10 @@ module.exports.getName_ID = function (req, res) {
   };
 };
 
-module.exports.getAllAssets= function (req, res) {
+module.exports.getAllAssets = async = (req, res) => {
   var db = req.db;
   console.log('db is active',db)
-
-      db.collection('assets').find().toArray()
+  db.getCollection('assets').find().toArray()
                 .then(response => res.status(200).json(response))
                 .catch(error => console.error(error));
 };
