@@ -24,10 +24,10 @@ module.exports.getName_ID = function (req, res) {
   };
 };
 
-module.exports.getAllAssets = async = (req, res) => {
+module.exports.getAllAssets = function (req, res) {
   var db = req.db;
   console.log('db is active',db)
-  db.getCollection('assets').find().toArray()
+  db.collection('assets').find().toArray()
                 .then(response => res.status(200).json(response))
                 .catch(error => console.error(error));
 };
@@ -71,8 +71,25 @@ module.exports.getResponse_ID = function(req, res) {
 };
 
 
-module.exports.getDisease_Summary = function(req, res) {};
+module.exports.getDisease_Summary = function(req, res) {
+  var db = req.db;
+  console.log('Making request for Disease Summary')
 
+  db.collection('assets').aggregate([
+    { $unwind : "$data"},
+    {
+      $match: {
+          keywords: { $not: {$size: 0} }
+      }
+  },
+    {$group : 
+      {_id : "$data.Disease_1", 
+      Disease_1 : {$sum: 1}
+    }
+  }]).toArray()
+    .then(response => res.status(200).json(response))
+    .catch(error => console.error(error));
+  };
 
 
 module.exports.getResponse_Summary = function(req, res) {};

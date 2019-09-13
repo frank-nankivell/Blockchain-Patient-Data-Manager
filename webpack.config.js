@@ -11,6 +11,10 @@ module.exports = {
     filename:  '[name].[hash:8].js',
     sourceMapFilename: '[name].[hash:8].map',
   }, 
+  devServer: {
+    watchContentBase: true,
+    compress: true,
+  },
   plugins: [htmlPlugin],
   module: {
     rules: [

@@ -7,7 +7,7 @@ class Home extends React.Component {
     render() {
         return(
             <View>
-                <Text> 404 Page Not Found Page</Text>
+                <h1> 404 Page Not Found Page</h1>
             </View>
         )
     }
