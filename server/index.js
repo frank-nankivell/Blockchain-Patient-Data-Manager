@@ -56,11 +56,13 @@ app.use(expressMongoDb(dbURI,options));
 // API routes
 var ctrlhealthData = require('./app_api/controllers/healthQuery');
 app.get('/api/assets/searchAll',ctrlhealthData.getAllAssets);
-app.get('/api/assets/searchName/:_id', ctrlhealthData.getName_ID);
-app.get('/api/assets/searchDisease/:_id',ctrlhealthData.getDisease_ID);
 app.get('/api/assets/summaryDisease',ctrlhealthData.getDisease_Summary);
-app.get('/api/assets/searchResponse/:_id',ctrlhealthData.getResponse_ID);
-app.get('api/assets/summaryResponse',ctrlhealthData.getResponse_Summary);
+app.get('/api/assets/searchDisease/:_id',ctrlhealthData.getDisease_ID_fromSummary);
+
+
+//app.get('/api/assets/searchName/:_id', ctrlhealthData.getName_ID);
+//app.get('/api/assets/searchResponse/:_id',ctrlhealthData.getResponse_ID);
+//app.get('api/assets/summaryResponse',ctrlhealthData.getResponse_Summary);
 
 
 // Handles any requests that don't match the ones above

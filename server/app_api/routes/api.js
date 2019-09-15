@@ -7,7 +7,7 @@ router.get('/api/assets/searchAll',ctrlhealthData.getAllAssets);
 
 router.get('/api/assets/searchName/:_id', ctrlhealthData.getName_ID);
 
-router.get('/api/assets/searchDisease/:_id',ctrlhealthData.getDisease_ID);
+router.get('/api/assets/searchDisease/:_id',ctrlhealthData.getDisease_ID_fromSummary);
 
 router.get('api/assets/summaryDisease/',ctrlhealthData.getDisease_Summary);
 
