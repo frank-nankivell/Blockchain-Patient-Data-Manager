@@ -1,7 +1,9 @@
 - 1 get UID of all data rows matching the disease (API call to mongo) - getDisease_ID_fromSummary
+// -> done
+// 
 
-- 2 create driver key for user requesting access and send back to user
-- a) provide back in text to user
+- 2 with bchain driver create researchers key for user requesting access and send back to user
+- a) provide back in text to user on screen
 - b) send to blockchain and store
 
 - 3 make request to transfer data assets to researcher with new private key

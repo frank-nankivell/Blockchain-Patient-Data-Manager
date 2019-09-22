@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var ctrlhealthData = require('../controllers/healthQuery');
+var ctrlhealthData = require('../controllers/mongoQuery');
 
 router.get('/api/assets/searchAll',ctrlhealthData.getAllAssets);
 

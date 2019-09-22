@@ -34,7 +34,7 @@ export default class ResearchRequest extends Component {
     }
     componentDidMount() {
         this._getData();
-    //    this.timer = setInterval(() => this._getData(), 5000);
+        this.timer = setInterval(() => this._getData(), 5000);
         }; 
 
     _getData() {

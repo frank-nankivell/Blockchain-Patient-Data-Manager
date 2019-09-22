@@ -1,0 +1,562 @@
+
+create_tx is {'inputs': [{'owners_before': ['CYWmGyWJTqWqCkmucgdQm8XivASjBUf6PJLsQucbfjEg'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': 'CYWmGyWJTqWqCkmucgdQm8XivASjBUf6PJLsQucbfjEg'}}], 'outputs': [{'public_keys': ['CYWmGyWJTqWqCkmucgdQm8XivASjBUf6PJLsQucbfjEg'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': 'CYWmGyWJTqWqCkmucgdQm8XivASjBUf6PJLsQucbfjEg'}, 'uri': 'ni:///sha-256;Hn9CsVE8vY8r5P6CJOT8Slc4yHw8lkz9nknPpWRnEcw?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Tina Russo', 'Country': ('United Kingdom',), 'Patient_ID': 53, 'Birth_date': '04/07/1999', 'Gender': 'Polygender', 'Social_security_number': 184291200, 'Disease_1': 'Colorecetal_Cancer:_C17.0', 'Response_1': 'Treatment provided', 'datetime_created': 1169208738, 'Clinician_name': 'White Cherry'}}, 'version': '2.0', 'id': None}
+
+private key 5Gbnyyu6XXMJ9RkonrCGaoL4dqT21T4rNR46ADgCc8Kk
+
+public key CYWmGyWJTqWqCkmucgdQm8XivASjBUf6PJLsQucbfjEg
+CREATE transaction id: 9fa24c8efce74fc83d187b4894c3a5f12c8ee049d03dc27f1124b5c3b2dbe9da
+We are done generating all that Patient.
+Generating patient data for patientID_55
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Darren Hunt', 'Country': ('United Kingdom',), 'Patient_ID': 54, 'Birth_date': '31/04/1956', 'Gender': 'Female', 'Social_security_number': 19180800, 'Disease_1': 'Systemic_barteonellosis:_A44.0', 'Response_1': 'Treatement Ongoing', 'datetime_created': 761787160, 'Clinician_name': 'Wild Silence'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['FiuPZxQsuuDvDF5KFyJMbA8TTTb6jZR5rYdmMSX1fj89'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': 'FiuPZxQsuuDvDF5KFyJMbA8TTTb6jZR5rYdmMSX1fj89'}}], 'outputs': [{'public_keys': ['FiuPZxQsuuDvDF5KFyJMbA8TTTb6jZR5rYdmMSX1fj89'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': 'FiuPZxQsuuDvDF5KFyJMbA8TTTb6jZR5rYdmMSX1fj89'}, 'uri': 'ni:///sha-256;e5YzsXl_pcDJmlhkVW1M0T1U5GC0gg2A552Ug49iLUo?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Darren Hunt', 'Country': ('United Kingdom',), 'Patient_ID': 54, 'Birth_date': '31/04/1956', 'Gender': 'Female', 'Social_security_number': 19180800, 'Disease_1': 'Systemic_barteonellosis:_A44.0', 'Response_1': 'Treatement Ongoing', 'datetime_created': 761787160, 'Clinician_name': 'Wild Silence'}}, 'version': '2.0', 'id': None}
+
+private key G1VMSnwtmXG9zgpycZLX2Rzu4bhYsFH1foXtxLDhobvx
+
+public key FiuPZxQsuuDvDF5KFyJMbA8TTTb6jZR5rYdmMSX1fj89
+CREATE transaction id: 40af4ad0a08807a8c277b343a8fd535ebb438bb2dff34123c80efa2a66eb8ae8
+We are done generating all that Patient.
+Generating patient data for patientID_56
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'April Graham', 'Country': ('United Kingdom',), 'Patient_ID': 55, 'Birth_date': '04/04/1950', 'Gender': 'Polygender', 'Social_security_number': 83808000, 'Disease_1': 'Ovarian_Cancer:_C56.0', 'Response_1': 'No response provided', 'datetime_created': 915230821, 'Clinician_name': 'Wandering Feather'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['5dVZCXnGo34aWem2awVJ9yAf1wrg1UNFXuR95rCnGcHW'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': '5dVZCXnGo34aWem2awVJ9yAf1wrg1UNFXuR95rCnGcHW'}}], 'outputs': [{'public_keys': ['5dVZCXnGo34aWem2awVJ9yAf1wrg1UNFXuR95rCnGcHW'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': '5dVZCXnGo34aWem2awVJ9yAf1wrg1UNFXuR95rCnGcHW'}, 'uri': 'ni:///sha-256;jzCbdN78v9jm3fJc8Mk7gkSRcsu_oXvqgrXPDzewBOM?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'April Graham', 'Country': ('United Kingdom',), 'Patient_ID': 55, 'Birth_date': '04/04/1950', 'Gender': 'Polygender', 'Social_security_number': 83808000, 'Disease_1': 'Ovarian_Cancer:_C56.0', 'Response_1': 'No response provided', 'datetime_created': 915230821, 'Clinician_name': 'Wandering Feather'}}, 'version': '2.0', 'id': None}
+
+private key 4YKZr6HnR9JqZFkumms9cyxc4czt2soKi6GAJLn2w8zd
+
+public key 5dVZCXnGo34aWem2awVJ9yAf1wrg1UNFXuR95rCnGcHW
+CREATE transaction id: 64d2d2057d122f9bb721b16b18c79395cefe3f80f87dcd572ddd3df4001fe76f
+We are done generating all that Patient.
+Generating patient data for patientID_57
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Ashley Wiley', 'Country': ('United Kingdom',), 'Patient_ID': 56, 'Birth_date': '31/03/1993', 'Gender': 'Transgender', 'Social_security_number': 223862400, 'Disease_1': 'Colorecetal_Cancer:_C17.0', 'Response_1': 'Treatement Ongoing', 'datetime_created': 1411114072, 'Clinician_name': 'Proud Shadow'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['4turgCZ8DWRGV4gnqs1P1wMVUecpY82cyPQwjqzNxQL4'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': '4turgCZ8DWRGV4gnqs1P1wMVUecpY82cyPQwjqzNxQL4'}}], 'outputs': [{'public_keys': ['4turgCZ8DWRGV4gnqs1P1wMVUecpY82cyPQwjqzNxQL4'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': '4turgCZ8DWRGV4gnqs1P1wMVUecpY82cyPQwjqzNxQL4'}, 'uri': 'ni:///sha-256;Soavw7qczs3lGZKj1jgzEy4qtX9Y6baRi6MWQFKJCSM?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Ashley Wiley', 'Country': ('United Kingdom',), 'Patient_ID': 56, 'Birth_date': '31/03/1993', 'Gender': 'Transgender', 'Social_security_number': 223862400, 'Disease_1': 'Colorecetal_Cancer:_C17.0', 'Response_1': 'Treatement Ongoing', 'datetime_created': 1411114072, 'Clinician_name': 'Proud Shadow'}}, 'version': '2.0', 'id': None}
+
+private key BDKKcHh551V2aq7gYn7nxUdvUtsQ8HmQQoGnigCCdLm8
+
+public key 4turgCZ8DWRGV4gnqs1P1wMVUecpY82cyPQwjqzNxQL4
+CREATE transaction id: 25c74266740a91b2126601b77d152362aec28184600ad28c9b18b09dab4d0ca7
+We are done generating all that Patient.
+Generating patient data for patientID_58
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Sandra Bennett', 'Country': ('United Kingdom',), 'Patient_ID': 57, 'Birth_date': '01/12/1985', 'Gender': 'Polygender', 'Social_security_number': 313372800, 'Disease_1': 'Colorecetal_Cancer:_C17.0', 'Response_1': 'Treatement Ongoing', 'datetime_created': 691008864, 'Clinician_name': 'Lingering Base'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['DxmENpRNKJdGrGHtAY4kWLMCcrf4kLHEjXQe2mTarcgW'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': 'DxmENpRNKJdGrGHtAY4kWLMCcrf4kLHEjXQe2mTarcgW'}}], 'outputs': [{'public_keys': ['DxmENpRNKJdGrGHtAY4kWLMCcrf4kLHEjXQe2mTarcgW'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': 'DxmENpRNKJdGrGHtAY4kWLMCcrf4kLHEjXQe2mTarcgW'}, 'uri': 'ni:///sha-256;uJEzUYLe8r6Dx8JXqVQPbD6JkfgJSreAQi_ttkceMBk?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Sandra Bennett', 'Country': ('United Kingdom',), 'Patient_ID': 57, 'Birth_date': '01/12/1985', 'Gender': 'Polygender', 'Social_security_number': 313372800, 'Disease_1': 'Colorecetal_Cancer:_C17.0', 'Response_1': 'Treatement Ongoing', 'datetime_created': 691008864, 'Clinician_name': 'Lingering Base'}}, 'version': '2.0', 'id': None}
+
+private key ErVNoSEf34Lj39TX4AkKwaPRe9AqCpQPcPGKBPXp4Fz4
+
+public key DxmENpRNKJdGrGHtAY4kWLMCcrf4kLHEjXQe2mTarcgW
+CREATE transaction id: 1626529d1d439ed78e1781b43651fd5313162b94afd858662dc9764dd1687eda
+We are done generating all that Patient.
+Generating patient data for patientID_59
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Samantha Walton', 'Country': ('United Kingdom',), 'Patient_ID': 58, 'Birth_date': '31/04/1956', 'Gender': 'Male', 'Social_security_number': 168998400, 'Disease_1': 'Breast_Cancer:_C50.919', 'Response_1': 'Treatment provided', 'datetime_created': 896091735, 'Clinician_name': 'Nameless Mountain'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['5yauKgoJGk1zTExn3brTYgdxZ41uVxZzgkwG4Wqdy3rK'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': '5yauKgoJGk1zTExn3brTYgdxZ41uVxZzgkwG4Wqdy3rK'}}], 'outputs': [{'public_keys': ['5yauKgoJGk1zTExn3brTYgdxZ41uVxZzgkwG4Wqdy3rK'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': '5yauKgoJGk1zTExn3brTYgdxZ41uVxZzgkwG4Wqdy3rK'}, 'uri': 'ni:///sha-256;R47o2fSuqXDtaqqA7ZHtV7ivE94eabyaLu83SQN3_3U?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Samantha Walton', 'Country': ('United Kingdom',), 'Patient_ID': 58, 'Birth_date': '31/04/1956', 'Gender': 'Male', 'Social_security_number': 168998400, 'Disease_1': 'Breast_Cancer:_C50.919', 'Response_1': 'Treatment provided', 'datetime_created': 896091735, 'Clinician_name': 'Nameless Mountain'}}, 'version': '2.0', 'id': None}
+
+private key zdPRSiV6UpxSjCPbvVHX2wepZrErxw37tZQytJYGCuu
+
+public key 5yauKgoJGk1zTExn3brTYgdxZ41uVxZzgkwG4Wqdy3rK
+CREATE transaction id: 409fc1466263615c34de6091a07539cae7134a9d2a1575449f96770343a74206
+We are done generating all that Patient.
+Generating patient data for patientID_60
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Curtis Moore', 'Country': ('United Kingdom',), 'Patient_ID': 59, 'Birth_date': '31/03/1993', 'Gender': 'Polygender', 'Social_security_number': 87696000, 'Disease_1': 'Systemic_barteonellosis:_A44.0', 'Response_1': 'Patient Deceased due to Illness', 'datetime_created': 1284306051, 'Clinician_name': 'Orange Cherry'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['Ewuqof1N233NPxZNamvrp57DRoPQy7wTDC3E8eBNB6uY'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': 'Ewuqof1N233NPxZNamvrp57DRoPQy7wTDC3E8eBNB6uY'}}], 'outputs': [{'public_keys': ['Ewuqof1N233NPxZNamvrp57DRoPQy7wTDC3E8eBNB6uY'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': 'Ewuqof1N233NPxZNamvrp57DRoPQy7wTDC3E8eBNB6uY'}, 'uri': 'ni:///sha-256;eOJijRgP84Fnnhi3HDN7vDopIo7Ejx6JGuP8CPJKVI8?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Curtis Moore', 'Country': ('United Kingdom',), 'Patient_ID': 59, 'Birth_date': '31/03/1993', 'Gender': 'Polygender', 'Social_security_number': 87696000, 'Disease_1': 'Systemic_barteonellosis:_A44.0', 'Response_1': 'Patient Deceased due to Illness', 'datetime_created': 1284306051, 'Clinician_name': 'Orange Cherry'}}, 'version': '2.0', 'id': None}
+
+private key 6q3rF8aESaWasKycbqoPRCpREAXaCEdKdhkHV7mdvCaY
+
+public key Ewuqof1N233NPxZNamvrp57DRoPQy7wTDC3E8eBNB6uY
+CREATE transaction id: 9a1535a618ac361edf28942bd50607ca3dc1d53bcf506da4f1808611b90e622a
+We are done generating all that Patient.
+Generating patient data for patientID_61
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Andrew Harper', 'Country': ('United Kingdom',), 'Patient_ID': 60, 'Birth_date': '31/03/1993', 'Gender': 'Female', 'Social_security_number': 38448000, 'Disease_1': 'Ovarian_Cancer:_C56.0', 'Response_1': 'Treatement Ongoing', 'datetime_created': 864967329, 'Clinician_name': 'Long Fog'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['HRZkLWXAC7MDUSQxwWCz1mcfkNJq7tP5GVJMx5DstMVs'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': 'HRZkLWXAC7MDUSQxwWCz1mcfkNJq7tP5GVJMx5DstMVs'}}], 'outputs': [{'public_keys': ['HRZkLWXAC7MDUSQxwWCz1mcfkNJq7tP5GVJMx5DstMVs'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': 'HRZkLWXAC7MDUSQxwWCz1mcfkNJq7tP5GVJMx5DstMVs'}, 'uri': 'ni:///sha-256;PgNU3tNhLCfFvP1mA9__Y5F8ffEFL0iMF3I0CBedmlo?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Andrew Harper', 'Country': ('United Kingdom',), 'Patient_ID': 60, 'Birth_date': '31/03/1993', 'Gender': 'Female', 'Social_security_number': 38448000, 'Disease_1': 'Ovarian_Cancer:_C56.0', 'Response_1': 'Treatement Ongoing', 'datetime_created': 864967329, 'Clinician_name': 'Long Fog'}}, 'version': '2.0', 'id': None}
+
+private key GeKaaw1bqm9Cj4KX6UvxWfheAyjmYzvmNksjPV53Cp9m
+
+public key HRZkLWXAC7MDUSQxwWCz1mcfkNJq7tP5GVJMx5DstMVs
+CREATE transaction id: f9a93b9f30d08e9f12a3f6d19d208fad7c599f03f2ba3c0c3559b8092fc3ba71
+We are done generating all that Patient.
+Generating patient data for patientID_62
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Michael Mcclure', 'Country': ('United Kingdom',), 'Patient_ID': 61, 'Birth_date': '31/04/1956', 'Gender': 'Male', 'Social_security_number': 199238400, 'Disease_1': 'Adenovirus:_B97.0', 'Response_1': 'Medicine Distributed', 'datetime_created': 1014809835, 'Clinician_name': 'Holy Hat'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['Fe81qaouTiet9PptNMmzEsuGxpkXRs6v8oNdefm9tQu2'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': 'Fe81qaouTiet9PptNMmzEsuGxpkXRs6v8oNdefm9tQu2'}}], 'outputs': [{'public_keys': ['Fe81qaouTiet9PptNMmzEsuGxpkXRs6v8oNdefm9tQu2'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': 'Fe81qaouTiet9PptNMmzEsuGxpkXRs6v8oNdefm9tQu2'}, 'uri': 'ni:///sha-256;Ra3_iqPeIHRDY5K26b6EaeWDqAoqG8AejI7uJvXXoo4?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Michael Mcclure', 'Country': ('United Kingdom',), 'Patient_ID': 61, 'Birth_date': '31/04/1956', 'Gender': 'Male', 'Social_security_number': 199238400, 'Disease_1': 'Adenovirus:_B97.0', 'Response_1': 'Medicine Distributed', 'datetime_created': 1014809835, 'Clinician_name': 'Holy Hat'}}, 'version': '2.0', 'id': None}
+
+private key 2WmouvTh5URMv4dWDFhGEdah8KSDTXjiSWes8tFo2eJE
+
+public key Fe81qaouTiet9PptNMmzEsuGxpkXRs6v8oNdefm9tQu2
+CREATE transaction id: 0063441c5cf1a10e6a295e24bac40e190e6545f10018c43edad91460bb452dcf
+We are done generating all that Patient.
+Generating patient data for patientID_63
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Cory Brooks', 'Country': ('United Kingdom',), 'Patient_ID': 62, 'Birth_date': '31/04/1956', 'Gender': 'Gender Neutral', 'Social_security_number': 208051200, 'Disease_1': 'Breast_Cancer:_C50.919', 'Response_1': 'Patient Deceased due to Illness', 'datetime_created': 1376775574, 'Clinician_name': 'Old Forest'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['FcNaGSTiaKGQLkucj592qw9iD1QN3rB9g5PobKhpPdH3'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': 'FcNaGSTiaKGQLkucj592qw9iD1QN3rB9g5PobKhpPdH3'}}], 'outputs': [{'public_keys': ['FcNaGSTiaKGQLkucj592qw9iD1QN3rB9g5PobKhpPdH3'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': 'FcNaGSTiaKGQLkucj592qw9iD1QN3rB9g5PobKhpPdH3'}, 'uri': 'ni:///sha-256;CoecQz0qTeHgwMwZMAbt2UlkLFMngL5SsdkNK41YPBE?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Cory Brooks', 'Country': ('United Kingdom',), 'Patient_ID': 62, 'Birth_date': '31/04/1956', 'Gender': 'Gender Neutral', 'Social_security_number': 208051200, 'Disease_1': 'Breast_Cancer:_C50.919', 'Response_1': 'Patient Deceased due to Illness', 'datetime_created': 1376775574, 'Clinician_name': 'Old Forest'}}, 'version': '2.0', 'id': None}
+
+private key CPZupFKN1Bnh62LUdptsaBWxyxokH3CRzYsxv5WqYFut
+
+public key FcNaGSTiaKGQLkucj592qw9iD1QN3rB9g5PobKhpPdH3
+CREATE transaction id: 59d8cbea4ef3e43980c137a72a9123b0075c2ead405dbc5ea85b8052a43cd8dd
+We are done generating all that Patient.
+Generating patient data for patientID_64
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Jeremy Moore', 'Country': ('United Kingdom',), 'Patient_ID': 63, 'Birth_date': '06/12/2003', 'Gender': 'Gender Neutral', 'Social_security_number': 81561600, 'Disease_1': 'Colorecetal_Cancer:_C17.0', 'Response_1': 'Treatement Ongoing', 'datetime_created': 834655999, 'Clinician_name': 'Purple Field'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['AeXY7qiFcAXnEo3fFS15Yo7vxqfU2KtyEBgrqbjrTgEG'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': 'AeXY7qiFcAXnEo3fFS15Yo7vxqfU2KtyEBgrqbjrTgEG'}}], 'outputs': [{'public_keys': ['AeXY7qiFcAXnEo3fFS15Yo7vxqfU2KtyEBgrqbjrTgEG'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': 'AeXY7qiFcAXnEo3fFS15Yo7vxqfU2KtyEBgrqbjrTgEG'}, 'uri': 'ni:///sha-256;-GWjUnvsHprJuP8sD2Jk-zIKeT95gPRgcnQBo3bePos?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Jeremy Moore', 'Country': ('United Kingdom',), 'Patient_ID': 63, 'Birth_date': '06/12/2003', 'Gender': 'Gender Neutral', 'Social_security_number': 81561600, 'Disease_1': 'Colorecetal_Cancer:_C17.0', 'Response_1': 'Treatement Ongoing', 'datetime_created': 834655999, 'Clinician_name': 'Purple Field'}}, 'version': '2.0', 'id': None}
+
+private key GP4khXrvosQJBqYJMHUT4v5yP2S3FqVyEzwFWmjRwDLs
+
+public key AeXY7qiFcAXnEo3fFS15Yo7vxqfU2KtyEBgrqbjrTgEG
+CREATE transaction id: 157f3f62d01e8a4a614ef3fc76a4f921871102e57528e7dcda2c587f93ba5572
+We are done generating all that Patient.
+Generating patient data for patientID_65
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Patricia Burnett', 'Country': ('United Kingdom',), 'Patient_ID': 64, 'Birth_date': '06/12/2003', 'Gender': 'Female', 'Social_security_number': 287366400, 'Disease_1': 'Breast_Cancer:_C50.919', 'Response_1': 'No response provided', 'datetime_created': 894078877, 'Clinician_name': 'Wispy Rice'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['HxWwrHfJzmhzNQKztArinK7R8A23w2Kx6UYeyc6wFYov'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': 'HxWwrHfJzmhzNQKztArinK7R8A23w2Kx6UYeyc6wFYov'}}], 'outputs': [{'public_keys': ['HxWwrHfJzmhzNQKztArinK7R8A23w2Kx6UYeyc6wFYov'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': 'HxWwrHfJzmhzNQKztArinK7R8A23w2Kx6UYeyc6wFYov'}, 'uri': 'ni:///sha-256;SkO7jlY7aaA3pDt7JjaL-INDgnf0RbH0Qu-L86M5-70?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Patricia Burnett', 'Country': ('United Kingdom',), 'Patient_ID': 64, 'Birth_date': '06/12/2003', 'Gender': 'Female', 'Social_security_number': 287366400, 'Disease_1': 'Breast_Cancer:_C50.919', 'Response_1': 'No response provided', 'datetime_created': 894078877, 'Clinician_name': 'Wispy Rice'}}, 'version': '2.0', 'id': None}
+
+private key 6ojNQptoBuBxg9RW7e74vLvBBLx3CcDdfkTitdGZC2uV
+
+public key HxWwrHfJzmhzNQKztArinK7R8A23w2Kx6UYeyc6wFYov
+CREATE transaction id: 930732c81461583d408300865530c37ce9fcdbdf444afec1118f94358c1ffe97
+We are done generating all that Patient.
+Generating patient data for patientID_66
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Patricia Mueller', 'Country': ('United Kingdom',), 'Patient_ID': 65, 'Birth_date': '04/07/1999', 'Gender': 'Polygender', 'Social_security_number': 99964800, 'Disease_1': 'Colorecetal_Cancer:_C17.0', 'Response_1': 'Medicine Distributed', 'datetime_created': 835285591, 'Clinician_name': 'Plain Bird'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['7RXNyo2NoiDSH6zaReV5VjZhTcL25Kmadv5adNMWwj5J'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': '7RXNyo2NoiDSH6zaReV5VjZhTcL25Kmadv5adNMWwj5J'}}], 'outputs': [{'public_keys': ['7RXNyo2NoiDSH6zaReV5VjZhTcL25Kmadv5adNMWwj5J'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': '7RXNyo2NoiDSH6zaReV5VjZhTcL25Kmadv5adNMWwj5J'}, 'uri': 'ni:///sha-256;ZnivPQQCyRmDgdRvjCpCpj6X2ILk9aKmGYZIMW2DhsM?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Patricia Mueller', 'Country': ('United Kingdom',), 'Patient_ID': 65, 'Birth_date': '04/07/1999', 'Gender': 'Polygender', 'Social_security_number': 99964800, 'Disease_1': 'Colorecetal_Cancer:_C17.0', 'Response_1': 'Medicine Distributed', 'datetime_created': 835285591, 'Clinician_name': 'Plain Bird'}}, 'version': '2.0', 'id': None}
+
+private key G6gRrYWacCYqesNUF9w3pmtStksSEAMthjLxoZKgzD1k
+
+public key 7RXNyo2NoiDSH6zaReV5VjZhTcL25Kmadv5adNMWwj5J
+CREATE transaction id: 09172da97a322e18128015a581a6564b0a12d5938267da067d3b45db0fa3dbf0
+We are done generating all that Patient.
+Generating patient data for patientID_67
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Chad Dickson', 'Country': ('United Kingdom',), 'Patient_ID': 66, 'Birth_date': '31/04/1956', 'Gender': 'Gender Neutral', 'Social_security_number': 153360000, 'Disease_1': 'Skin_Cancer:_C43.0', 'Response_1': 'Treatement Ongoing', 'datetime_created': 1156691779, 'Clinician_name': 'Withered Bar'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['4sn3RgVYKKGUS9Fy1HYJjCyAM2hjLSwm99gJqhAwyskb'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': '4sn3RgVYKKGUS9Fy1HYJjCyAM2hjLSwm99gJqhAwyskb'}}], 'outputs': [{'public_keys': ['4sn3RgVYKKGUS9Fy1HYJjCyAM2hjLSwm99gJqhAwyskb'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': '4sn3RgVYKKGUS9Fy1HYJjCyAM2hjLSwm99gJqhAwyskb'}, 'uri': 'ni:///sha-256;n9Z78qlcWCp_rBpg0gePX5N9fSJWrGiPzWVLFMYZ1Go?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Chad Dickson', 'Country': ('United Kingdom',), 'Patient_ID': 66, 'Birth_date': '31/04/1956', 'Gender': 'Gender Neutral', 'Social_security_number': 153360000, 'Disease_1': 'Skin_Cancer:_C43.0', 'Response_1': 'Treatement Ongoing', 'datetime_created': 1156691779, 'Clinician_name': 'Withered Bar'}}, 'version': '2.0', 'id': None}
+
+private key FWMwzkrDmfL1vG6Wfoyqz7xMohPyCXjy8w6MJ3faiHDU
+
+public key 4sn3RgVYKKGUS9Fy1HYJjCyAM2hjLSwm99gJqhAwyskb
+CREATE transaction id: 078620db35ce815172535c5abf4bb264d622becd1763bf1dc898d98e4d585dbd
+We are done generating all that Patient.
+Generating patient data for patientID_68
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Mr. Michael Cook III', 'Country': ('United Kingdom',), 'Patient_ID': 67, 'Birth_date': '04/04/1950', 'Gender': 'Female', 'Social_security_number': 207360000, 'Disease_1': 'Adenovirus:_B97.0', 'Response_1': 'Treatement Ongoing', 'datetime_created': 853284388, 'Clinician_name': 'Autumn Credit'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['HVikS5w8pkLgsZ2aQGgCWuB3wTpEZaDU9iM7Lx3xP8nG'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': 'HVikS5w8pkLgsZ2aQGgCWuB3wTpEZaDU9iM7Lx3xP8nG'}}], 'outputs': [{'public_keys': ['HVikS5w8pkLgsZ2aQGgCWuB3wTpEZaDU9iM7Lx3xP8nG'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': 'HVikS5w8pkLgsZ2aQGgCWuB3wTpEZaDU9iM7Lx3xP8nG'}, 'uri': 'ni:///sha-256;PIuQrGMKoIcypFRxcrdQ_s84aQdDgoN56HIzNcu9r24?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Mr. Michael Cook III', 'Country': ('United Kingdom',), 'Patient_ID': 67, 'Birth_date': '04/04/1950', 'Gender': 'Female', 'Social_security_number': 207360000, 'Disease_1': 'Adenovirus:_B97.0', 'Response_1': 'Treatement Ongoing', 'datetime_created': 853284388, 'Clinician_name': 'Autumn Credit'}}, 'version': '2.0', 'id': None}
+
+private key 5L656N2MhJcbsgMzRa2sHcsXhAGCuFtKw5KBPdBzgvnE
+
+public key HVikS5w8pkLgsZ2aQGgCWuB3wTpEZaDU9iM7Lx3xP8nG
+CREATE transaction id: 8d71bfb2c587c9172dc11f196d6100611ddb89b9d6174a6f8228541666824ba1
+We are done generating all that Patient.
+Generating patient data for patientID_69
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Shane Byrd', 'Country': ('United Kingdom',), 'Patient_ID': 68, 'Birth_date': '01/03/1972', 'Gender': 'Gender Neutral', 'Social_security_number': 70156800, 'Disease_1': 'Chrohns_disease:_K50.0', 'Response_1': 'No response provided', 'datetime_created': 693468339, 'Clinician_name': 'Tight Art'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['A8ZT1rtzjXXggiPSvHJJtdXMhaXKsK9fUUsxFYgTKrax'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': 'A8ZT1rtzjXXggiPSvHJJtdXMhaXKsK9fUUsxFYgTKrax'}}], 'outputs': [{'public_keys': ['A8ZT1rtzjXXggiPSvHJJtdXMhaXKsK9fUUsxFYgTKrax'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': 'A8ZT1rtzjXXggiPSvHJJtdXMhaXKsK9fUUsxFYgTKrax'}, 'uri': 'ni:///sha-256;S5yiNqhY9xJ_al1JKshNB9U_pabNSXS1A6U5kuQ61-U?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Shane Byrd', 'Country': ('United Kingdom',), 'Patient_ID': 68, 'Birth_date': '01/03/1972', 'Gender': 'Gender Neutral', 'Social_security_number': 70156800, 'Disease_1': 'Chrohns_disease:_K50.0', 'Response_1': 'No response provided', 'datetime_created': 693468339, 'Clinician_name': 'Tight Art'}}, 'version': '2.0', 'id': None}
+
+private key HimcMVGehjxC5n6rQGLPw6hETwvuC7mUqFhjBh3RBGPm
+
+public key A8ZT1rtzjXXggiPSvHJJtdXMhaXKsK9fUUsxFYgTKrax
+CREATE transaction id: ac9f95e4274b8bd96459e458d263c7e498bfa3e14a972783e1d4199ce172543f
+We are done generating all that Patient.
+Generating patient data for patientID_70
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Benjamin Wilson', 'Country': ('United Kingdom',), 'Patient_ID': 69, 'Birth_date': '06/12/2003', 'Gender': 'Female', 'Social_security_number': 28166400, 'Disease_1': 'Chrohns_disease:_K50.0', 'Response_1': 'Other', 'datetime_created': 879683648, 'Clinician_name': 'Purple Sky'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['55xKHizM1wDHCEsNmoTvq33hHfebpdqF9KYJTHZvzL76'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': '55xKHizM1wDHCEsNmoTvq33hHfebpdqF9KYJTHZvzL76'}}], 'outputs': [{'public_keys': ['55xKHizM1wDHCEsNmoTvq33hHfebpdqF9KYJTHZvzL76'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': '55xKHizM1wDHCEsNmoTvq33hHfebpdqF9KYJTHZvzL76'}, 'uri': 'ni:///sha-256;gRcwiO7YXweXuG6hd8410IyXTWsqPSC6BGLtDkupDkM?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Benjamin Wilson', 'Country': ('United Kingdom',), 'Patient_ID': 69, 'Birth_date': '06/12/2003', 'Gender': 'Female', 'Social_security_number': 28166400, 'Disease_1': 'Chrohns_disease:_K50.0', 'Response_1': 'Other', 'datetime_created': 879683648, 'Clinician_name': 'Purple Sky'}}, 'version': '2.0', 'id': None}
+
+private key 4UL6zqhxANDPB3ezRK6UpoDNjfH8hCVNUVqTHY9g6Jur
+
+public key 55xKHizM1wDHCEsNmoTvq33hHfebpdqF9KYJTHZvzL76
+CREATE transaction id: f44e69d85605c70c4e508374a306d54d3434976dc0b3c1f845051938d18c134c
+We are done generating all that Patient.
+Generating patient data for patientID_71
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Jeffrey Bauer', 'Country': ('United Kingdom',), 'Patient_ID': 70, 'Birth_date': '06/12/2003', 'Gender': 'Gender Neutral', 'Social_security_number': 211939200, 'Disease_1': 'Ovarian_Cancer:_C56.0', 'Response_1': 'Patient Deceased due to Illness', 'datetime_created': 1348348415, 'Clinician_name': 'Silent Pond'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['B1Qc5UTVizkPEqmXg7YcJ3kRCKXxZkPYsowmd3Ese8Zt'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': 'B1Qc5UTVizkPEqmXg7YcJ3kRCKXxZkPYsowmd3Ese8Zt'}}], 'outputs': [{'public_keys': ['B1Qc5UTVizkPEqmXg7YcJ3kRCKXxZkPYsowmd3Ese8Zt'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': 'B1Qc5UTVizkPEqmXg7YcJ3kRCKXxZkPYsowmd3Ese8Zt'}, 'uri': 'ni:///sha-256;VsnTTTa1KtG-WGSec6EHfL-Xfb8LjZyGLdyKMsioWPk?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Jeffrey Bauer', 'Country': ('United Kingdom',), 'Patient_ID': 70, 'Birth_date': '06/12/2003', 'Gender': 'Gender Neutral', 'Social_security_number': 211939200, 'Disease_1': 'Ovarian_Cancer:_C56.0', 'Response_1': 'Patient Deceased due to Illness', 'datetime_created': 1348348415, 'Clinician_name': 'Silent Pond'}}, 'version': '2.0', 'id': None}
+
+private key DMmBQEz6vYd25yTXG2LhaRNRZzNcr3sK16KZm64vjr16
+
+public key B1Qc5UTVizkPEqmXg7YcJ3kRCKXxZkPYsowmd3Ese8Zt
+CREATE transaction id: 52c4f42a57909149bf05d6c830b42d8967e4632f02d69e4756df9a932c6e1619
+We are done generating all that Patient.
+Generating patient data for patientID_72
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Keith Schultz', 'Country': ('United Kingdom',), 'Patient_ID': 71, 'Birth_date': '01/03/1972', 'Gender': 'Female', 'Social_security_number': 194400000, 'Disease_1': 'Chrohns_disease:_K50.0', 'Response_1': 'Patient Deceased due to Illness', 'datetime_created': 1104179369, 'Clinician_name': 'Restless Math'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['4UhiVfgdCHf7xg37xbRd2oajHLzsRJFgtziD2rb84ZrD'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': '4UhiVfgdCHf7xg37xbRd2oajHLzsRJFgtziD2rb84ZrD'}}], 'outputs': [{'public_keys': ['4UhiVfgdCHf7xg37xbRd2oajHLzsRJFgtziD2rb84ZrD'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': '4UhiVfgdCHf7xg37xbRd2oajHLzsRJFgtziD2rb84ZrD'}, 'uri': 'ni:///sha-256;mjrMt2Mz7T6rNhcz4DUAI1rSFXqZ-zpItsXED3WURVU?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Keith Schultz', 'Country': ('United Kingdom',), 'Patient_ID': 71, 'Birth_date': '01/03/1972', 'Gender': 'Female', 'Social_security_number': 194400000, 'Disease_1': 'Chrohns_disease:_K50.0', 'Response_1': 'Patient Deceased due to Illness', 'datetime_created': 1104179369, 'Clinician_name': 'Restless Math'}}, 'version': '2.0', 'id': None}
+
+private key DyQXZpasRbiBN8TUvs2TNeoSm7bo173bbQ2XDiZvU5wA
+
+public key 4UhiVfgdCHf7xg37xbRd2oajHLzsRJFgtziD2rb84ZrD
+CREATE transaction id: a357880488f0f711a1ac1f3e7a887b22f713c739d6c630aa627ce7ef6ac30981
+We are done generating all that Patient.
+Generating patient data for patientID_73
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Brittany Brooks', 'Country': ('United Kingdom',), 'Patient_ID': 72, 'Birth_date': '01/03/1972', 'Gender': 'Gender Neutral', 'Social_security_number': 219369600, 'Disease_1': 'Systemic_barteonellosis:_A44.0', 'Response_1': 'Other', 'datetime_created': 1021488662, 'Clinician_name': 'Damp Brook'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['3eX3fpGetk1zQg1jJmrMkSLHdkfdvfYohZWEQHBtSovN'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': '3eX3fpGetk1zQg1jJmrMkSLHdkfdvfYohZWEQHBtSovN'}}], 'outputs': [{'public_keys': ['3eX3fpGetk1zQg1jJmrMkSLHdkfdvfYohZWEQHBtSovN'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': '3eX3fpGetk1zQg1jJmrMkSLHdkfdvfYohZWEQHBtSovN'}, 'uri': 'ni:///sha-256;-Ezkvkas4wNDP3n43NcEbX0a6hP3fbnAx74RJ0mW8wg?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Brittany Brooks', 'Country': ('United Kingdom',), 'Patient_ID': 72, 'Birth_date': '01/03/1972', 'Gender': 'Gender Neutral', 'Social_security_number': 219369600, 'Disease_1': 'Systemic_barteonellosis:_A44.0', 'Response_1': 'Other', 'datetime_created': 1021488662, 'Clinician_name': 'Damp Brook'}}, 'version': '2.0', 'id': None}
+
+private key GpdrYDLutetW4yVSxmziKh1sMdx4YcKpEp5sH13PzPa4
+
+public key 3eX3fpGetk1zQg1jJmrMkSLHdkfdvfYohZWEQHBtSovN
+CREATE transaction id: b28fe79cd7c52e47bb7fc81c591d94fa6cc9395b36b0f9ec44783ad47bf4e3b4
+We are done generating all that Patient.
+Generating patient data for patientID_74
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Patricia Smith', 'Country': ('United Kingdom',), 'Patient_ID': 73, 'Birth_date': '06/12/2003', 'Gender': 'Gender Neutral', 'Social_security_number': 51840000, 'Disease_1': 'Breast_Cancer:_C50.919', 'Response_1': 'Medicine Distributed', 'datetime_created': 884619879, 'Clinician_name': 'Round Frog'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['7EcacdY7VK1rCuxVXYTYzgceB7ehGAkyTiYrbATZpFJc'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': '7EcacdY7VK1rCuxVXYTYzgceB7ehGAkyTiYrbATZpFJc'}}], 'outputs': [{'public_keys': ['7EcacdY7VK1rCuxVXYTYzgceB7ehGAkyTiYrbATZpFJc'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': '7EcacdY7VK1rCuxVXYTYzgceB7ehGAkyTiYrbATZpFJc'}, 'uri': 'ni:///sha-256;QqIx5ZLi6aF-9T4BJP1IqI2vwUxWza8cX2CwYFDd1GA?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Patricia Smith', 'Country': ('United Kingdom',), 'Patient_ID': 73, 'Birth_date': '06/12/2003', 'Gender': 'Gender Neutral', 'Social_security_number': 51840000, 'Disease_1': 'Breast_Cancer:_C50.919', 'Response_1': 'Medicine Distributed', 'datetime_created': 884619879, 'Clinician_name': 'Round Frog'}}, 'version': '2.0', 'id': None}
+
+private key DZLyGS5VkugTJaiQd5c3ugFgsQPV7q6HUeULjRWgUAUU
+
+public key 7EcacdY7VK1rCuxVXYTYzgceB7ehGAkyTiYrbATZpFJc
+CREATE transaction id: 68661eb72f2238011e4264f54661072d4236b9cc014d35a942b7c132f56874f6
+We are done generating all that Patient.
+Generating patient data for patientID_75
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Cynthia Warren', 'Country': ('United Kingdom',), 'Patient_ID': 74, 'Birth_date': '06/12/2003', 'Gender': 'Male', 'Social_security_number': 298684800, 'Disease_1': 'Skin_Cancer:_C43.0', 'Response_1': 'Patient Deceased due to Illness', 'datetime_created': 952812988, 'Clinician_name': 'Red Truth'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['FNHuCpgsbqViFZUcGJsNHSQuPEFYPFGtkqzFcY5jNHRu'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': 'FNHuCpgsbqViFZUcGJsNHSQuPEFYPFGtkqzFcY5jNHRu'}}], 'outputs': [{'public_keys': ['FNHuCpgsbqViFZUcGJsNHSQuPEFYPFGtkqzFcY5jNHRu'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': 'FNHuCpgsbqViFZUcGJsNHSQuPEFYPFGtkqzFcY5jNHRu'}, 'uri': 'ni:///sha-256;NnjcfTnWHoBbYgUuOUewsL0KmL5KqCq2OwtUPYB5f7g?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Cynthia Warren', 'Country': ('United Kingdom',), 'Patient_ID': 74, 'Birth_date': '06/12/2003', 'Gender': 'Male', 'Social_security_number': 298684800, 'Disease_1': 'Skin_Cancer:_C43.0', 'Response_1': 'Patient Deceased due to Illness', 'datetime_created': 952812988, 'Clinician_name': 'Red Truth'}}, 'version': '2.0', 'id': None}
+
+private key 8oKF6254LUNarLAhwJDBH5j64zhzWAKGNdFAW9QEH8FP
+
+public key FNHuCpgsbqViFZUcGJsNHSQuPEFYPFGtkqzFcY5jNHRu
+CREATE transaction id: a0012cdb343d8ab9dda3c3149564938e853fcd20dbe62aa1303594eb8b9eced2
+We are done generating all that Patient.
+Generating patient data for patientID_76
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Brenda Williams', 'Country': ('United Kingdom',), 'Patient_ID': 75, 'Birth_date': '01/03/1972', 'Gender': 'Female', 'Social_security_number': 179452800, 'Disease_1': 'Systemic_barteonellosis:_A44.0', 'Response_1': 'Treatment provided', 'datetime_created': 848649212, 'Clinician_name': 'Flat Glitter'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['9B629oNqZPyCNQ8rkSrtj38VD8PXjwbPWWrUiHbpwTVS'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': '9B629oNqZPyCNQ8rkSrtj38VD8PXjwbPWWrUiHbpwTVS'}}], 'outputs': [{'public_keys': ['9B629oNqZPyCNQ8rkSrtj38VD8PXjwbPWWrUiHbpwTVS'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': '9B629oNqZPyCNQ8rkSrtj38VD8PXjwbPWWrUiHbpwTVS'}, 'uri': 'ni:///sha-256;Msd1DHK663GfJwq82dCs3orHab5hB-2uWUnRVH9nzH4?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Brenda Williams', 'Country': ('United Kingdom',), 'Patient_ID': 75, 'Birth_date': '01/03/1972', 'Gender': 'Female', 'Social_security_number': 179452800, 'Disease_1': 'Systemic_barteonellosis:_A44.0', 'Response_1': 'Treatment provided', 'datetime_created': 848649212, 'Clinician_name': 'Flat Glitter'}}, 'version': '2.0', 'id': None}
+
+private key G5NoEthmK4cXvqjqmgGbmd5pTBJ9rcLqAPf5L8umcMUa
+
+public key 9B629oNqZPyCNQ8rkSrtj38VD8PXjwbPWWrUiHbpwTVS
+CREATE transaction id: 67d3127bc4b435dacb0cf7413fde0737ed63863e57800b0bbe7b758bd9dfb16e
+We are done generating all that Patient.
+Generating patient data for patientID_77
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Kara Allen', 'Country': ('United Kingdom',), 'Patient_ID': 76, 'Birth_date': '04/04/1950', 'Gender': 'Gender Neutral', 'Social_security_number': 210470400, 'Disease_1': 'Skin_Cancer:_C43.0', 'Response_1': 'Treatement Ongoing', 'datetime_created': 868560171, 'Clinician_name': 'Rough Firefly'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['xdkhPRhWaMJLCTZzPmqv4WudDo17K1mmz2HMnhUuzmp'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': 'xdkhPRhWaMJLCTZzPmqv4WudDo17K1mmz2HMnhUuzmp'}}], 'outputs': [{'public_keys': ['xdkhPRhWaMJLCTZzPmqv4WudDo17K1mmz2HMnhUuzmp'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': 'xdkhPRhWaMJLCTZzPmqv4WudDo17K1mmz2HMnhUuzmp'}, 'uri': 'ni:///sha-256;fQ-L3z4RCG7Oed4_-aQVvKh_Cdja_A7CT-_Lcldozp4?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Kara Allen', 'Country': ('United Kingdom',), 'Patient_ID': 76, 'Birth_date': '04/04/1950', 'Gender': 'Gender Neutral', 'Social_security_number': 210470400, 'Disease_1': 'Skin_Cancer:_C43.0', 'Response_1': 'Treatement Ongoing', 'datetime_created': 868560171, 'Clinician_name': 'Rough Firefly'}}, 'version': '2.0', 'id': None}
+
+private key EitAqAH7w5Q2EVwPfa2FoPs9ca2TwDFU5WTJa2ceRyzR
+
+public key xdkhPRhWaMJLCTZzPmqv4WudDo17K1mmz2HMnhUuzmp
+CREATE transaction id: f35632682bdbbd5abde60c78e74c65e906613ce0ddc2f670be585537788e9405
+We are done generating all that Patient.
+Generating patient data for patientID_78
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Melanie Nelson', 'Country': ('United Kingdom',), 'Patient_ID': 77, 'Birth_date': '31/04/1956', 'Gender': 'Polygender', 'Social_security_number': 156211200, 'Disease_1': 'Stomach_Cancer:_C16.0', 'Response_1': 'Patient Deceased due to Illness', 'datetime_created': 723152504, 'Clinician_name': 'Orange Tree'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['AnEn2pSgsTZMvdmu7NYDFdcJdh6rSUq2PrDu3tnZ7mE6'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': 'AnEn2pSgsTZMvdmu7NYDFdcJdh6rSUq2PrDu3tnZ7mE6'}}], 'outputs': [{'public_keys': ['AnEn2pSgsTZMvdmu7NYDFdcJdh6rSUq2PrDu3tnZ7mE6'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': 'AnEn2pSgsTZMvdmu7NYDFdcJdh6rSUq2PrDu3tnZ7mE6'}, 'uri': 'ni:///sha-256;qL7UOg2ABrQU_CGAryeFlCidpN816IpCL22eVD6pjnU?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Melanie Nelson', 'Country': ('United Kingdom',), 'Patient_ID': 77, 'Birth_date': '31/04/1956', 'Gender': 'Polygender', 'Social_security_number': 156211200, 'Disease_1': 'Stomach_Cancer:_C16.0', 'Response_1': 'Patient Deceased due to Illness', 'datetime_created': 723152504, 'Clinician_name': 'Orange Tree'}}, 'version': '2.0', 'id': None}
+
+private key 74jqAjPrEu3dS1rYvp6vguWALgmsk7xgAodg5E1Szamb
+
+public key AnEn2pSgsTZMvdmu7NYDFdcJdh6rSUq2PrDu3tnZ7mE6
+CREATE transaction id: 4fb38fdb3b94b4329dbde046dd3ac06164e7ca88812e3283815546a3c90a2d09
+We are done generating all that Patient.
+Generating patient data for patientID_79
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Tracy Wilson', 'Country': ('United Kingdom',), 'Patient_ID': 78, 'Birth_date': '01/03/1972', 'Gender': 'Gender Neutral', 'Social_security_number': 235526400, 'Disease_1': 'Breast_Cancer:_C50.919', 'Response_1': 'Patient Deceased due to Illness', 'datetime_created': 1049570192, 'Clinician_name': 'Old Sound'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['DwU5uQnh3QRF3LAb9xGspTu3gmE1Wt9rMvjWvSP34saX'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': 'DwU5uQnh3QRF3LAb9xGspTu3gmE1Wt9rMvjWvSP34saX'}}], 'outputs': [{'public_keys': ['DwU5uQnh3QRF3LAb9xGspTu3gmE1Wt9rMvjWvSP34saX'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': 'DwU5uQnh3QRF3LAb9xGspTu3gmE1Wt9rMvjWvSP34saX'}, 'uri': 'ni:///sha-256;jyz7E2REDogX7dUzscnnfIM6qLklqk6JfMSwHdmLyTA?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Tracy Wilson', 'Country': ('United Kingdom',), 'Patient_ID': 78, 'Birth_date': '01/03/1972', 'Gender': 'Gender Neutral', 'Social_security_number': 235526400, 'Disease_1': 'Breast_Cancer:_C50.919', 'Response_1': 'Patient Deceased due to Illness', 'datetime_created': 1049570192, 'Clinician_name': 'Old Sound'}}, 'version': '2.0', 'id': None}
+
+private key GorKHgGUBhX7uQzRi2Ed2Xu2koJ42cU3XQesVMobU6E3
+
+public key DwU5uQnh3QRF3LAb9xGspTu3gmE1Wt9rMvjWvSP34saX
+CREATE transaction id: 4ceebd3855a2cb69639905ee05d018d250aaff3f07a665ff410472acdf15fdf3
+We are done generating all that Patient.
+Generating patient data for patientID_80
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Kathleen Lam', 'Country': ('United Kingdom',), 'Patient_ID': 79, 'Birth_date': '06/12/2003', 'Gender': 'Female', 'Social_security_number': 243820800, 'Disease_1': 'Breast_Cancer:_C50.919', 'Response_1': 'Other', 'datetime_created': 932394313, 'Clinician_name': 'Dry Lab'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['8AgEEyB8MBvy1x3MV5fU9Edn9959LRmYu6uzWKS9RmtC'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': '8AgEEyB8MBvy1x3MV5fU9Edn9959LRmYu6uzWKS9RmtC'}}], 'outputs': [{'public_keys': ['8AgEEyB8MBvy1x3MV5fU9Edn9959LRmYu6uzWKS9RmtC'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': '8AgEEyB8MBvy1x3MV5fU9Edn9959LRmYu6uzWKS9RmtC'}, 'uri': 'ni:///sha-256;-6oTPkQ14BM6xi-_76JEQIs6zl2s7j9fSwdcdce3uDs?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Kathleen Lam', 'Country': ('United Kingdom',), 'Patient_ID': 79, 'Birth_date': '06/12/2003', 'Gender': 'Female', 'Social_security_number': 243820800, 'Disease_1': 'Breast_Cancer:_C50.919', 'Response_1': 'Other', 'datetime_created': 932394313, 'Clinician_name': 'Dry Lab'}}, 'version': '2.0', 'id': None}
+
+private key 6PSry1FVcTw5sPWRZNUu5A2JiWvSW5sJ8f1C7cfy2YYc
+
+public key 8AgEEyB8MBvy1x3MV5fU9Edn9959LRmYu6uzWKS9RmtC
+CREATE transaction id: cdd0b0c78a4fb76e1ad95761861e246808334a13948ae47d1ed130b80eabfac9
+We are done generating all that Patient.
+Generating patient data for patientID_81
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Aaron Klein', 'Country': ('United Kingdom',), 'Patient_ID': 80, 'Birth_date': '31/04/1956', 'Gender': 'Female', 'Social_security_number': 239673600, 'Disease_1': 'Skin_Cancer:_C43.0', 'Response_1': 'Medicine Distributed', 'datetime_created': 1094950804, 'Clinician_name': 'Tiny Wind'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['3HyJU3LX8TnUq7472XEUKMK1ncEEVPZzue9UaChAXJm4'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': '3HyJU3LX8TnUq7472XEUKMK1ncEEVPZzue9UaChAXJm4'}}], 'outputs': [{'public_keys': ['3HyJU3LX8TnUq7472XEUKMK1ncEEVPZzue9UaChAXJm4'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': '3HyJU3LX8TnUq7472XEUKMK1ncEEVPZzue9UaChAXJm4'}, 'uri': 'ni:///sha-256;zNfcXTQBada7SLRKGC6eBU_NM0zKgTkdltuv3D7L6hg?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Aaron Klein', 'Country': ('United Kingdom',), 'Patient_ID': 80, 'Birth_date': '31/04/1956', 'Gender': 'Female', 'Social_security_number': 239673600, 'Disease_1': 'Skin_Cancer:_C43.0', 'Response_1': 'Medicine Distributed', 'datetime_created': 1094950804, 'Clinician_name': 'Tiny Wind'}}, 'version': '2.0', 'id': None}
+
+private key 7gHEY1x4q5XSUHb7Yahd3N8oAsf49Bnx3LCN6kPTLVRD
+
+public key 3HyJU3LX8TnUq7472XEUKMK1ncEEVPZzue9UaChAXJm4
+CREATE transaction id: 6555af7224d2bcb1fba1829501a7f27ccbd997dd96990236fe4b21efe18323d8
+We are done generating all that Patient.
+Generating patient data for patientID_82
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Linda Singh', 'Country': ('United Kingdom',), 'Patient_ID': 81, 'Birth_date': '06/12/2003', 'Gender': 'Polygender', 'Social_security_number': 75168000, 'Disease_1': 'Breast_Cancer:_C50.919', 'Response_1': 'Medicine Distributed', 'datetime_created': 1435220504, 'Clinician_name': 'Calm Bar'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['2XA8JwxHKMFbYKrKzGDFiCKEJcp3izeohUrqJFmDyFmB'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': '2XA8JwxHKMFbYKrKzGDFiCKEJcp3izeohUrqJFmDyFmB'}}], 'outputs': [{'public_keys': ['2XA8JwxHKMFbYKrKzGDFiCKEJcp3izeohUrqJFmDyFmB'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': '2XA8JwxHKMFbYKrKzGDFiCKEJcp3izeohUrqJFmDyFmB'}, 'uri': 'ni:///sha-256;Taek70tqImLEGeaQhmhl0xiLcWf_GLBd2lavEUIWnf4?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Linda Singh', 'Country': ('United Kingdom',), 'Patient_ID': 81, 'Birth_date': '06/12/2003', 'Gender': 'Polygender', 'Social_security_number': 75168000, 'Disease_1': 'Breast_Cancer:_C50.919', 'Response_1': 'Medicine Distributed', 'datetime_created': 1435220504, 'Clinician_name': 'Calm Bar'}}, 'version': '2.0', 'id': None}
+
+private key CkNRMMquhfb3PpLgaM7CDZgebCRDBKewwZEbp2Vz8F7
+
+public key 2XA8JwxHKMFbYKrKzGDFiCKEJcp3izeohUrqJFmDyFmB
+CREATE transaction id: f6fe2018cc3cfb27ea88e627bf68a808b2dbca67b582f6701067fae4bc095a5d
+We are done generating all that Patient.
+Generating patient data for patientID_83
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'David Mendoza', 'Country': ('United Kingdom',), 'Patient_ID': 82, 'Birth_date': '31/03/1993', 'Gender': 'Polygender', 'Social_security_number': 38361600, 'Disease_1': 'Colorecetal_Cancer:_C17.0', 'Response_1': 'Medicine Distributed', 'datetime_created': 844061585, 'Clinician_name': 'Winter Poetry'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['GbP8VAHrRBttrHvXWXALva8redf2mRouX7GT8EeNUBfM'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': 'GbP8VAHrRBttrHvXWXALva8redf2mRouX7GT8EeNUBfM'}}], 'outputs': [{'public_keys': ['GbP8VAHrRBttrHvXWXALva8redf2mRouX7GT8EeNUBfM'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': 'GbP8VAHrRBttrHvXWXALva8redf2mRouX7GT8EeNUBfM'}, 'uri': 'ni:///sha-256;KICTeTZQ8haBTXX7ybUAqsv52hWfXPrZ847Dvx0uwHA?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'David Mendoza', 'Country': ('United Kingdom',), 'Patient_ID': 82, 'Birth_date': '31/03/1993', 'Gender': 'Polygender', 'Social_security_number': 38361600, 'Disease_1': 'Colorecetal_Cancer:_C17.0', 'Response_1': 'Medicine Distributed', 'datetime_created': 844061585, 'Clinician_name': 'Winter Poetry'}}, 'version': '2.0', 'id': None}
+
+private key GE4zoqSDSYjRqqMFLvXtbJfjjVjjw7PKjghBZFqBWeSD
+
+public key GbP8VAHrRBttrHvXWXALva8redf2mRouX7GT8EeNUBfM
+CREATE transaction id: 367d02dda3ca93833925ba30260e9efbe45000dc9310839ab4954a4fb65d4878
+We are done generating all that Patient.
+Generating patient data for patientID_84
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Shawn Long', 'Country': ('United Kingdom',), 'Patient_ID': 83, 'Birth_date': '01/03/1972', 'Gender': 'Polygender', 'Social_security_number': 271814400, 'Disease_1': 'Skin_Cancer:_C43.0', 'Response_1': 'Patient Deceased due to Illness', 'datetime_created': 1368243787, 'Clinician_name': 'Late Lab'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['GfchtJz2nJsomNQzzDahsFY6jfi6gn2DeWWqGBvVmuKp'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': 'GfchtJz2nJsomNQzzDahsFY6jfi6gn2DeWWqGBvVmuKp'}}], 'outputs': [{'public_keys': ['GfchtJz2nJsomNQzzDahsFY6jfi6gn2DeWWqGBvVmuKp'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': 'GfchtJz2nJsomNQzzDahsFY6jfi6gn2DeWWqGBvVmuKp'}, 'uri': 'ni:///sha-256;-VH7_VBm7jm3gQYddS-d7HW1ceZFP_HIIf9OXy6iXWk?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Shawn Long', 'Country': ('United Kingdom',), 'Patient_ID': 83, 'Birth_date': '01/03/1972', 'Gender': 'Polygender', 'Social_security_number': 271814400, 'Disease_1': 'Skin_Cancer:_C43.0', 'Response_1': 'Patient Deceased due to Illness', 'datetime_created': 1368243787, 'Clinician_name': 'Late Lab'}}, 'version': '2.0', 'id': None}
+
+private key 477GwhMf5pa8paKebtnG3ix3pjx4W3AQBUyiHmLndhdy
+
+public key GfchtJz2nJsomNQzzDahsFY6jfi6gn2DeWWqGBvVmuKp
+CREATE transaction id: 137c7304a0aa0044c4ae583a365808bbb660fc5d7414f3065704198d58756abd
+We are done generating all that Patient.
+Generating patient data for patientID_85
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Anthony Owens', 'Country': ('United Kingdom',), 'Patient_ID': 84, 'Birth_date': '04/04/1950', 'Gender': 'Female', 'Social_security_number': 229824000, 'Disease_1': 'Colorecetal_Cancer:_C17.0', 'Response_1': 'Treatement Ongoing', 'datetime_created': 1135645117, 'Clinician_name': 'Morning Haze'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['2iMt74P3ecW7Xe3Z3hcCJbJMPY5BYY3PQwtwaUzFvjb2'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': '2iMt74P3ecW7Xe3Z3hcCJbJMPY5BYY3PQwtwaUzFvjb2'}}], 'outputs': [{'public_keys': ['2iMt74P3ecW7Xe3Z3hcCJbJMPY5BYY3PQwtwaUzFvjb2'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': '2iMt74P3ecW7Xe3Z3hcCJbJMPY5BYY3PQwtwaUzFvjb2'}, 'uri': 'ni:///sha-256;cemjb6z-jn9I30_0KWsukN-fKjENEhimQsbb1B5xiXs?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Anthony Owens', 'Country': ('United Kingdom',), 'Patient_ID': 84, 'Birth_date': '04/04/1950', 'Gender': 'Female', 'Social_security_number': 229824000, 'Disease_1': 'Colorecetal_Cancer:_C17.0', 'Response_1': 'Treatement Ongoing', 'datetime_created': 1135645117, 'Clinician_name': 'Morning Haze'}}, 'version': '2.0', 'id': None}
+
+private key 79o1zZpnRZaDZxwYbjLAmrk9ZTBNyQBX2fMPP5hQeMEE
+
+public key 2iMt74P3ecW7Xe3Z3hcCJbJMPY5BYY3PQwtwaUzFvjb2
+CREATE transaction id: 3accc5012a15590679a6f5a98ce8638b6a62d32d86c9adaaf0f024e50c108a34
+We are done generating all that Patient.
+Generating patient data for patientID_86
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Kyle Terrell', 'Country': ('United Kingdom',), 'Patient_ID': 85, 'Birth_date': '31/03/1993', 'Gender': 'Polygender', 'Social_security_number': 226368000, 'Disease_1': 'Ovarian_Cancer:_C56.0', 'Response_1': 'Treatement Ongoing', 'datetime_created': 1468722488, 'Clinician_name': 'Steep Voice'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['8NrigfoMR44HbHyb6DH7Vs98Vvqd84UkJJVEbw9vkmS'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': '8NrigfoMR44HbHyb6DH7Vs98Vvqd84UkJJVEbw9vkmS'}}], 'outputs': [{'public_keys': ['8NrigfoMR44HbHyb6DH7Vs98Vvqd84UkJJVEbw9vkmS'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': '8NrigfoMR44HbHyb6DH7Vs98Vvqd84UkJJVEbw9vkmS'}, 'uri': 'ni:///sha-256;WJj8HsvTrUzzRU2ROV9JrdEKQbOXkcaMgLDFNV-GSXk?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Kyle Terrell', 'Country': ('United Kingdom',), 'Patient_ID': 85, 'Birth_date': '31/03/1993', 'Gender': 'Polygender', 'Social_security_number': 226368000, 'Disease_1': 'Ovarian_Cancer:_C56.0', 'Response_1': 'Treatement Ongoing', 'datetime_created': 1468722488, 'Clinician_name': 'Steep Voice'}}, 'version': '2.0', 'id': None}
+
+private key EDb4uoFHPkH9rR68B4Krr4N6cbdJ2U27dfjxYHhbARYx
+
+public key 8NrigfoMR44HbHyb6DH7Vs98Vvqd84UkJJVEbw9vkmS
+CREATE transaction id: 3d9609b86eff8685a3bebb5d6e051d1b5cd9dd7d8957d53e30c5180909e0a4f5
+We are done generating all that Patient.
+Generating patient data for patientID_87
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Lindsey Bailey', 'Country': ('United Kingdom',), 'Patient_ID': 86, 'Birth_date': '04/07/1999', 'Gender': 'Transgender', 'Social_security_number': 68083200, 'Disease_1': 'Skin_Cancer:_C43.0', 'Response_1': 'Treatment provided', 'datetime_created': 966316913, 'Clinician_name': 'Gentle Feather'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['2SMsMCu6piGRSPCBgzxLPA7ec7BUaiceubUbAAEZPAR4'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': '2SMsMCu6piGRSPCBgzxLPA7ec7BUaiceubUbAAEZPAR4'}}], 'outputs': [{'public_keys': ['2SMsMCu6piGRSPCBgzxLPA7ec7BUaiceubUbAAEZPAR4'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': '2SMsMCu6piGRSPCBgzxLPA7ec7BUaiceubUbAAEZPAR4'}, 'uri': 'ni:///sha-256;YILkt4ONBZi3PZswRvz9FjW_6rble_AIhO16fbQWn3U?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Lindsey Bailey', 'Country': ('United Kingdom',), 'Patient_ID': 86, 'Birth_date': '04/07/1999', 'Gender': 'Transgender', 'Social_security_number': 68083200, 'Disease_1': 'Skin_Cancer:_C43.0', 'Response_1': 'Treatment provided', 'datetime_created': 966316913, 'Clinician_name': 'Gentle Feather'}}, 'version': '2.0', 'id': None}
+
+private key GYKmEs4d4b1tZUu3pBzXxtACEAMYkqXq8qS765L6okis
+
+public key 2SMsMCu6piGRSPCBgzxLPA7ec7BUaiceubUbAAEZPAR4
+CREATE transaction id: c19eca7fdfe48be7e6a80f3c69502357faae0801c302389256ef5d2d5bb343b1
+We are done generating all that Patient.
+Generating patient data for patientID_88
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Brandon Wilkerson', 'Country': ('United Kingdom',), 'Patient_ID': 87, 'Birth_date': '31/03/1993', 'Gender': 'Polygender', 'Social_security_number': 245289600, 'Disease_1': 'Skin_Cancer:_C43.0', 'Response_1': 'Treatment provided', 'datetime_created': 1447272528, 'Clinician_name': 'Dark Dust'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['FjyqGnbqAaYUbkFT3PgXsbaKsEpLKnc9joSuXm4WUxw3'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': 'FjyqGnbqAaYUbkFT3PgXsbaKsEpLKnc9joSuXm4WUxw3'}}], 'outputs': [{'public_keys': ['FjyqGnbqAaYUbkFT3PgXsbaKsEpLKnc9joSuXm4WUxw3'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': 'FjyqGnbqAaYUbkFT3PgXsbaKsEpLKnc9joSuXm4WUxw3'}, 'uri': 'ni:///sha-256;55j-FqMqTtCsIRWjExJACsPCpB7pF12K75X3GvoPaLw?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Brandon Wilkerson', 'Country': ('United Kingdom',), 'Patient_ID': 87, 'Birth_date': '31/03/1993', 'Gender': 'Polygender', 'Social_security_number': 245289600, 'Disease_1': 'Skin_Cancer:_C43.0', 'Response_1': 'Treatment provided', 'datetime_created': 1447272528, 'Clinician_name': 'Dark Dust'}}, 'version': '2.0', 'id': None}
+
+private key 3Mwjj3rsdLu9LTymea7i2YtLgX9oqev4vtziBZTQF3JD
+
+public key FjyqGnbqAaYUbkFT3PgXsbaKsEpLKnc9joSuXm4WUxw3
+CREATE transaction id: 37c4d85d1b759b10d8b76b6fc116af2e525624bf21fc1e5f14fce005b0a4ab53
+We are done generating all that Patient.
+Generating patient data for patientID_89
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Samantha Chen', 'Country': ('United Kingdom',), 'Patient_ID': 88, 'Birth_date': '31/04/1956', 'Gender': 'Polygender', 'Social_security_number': 268358400, 'Disease_1': 'Systemic_barteonellosis:_A44.0', 'Response_1': 'Treatment provided', 'datetime_created': 1033049415, 'Clinician_name': 'Polished King'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['6PGXJCunEjHezmUCa4JpN17EgnZzhj5oj4K97EQ78sEE'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': '6PGXJCunEjHezmUCa4JpN17EgnZzhj5oj4K97EQ78sEE'}}], 'outputs': [{'public_keys': ['6PGXJCunEjHezmUCa4JpN17EgnZzhj5oj4K97EQ78sEE'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': '6PGXJCunEjHezmUCa4JpN17EgnZzhj5oj4K97EQ78sEE'}, 'uri': 'ni:///sha-256;XJ4mI0ymyf7VBsQB0lbPUNFSutK7EkfQVSzKeo_gzP8?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Samantha Chen', 'Country': ('United Kingdom',), 'Patient_ID': 88, 'Birth_date': '31/04/1956', 'Gender': 'Polygender', 'Social_security_number': 268358400, 'Disease_1': 'Systemic_barteonellosis:_A44.0', 'Response_1': 'Treatment provided', 'datetime_created': 1033049415, 'Clinician_name': 'Polished King'}}, 'version': '2.0', 'id': None}
+
+private key V75VPfBkpybzXh9Htazf4xrGfgea5EkqvdEA9wgt2fH
+
+public key 6PGXJCunEjHezmUCa4JpN17EgnZzhj5oj4K97EQ78sEE
+CREATE transaction id: 1fe11c3f0329fdbc8b9e7e955f519782bba1f76365d02b05986f91aadd76790c
+We are done generating all that Patient.
+Generating patient data for patientID_90
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Kyle Mays', 'Country': ('United Kingdom',), 'Patient_ID': 89, 'Birth_date': '31/04/1956', 'Gender': 'Transgender', 'Social_security_number': 223344000, 'Disease_1': 'Adenovirus:_B97.0', 'Response_1': 'Treatement Ongoing', 'datetime_created': 1228214664, 'Clinician_name': 'Small River'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['9Mzseovw3QBDmhQs38qddXGm2uw9SyUMEzKhLXBiPJQL'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': '9Mzseovw3QBDmhQs38qddXGm2uw9SyUMEzKhLXBiPJQL'}}], 'outputs': [{'public_keys': ['9Mzseovw3QBDmhQs38qddXGm2uw9SyUMEzKhLXBiPJQL'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': '9Mzseovw3QBDmhQs38qddXGm2uw9SyUMEzKhLXBiPJQL'}, 'uri': 'ni:///sha-256;51yO1w_kUM0jiOlnUQxXsFy2Gg7rsNoaM1W1Hc2xJq4?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Kyle Mays', 'Country': ('United Kingdom',), 'Patient_ID': 89, 'Birth_date': '31/04/1956', 'Gender': 'Transgender', 'Social_security_number': 223344000, 'Disease_1': 'Adenovirus:_B97.0', 'Response_1': 'Treatement Ongoing', 'datetime_created': 1228214664, 'Clinician_name': 'Small River'}}, 'version': '2.0', 'id': None}
+
+private key 97aGC4cT1xUfhViVaNrC1enUqHMJkFbNahXz9SdX4Hgv
+
+public key 9Mzseovw3QBDmhQs38qddXGm2uw9SyUMEzKhLXBiPJQL
+CREATE transaction id: 4d7c479f4905df3d653479c66c9b330b9f2634296eba72707e08db58ca5e7b92
+We are done generating all that Patient.
+Generating patient data for patientID_91
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Nancy Bolton', 'Country': ('United Kingdom',), 'Patient_ID': 90, 'Birth_date': '04/04/1950', 'Gender': 'Transgender', 'Social_security_number': 293673600, 'Disease_1': 'Ovarian_Cancer:_C56.0', 'Response_1': 'Patient Deceased due to Illness', 'datetime_created': 1125454568, 'Clinician_name': 'Autumn Grass'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['fbP2Fi5ZmjTcmyEDtrkwqnWdicB16mrmpD8yHhgaLif'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': 'fbP2Fi5ZmjTcmyEDtrkwqnWdicB16mrmpD8yHhgaLif'}}], 'outputs': [{'public_keys': ['fbP2Fi5ZmjTcmyEDtrkwqnWdicB16mrmpD8yHhgaLif'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': 'fbP2Fi5ZmjTcmyEDtrkwqnWdicB16mrmpD8yHhgaLif'}, 'uri': 'ni:///sha-256;SjBlPEcUuH6kPYtOSla948pewHC7GApiJDTEypBfjGQ?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Nancy Bolton', 'Country': ('United Kingdom',), 'Patient_ID': 90, 'Birth_date': '04/04/1950', 'Gender': 'Transgender', 'Social_security_number': 293673600, 'Disease_1': 'Ovarian_Cancer:_C56.0', 'Response_1': 'Patient Deceased due to Illness', 'datetime_created': 1125454568, 'Clinician_name': 'Autumn Grass'}}, 'version': '2.0', 'id': None}
+
+private key BrrXg75D2X4ZDs1ZeAPha4NCbCm5fvYCLC1rBrtdW52m
+
+public key fbP2Fi5ZmjTcmyEDtrkwqnWdicB16mrmpD8yHhgaLif
+CREATE transaction id: 4e9e1cec7ec2e6a91fca38cedf04ad9b191bc9c1205e4b5ed3ba149b287c4fe9
+We are done generating all that Patient.
+Generating patient data for patientID_92
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Travis Bates', 'Country': ('United Kingdom',), 'Patient_ID': 91, 'Birth_date': '31/03/1993', 'Gender': 'Male', 'Social_security_number': 53049600, 'Disease_1': 'Stomach_Cancer:_C16.0', 'Response_1': 'Other', 'datetime_created': 710599229, 'Clinician_name': 'Broken Haze'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['6SFAy1p3tKKYGK8UZjw17FMqncsmYb8BKAqEvYaSqxrs'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': '6SFAy1p3tKKYGK8UZjw17FMqncsmYb8BKAqEvYaSqxrs'}}], 'outputs': [{'public_keys': ['6SFAy1p3tKKYGK8UZjw17FMqncsmYb8BKAqEvYaSqxrs'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': '6SFAy1p3tKKYGK8UZjw17FMqncsmYb8BKAqEvYaSqxrs'}, 'uri': 'ni:///sha-256;eDfSBmqgPtTHo4B31yfMe0l55UDRCrBiU4qX140TNRE?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Travis Bates', 'Country': ('United Kingdom',), 'Patient_ID': 91, 'Birth_date': '31/03/1993', 'Gender': 'Male', 'Social_security_number': 53049600, 'Disease_1': 'Stomach_Cancer:_C16.0', 'Response_1': 'Other', 'datetime_created': 710599229, 'Clinician_name': 'Broken Haze'}}, 'version': '2.0', 'id': None}
+
+private key C5SeiHgfYujcK3DG746GsbYcCBsFY3mQAcgMeZKfzfCx
+
+public key 6SFAy1p3tKKYGK8UZjw17FMqncsmYb8BKAqEvYaSqxrs
+CREATE transaction id: e85115a89277039e4e48363e470a7f46992ee5126b4815faa24a08bfd0c16953
+We are done generating all that Patient.
+Generating patient data for patientID_93
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Nathan Williams', 'Country': ('United Kingdom',), 'Patient_ID': 92, 'Birth_date': '04/04/1950', 'Gender': 'Male', 'Social_security_number': 272764800, 'Disease_1': 'Adenovirus:_B97.0', 'Response_1': 'No response provided', 'datetime_created': 693421428, 'Clinician_name': 'Dry Flower'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['5wduJ4XtcrJTi3rUdBs9hWRRbaJWm2pVC6Swvb4Dx9wE'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': '5wduJ4XtcrJTi3rUdBs9hWRRbaJWm2pVC6Swvb4Dx9wE'}}], 'outputs': [{'public_keys': ['5wduJ4XtcrJTi3rUdBs9hWRRbaJWm2pVC6Swvb4Dx9wE'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': '5wduJ4XtcrJTi3rUdBs9hWRRbaJWm2pVC6Swvb4Dx9wE'}, 'uri': 'ni:///sha-256;_H-BkR76_XBw5vx45BNFSvlLZdOba95mbCUSYFhD9vw?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Nathan Williams', 'Country': ('United Kingdom',), 'Patient_ID': 92, 'Birth_date': '04/04/1950', 'Gender': 'Male', 'Social_security_number': 272764800, 'Disease_1': 'Adenovirus:_B97.0', 'Response_1': 'No response provided', 'datetime_created': 693421428, 'Clinician_name': 'Dry Flower'}}, 'version': '2.0', 'id': None}
+
+private key C5tZDxRASP3w7zKmngyuGni5MPBpRCuh9YQwX5kSYXYW
+
+public key 5wduJ4XtcrJTi3rUdBs9hWRRbaJWm2pVC6Swvb4Dx9wE
+CREATE transaction id: 78f625b3f6ff6ba6cf3d5e7f434ecfe0cf58b92f02d6ff7f0a64bfa5241776cc
+We are done generating all that Patient.
+Generating patient data for patientID_94
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Richard Thompson', 'Country': ('United Kingdom',), 'Patient_ID': 93, 'Birth_date': '04/04/1950', 'Gender': 'Female', 'Social_security_number': 98755200, 'Disease_1': 'Skin_Cancer:_C43.0', 'Response_1': 'Patient Deceased due to Illness', 'datetime_created': 906904938, 'Clinician_name': 'Dark Silence'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['8ovqaRNEpYZxsEzUkiiRgasVyBTgaYEbCKvYxP8aMXXY'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': '8ovqaRNEpYZxsEzUkiiRgasVyBTgaYEbCKvYxP8aMXXY'}}], 'outputs': [{'public_keys': ['8ovqaRNEpYZxsEzUkiiRgasVyBTgaYEbCKvYxP8aMXXY'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': '8ovqaRNEpYZxsEzUkiiRgasVyBTgaYEbCKvYxP8aMXXY'}, 'uri': 'ni:///sha-256;JmUz4ySsk93BEajHb4BEzxTCsCqJys8_iLmMNlxEuIs?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Richard Thompson', 'Country': ('United Kingdom',), 'Patient_ID': 93, 'Birth_date': '04/04/1950', 'Gender': 'Female', 'Social_security_number': 98755200, 'Disease_1': 'Skin_Cancer:_C43.0', 'Response_1': 'Patient Deceased due to Illness', 'datetime_created': 906904938, 'Clinician_name': 'Dark Silence'}}, 'version': '2.0', 'id': None}
+
+private key EmReqMXZLh72fvkbsXUcCRPmB8t8RWDzaKdL3azy1PDV
+
+public key 8ovqaRNEpYZxsEzUkiiRgasVyBTgaYEbCKvYxP8aMXXY
+CREATE transaction id: 60374b6200a484ec8cb3ce5141aa7e23cf947bdb655eeb4999945d2d3f4a01cd
+We are done generating all that Patient.
+Generating patient data for patientID_95
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Michael Rivera', 'Country': ('United Kingdom',), 'Patient_ID': 94, 'Birth_date': '04/07/1999', 'Gender': 'Transgender', 'Social_security_number': 139881600, 'Disease_1': 'Adenovirus:_B97.0', 'Response_1': 'Treatment provided', 'datetime_created': 737417257, 'Clinician_name': 'Flat Lab'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['GDkSDPioAgKJ4aXXUMpq2qB3mbH1ALS41njjUziqTD1W'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': 'GDkSDPioAgKJ4aXXUMpq2qB3mbH1ALS41njjUziqTD1W'}}], 'outputs': [{'public_keys': ['GDkSDPioAgKJ4aXXUMpq2qB3mbH1ALS41njjUziqTD1W'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': 'GDkSDPioAgKJ4aXXUMpq2qB3mbH1ALS41njjUziqTD1W'}, 'uri': 'ni:///sha-256;uChl-MGl-amT8S-NjB63U9nShF3frqDV2Pm4-yNtUpM?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Michael Rivera', 'Country': ('United Kingdom',), 'Patient_ID': 94, 'Birth_date': '04/07/1999', 'Gender': 'Transgender', 'Social_security_number': 139881600, 'Disease_1': 'Adenovirus:_B97.0', 'Response_1': 'Treatment provided', 'datetime_created': 737417257, 'Clinician_name': 'Flat Lab'}}, 'version': '2.0', 'id': None}
+
+private key 6iaiRUTMB5Jdm8GHBoJgUEX6d18wVbnAey4zwAFcMLGV
+
+public key GDkSDPioAgKJ4aXXUMpq2qB3mbH1ALS41njjUziqTD1W
+CREATE transaction id: 234819a2a4b107d17785fd6da7f9788f8fe5a82153d9632e2bdc8fe182f8211c
+We are done generating all that Patient.
+Generating patient data for patientID_96
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Dr. Kaylee Ward', 'Country': ('United Kingdom',), 'Patient_ID': 95, 'Birth_date': '01/12/1985', 'Gender': 'Gender Neutral', 'Social_security_number': 251769600, 'Disease_1': 'Chrohns_disease:_K50.0', 'Response_1': 'Patient Deceased due to Illness', 'datetime_created': 1271827367, 'Clinician_name': 'Aged Base'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['3RBKqYMW8YYgqd8kmpN2JpxzKBDL6YtA81PHkCEHqFx2'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': '3RBKqYMW8YYgqd8kmpN2JpxzKBDL6YtA81PHkCEHqFx2'}}], 'outputs': [{'public_keys': ['3RBKqYMW8YYgqd8kmpN2JpxzKBDL6YtA81PHkCEHqFx2'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': '3RBKqYMW8YYgqd8kmpN2JpxzKBDL6YtA81PHkCEHqFx2'}, 'uri': 'ni:///sha-256;KRnUQZh19gBdORMzs7G7tOrOAn3PjaDL3C1L8dEhzGg?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Dr. Kaylee Ward', 'Country': ('United Kingdom',), 'Patient_ID': 95, 'Birth_date': '01/12/1985', 'Gender': 'Gender Neutral', 'Social_security_number': 251769600, 'Disease_1': 'Chrohns_disease:_K50.0', 'Response_1': 'Patient Deceased due to Illness', 'datetime_created': 1271827367, 'Clinician_name': 'Aged Base'}}, 'version': '2.0', 'id': None}
+
+private key ERbo1Tp68tQHN13fWFGzKQvKkM3JQ411y65TJ4NtiPL6
+
+public key 3RBKqYMW8YYgqd8kmpN2JpxzKBDL6YtA81PHkCEHqFx2
+CREATE transaction id: 9086d373c9d580808bd947e97220b1d7a4558e41805c1fdb8dc9f0001251c484
+We are done generating all that Patient.
+Generating patient data for patientID_97
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Dale Robbins', 'Country': ('United Kingdom',), 'Patient_ID': 96, 'Birth_date': '01/03/1972', 'Gender': 'Transgender', 'Social_security_number': 197942400, 'Disease_1': 'Systemic_barteonellosis:_A44.0', 'Response_1': 'Patient Deceased due to Illness', 'datetime_created': 924510990, 'Clinician_name': 'Yellow Violet'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['4tJ1BcpAQpXaHK6XgjZEdzS6xoDcSpVNbEH83K375L5f'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': '4tJ1BcpAQpXaHK6XgjZEdzS6xoDcSpVNbEH83K375L5f'}}], 'outputs': [{'public_keys': ['4tJ1BcpAQpXaHK6XgjZEdzS6xoDcSpVNbEH83K375L5f'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': '4tJ1BcpAQpXaHK6XgjZEdzS6xoDcSpVNbEH83K375L5f'}, 'uri': 'ni:///sha-256;tvHS1XolRPJQw96jZeUiPrYX6lIxG1bAV27HaUQLxAc?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Dale Robbins', 'Country': ('United Kingdom',), 'Patient_ID': 96, 'Birth_date': '01/03/1972', 'Gender': 'Transgender', 'Social_security_number': 197942400, 'Disease_1': 'Systemic_barteonellosis:_A44.0', 'Response_1': 'Patient Deceased due to Illness', 'datetime_created': 924510990, 'Clinician_name': 'Yellow Violet'}}, 'version': '2.0', 'id': None}
+
+private key 53eHztKNn3XuhFLdBj53S6UBYyiY46LkiKkEJpf6mHtd
+
+public key 4tJ1BcpAQpXaHK6XgjZEdzS6xoDcSpVNbEH83K375L5f
+CREATE transaction id: 0e6e90ad889649cd3695943437bb0e43f3e79810ef05d090d3841064f7871cc4
+We are done generating all that Patient.
+Generating patient data for patientID_98
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Phillip Romero', 'Country': ('United Kingdom',), 'Patient_ID': 97, 'Birth_date': '31/04/1956', 'Gender': 'Transgender', 'Social_security_number': 172368000, 'Disease_1': 'Chrohns_disease:_K50.0', 'Response_1': 'No response provided', 'datetime_created': 894397554, 'Clinician_name': 'Empty Bird'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['8JnpDVMGwG4KzuJvhEhhY7PpMBPPrvUfb4JXsPhXLVka'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': '8JnpDVMGwG4KzuJvhEhhY7PpMBPPrvUfb4JXsPhXLVka'}}], 'outputs': [{'public_keys': ['8JnpDVMGwG4KzuJvhEhhY7PpMBPPrvUfb4JXsPhXLVka'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': '8JnpDVMGwG4KzuJvhEhhY7PpMBPPrvUfb4JXsPhXLVka'}, 'uri': 'ni:///sha-256;25IRkTxlSIGpGMYOwcL3D90zfpkfut5sZ7mtB5IQc_A?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Phillip Romero', 'Country': ('United Kingdom',), 'Patient_ID': 97, 'Birth_date': '31/04/1956', 'Gender': 'Transgender', 'Social_security_number': 172368000, 'Disease_1': 'Chrohns_disease:_K50.0', 'Response_1': 'No response provided', 'datetime_created': 894397554, 'Clinician_name': 'Empty Bird'}}, 'version': '2.0', 'id': None}
+
+private key eXZo9LqT6fuF4gFjRxRrvd86iJrEA1MY1iJKcVauLFG
+
+public key 8JnpDVMGwG4KzuJvhEhhY7PpMBPPrvUfb4JXsPhXLVka
+CREATE transaction id: 5599faac094cc4bed99122c4baec27ea85271ce3eb3fde2a2c606bb3bb178699
+We are done generating all that Patient.
+Generating patient data for patientID_99
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Christopher Hahn', 'Country': ('United Kingdom',), 'Patient_ID': 98, 'Birth_date': '06/12/2003', 'Gender': 'Female', 'Social_security_number': 205632000, 'Disease_1': 'Breast_Cancer:_C50.919', 'Response_1': 'No response provided', 'datetime_created': 1448017818, 'Clinician_name': 'Fancy Recipe'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['CFx25cZ6nd7YeGE5RwVCpqetpczS67enWF7ygUi5QV6i'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': 'CFx25cZ6nd7YeGE5RwVCpqetpczS67enWF7ygUi5QV6i'}}], 'outputs': [{'public_keys': ['CFx25cZ6nd7YeGE5RwVCpqetpczS67enWF7ygUi5QV6i'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': 'CFx25cZ6nd7YeGE5RwVCpqetpczS67enWF7ygUi5QV6i'}, 'uri': 'ni:///sha-256;ZmV_Y4-ju_YOd8JWbS88Dpoi5jCcPhEuqDgtNEpBFJY?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Christopher Hahn', 'Country': ('United Kingdom',), 'Patient_ID': 98, 'Birth_date': '06/12/2003', 'Gender': 'Female', 'Social_security_number': 205632000, 'Disease_1': 'Breast_Cancer:_C50.919', 'Response_1': 'No response provided', 'datetime_created': 1448017818, 'Clinician_name': 'Fancy Recipe'}}, 'version': '2.0', 'id': None}
+
+private key 9Dk5sExCxxZYhQY93RhX7VLQo3ucvL6npd9vvT3Aqsxw
+
+public key CFx25cZ6nd7YeGE5RwVCpqetpczS67enWF7ygUi5QV6i
+CREATE transaction id: 3cfb02b1a8063741106a71542af2e379b894667d83bc2b47363b0a5668a200cf
+We are done generating all that Patient.
+Generating patient data for patientID_100
+----------------------------------
+CREATE tx asset: {'data': {'Name': 'Justin Gross', 'Country': ('United Kingdom',), 'Patient_ID': 99, 'Birth_date': '31/04/1956', 'Gender': 'Female', 'Social_security_number': 123206400, 'Disease_1': 'Systemic_barteonellosis:_A44.0', 'Response_1': 'Treatment provided', 'datetime_created': 929097451, 'Clinician_name': 'Lively Bird'}}
+CREATE tx metadata: {'notes': 'The CREATE transaction for one particular patient (an asset).'}
+
+create_tx is {'inputs': [{'owners_before': ['GeGekTeweeVsXirwtXFiSQVotU6kKR6QYmiT6tfs4dzD'], 'fulfills': None, 'fulfillment': {'type': 'ed25519-sha-256', 'public_key': 'GeGekTeweeVsXirwtXFiSQVotU6kKR6QYmiT6tfs4dzD'}}], 'outputs': [{'public_keys': ['GeGekTeweeVsXirwtXFiSQVotU6kKR6QYmiT6tfs4dzD'], 'condition': {'details': {'type': 'ed25519-sha-256', 'public_key': 'GeGekTeweeVsXirwtXFiSQVotU6kKR6QYmiT6tfs4dzD'}, 'uri': 'ni:///sha-256;3eTo63Ms3O8LfwGZXB-WGBQxRD4WHZ8seoisl_48jto?fpt=ed25519-sha-256&cost=131072'}, 'amount': '1'}], 'operation': 'CREATE', 'metadata': {'notes': 'The CREATE transaction for one particular patient (an asset).'}, 'asset': {'data': {'Name': 'Justin Gross', 'Country': ('United Kingdom',), 'Patient_ID': 99, 'Birth_date': '31/04/1956', 'Gender': 'Female', 'Social_security_number': 123206400, 'Disease_1': 'Systemic_barteonellosis:_A44.0', 'Response_1': 'Treatment provided', 'datetime_created': 929097451, 'Clinician_name': 'Lively Bird'}}, 'version': '2.0', 'id': None}
+
+private key H4CibTtX7iAVv7Kb1jdvYZaYMw8YehyWTuomGXUCryej
+
+public key GeGekTeweeVsXirwtXFiSQVotU6kKR6QYmiT6tfs4dzD
+CREATE transaction id: 22dfaba7a2e00b3c83dceba16d4295ee5f38834014318ef13ac9e9782980ad5b
+We are done generating all that Patient.
+We are done generating all fake data.
+Franks-MBP:final-project-scriptLoad franknankivell$
