@@ -95,10 +95,11 @@ class DataLogin extends React.Component {
       console.log('Address',contract.contractAddress)
 
       // initial function
-      contract.at(DataAccess.contractAddress)
-        .then((instance) => instance.enroll().then((Output) => {
+        contract.at(DataAccess.contractAddress)
+          .then((instance) => instance.enroll().then((Output) => {
         this.setState({value: Output})
-      }).catch(err => console.log("Enroll function error ", err))
+        })
+        .catch(err => console.log("Enroll function error ", err))
     );
   };
 

@@ -77,8 +77,7 @@ module.exports.createUserKey = function (req, res) {
             }
 
           ).then(() => {
-            var output = 'output good'
-            res.status(200).json(output)
+            res.status(200).json(newTransfer)
             console.log(newTransfer)
           });
         };
