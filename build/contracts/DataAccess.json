@@ -9345,10 +9345,16 @@
       "links": {},
       "address": "0x8a4A12479486A427109e964e90CaEB5798C13A01",
       "transactionHash": "0xd9380a64e05fc037939f03cbb671ec57a1904830a8fa48c54e2af668caa4d1cb"
+    },
+    "1569352824133": {
+      "events": {},
+      "links": {},
+      "address": "0x68BAB8acFE82AA048545c2Eb48C368592869e6BA",
+      "transactionHash": "0xa6ea5ece140a4d07d9382f960c6405c0fea671ed15b43af300d62c32d4d2d2aa"
     }
   },
   "schemaVersion": "3.0.10",
-  "updatedAt": "2019-09-08T13:55:11.156Z",
+  "updatedAt": "2019-09-24T19:27:39.182Z",
   "devdoc": {
     "methods": {}
   },

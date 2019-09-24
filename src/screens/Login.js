@@ -1,15 +1,17 @@
 import React, {Component} from 'react'
 import styled from 'styled-components'
-import {Button, Card, Form} from 'react-bootstrap';
-import {Alert} from 'react-native-web'
 import {blue1,lighterWhite} from '../constants/Colors';
+import {Form, Button, Row, Panel} from 'react-bootstrap';
 
-
-import Web3 from 'web3'
 import TruffleContract from 'truffle-contract'
-import DataAccess from '../../build/contracts/DataAccess.json'
-
 const contractAddress ='0x8a4A12479486A427109e964e90CaEB5798C13A01';
+
+import DataAccess from '../../build/contracts/DataAccess.json'
+import getWeb3 from '../utils/getWeb3';
+
+// https://kauri.io/article/86903f66d39d4379a2e70bd583700ecf/truffle:-adding-a-frontend-with-react-box
+
+
 
 const Styles = styled.div`
     .Button {
@@ -31,75 +33,67 @@ if (process.env.NODE_ENV === 'production') {
 // Form then required 
 
 export default class Login extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             isFetching: false,
             formStatus: false,
             login: false,
-            metaMask: false,
+            dataAccess: undefined,
+            account: null,
+            web3: null,
             data: []
         };
     }
-    componentDidMount() {
-       this._loadContract();
-       this.timer = setInterval(() => this._loadContract(), 5000);
-    }; 
+
+    componentDidMount = async () => {
+      try {
+        // Get network provider and web3 instance.
+        const web3 = await getWeb3();
+    
+    
+        // Use web3 to get the user's accounts.
+        const accounts = await web3.eth.getAccounts();
+    
+        // Get the contract instance.
+        const networkId = await web3.eth.net.getId();
+            const deployedNetwork = DataAccess.networks[networkId];
+            const instance = new web3.eth.Contract(
+              DataAccess.abi,
+              deployedNetwork && deployedNetwork.address,
+            );
+    
+        // Set web3, accounts, and contract to the state, and then proceed with an
+        // example of interacting with the contract's methods.
+        this.setState({ dataAccess: instance, web3: web3, account: accounts[0]})
+    
+      } catch (error) {
+        // Catch any errors for any of the above operations.
+        alert(
+          `Failed to load web3, accounts, or contract. Check console for details.`
+        );
+        console.log(error);
+      }
+    };
+
 
 
     _getSignUp = async () => {
         this.setState({...this.state, formStatus: true});
     };
 
-    _loadContract = async () => {
+    _pushForm = (event) => {
+      const username = event.target.value.username;
+      const password = event.target.value.password;
+      console.log('username:',username)
+      console.log('password:',password)
 
-    // Modern dapp browsers...
-    if (window.ethereum) {
-      window.web3 = new Web3(ethereum);
-      try {
-          // Request account access if needed
-          await ethereum.enable();
-          // Acccounts now exposed
-          this.loadDataContract()
-
-      } catch (error) {
-          // User denied account access...
-          }
-      }
-      // Legacy dapp browsers...
-        else if (window.web3) {
-            window.web3 = new Web3(web3.currentProvider);
-            // Acccounts always exposed
-            this.loadDataContract()
-        }
-        // Non-dapp browsers...
-        else {
-            console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
-        }
+      this.setState({
+        username: username,
+        password: password
+      })
+  
     };
-
-    loadDataContract = () =>  {
-      
-      // code version without creating new contract
-      const contract = TruffleContract(DataAccess)
-      console.log(DataAccess.contractAddress)
-
-      contract.setProvider(this.web3Provider)
-      contract.defaults({from: this.web3Provider.selectedAddress});
-
-      console.log('Address',contract.contractAddress)
-
-      // initial function
-        contract.at(DataAccess.contractAddress)
-          .then((instance) => instance.enroll().then((Output) => {
-        this.setState({value: Output})
-        })
-        .catch(err => console.log("Enroll function error ", err))
-    );
-  };
-
-
-
 
     _login = async () => {
         this.setState({...this.state, login: true});
@@ -108,8 +102,11 @@ export default class Login extends Component {
 
 
     render() {
-        const formStatus = this.state.formStatus;
-        if (formStatus == false) {
+        const {formStatus, web3}= this.state;
+        if(!web3) {
+          return<div>Loading Web3, accounts and contract</div>
+        }
+        if(web3 && !formStatus) {
                 return(
                     <div>
                     <Form>
@@ -119,7 +116,7 @@ export default class Login extends Component {
                             </Form.Group>
                             <Form.Group controlId="exampleForm.ControlInput1">
                             <Form.Label>Enter your password</Form.Label>
-                            <Form.Control type="email" placeholder="xxxxxx" />
+                            <Form.Control type="email" placeholder="xxxxxx"/>
                             </Form.Group>
                         <Button variant="outline-secondary"
                                 onClick={this._login}>
@@ -129,6 +126,7 @@ export default class Login extends Component {
                         <h4>
                             If you have not signed up yet then you can do so below.
                         </h4>
+
                         <Button variant="secondary"
                                 onClick={this._getSignUp}>
                             Sign Up Now
@@ -136,32 +134,54 @@ export default class Login extends Component {
                         </div>
             )} else {
                 return(
-                    <div>
+                  <div>
                         <h2>
                             To sign up please complete the form below
                         </h2>
-                    <Form>
+                    <Form signUp >
                     <Form.Group controlId="name.signUpInput">
                       <Form.Label>Enter your name here</Form.Label>
-                      <Form.Control type="text" placeholder="your name" />
+                      <Form.Control 
+                          type="text" 
+                          name="name"
+                          placeholder="your name"
+                          value={values.name}
+                            />
                     </Form.Group>
                     <Form.Group controlId="email.signUpInput">
                       <Form.Label>Enter your email address</Form.Label>
-                      <Form.Control type="email" placeholder="name@example.com" />
+                      <Form.Control 
+                        type="email" 
+                        name="email"
+                        placeholder="name@example.com"
+                        value={values.email} />
                     </Form.Group>
                     <Form.Group controlId="email2.signUpInput">
                       <Form.Label>Enter repeat your email address</Form.Label>
-                      <Form.Control type="email" placeholder="name@example.com" />
+                      <Form.Control 
+                        type="email"
+                        name="email2"
+                        placeholder="name@example.com" 
+                        value={values.email2}/>
                     </Form.Group>
                     <Form.Group controlId="password.signUpInput">
                       <Form.Label>Please enter your password</Form.Label>
-                      <Form.Control type="email" placeholder="examplepassword" />
+                      <Form.Control 
+                        type="text" 
+                        name="password"
+                        placeholder="examplepassword"
+                        value={values.password} />
                     </Form.Group>
                     <Form.Group controlId="passwordRepeat.signUpInput">
                       <Form.Label>Repeat your password</Form.Label>
-                      <Form.Control type="email" placeholder="examplepassword" />
+                      <Form.Control 
+                        type="text"
+                        name="password2"
+                        placeholder="examplepassword"
+                        value={values.password2} />
                     </Form.Group>
                     <Button 
+                        type="submit" 
                         variant="outline-secondary"
                         onClick={this._pushForm}>
                         Sign Up
