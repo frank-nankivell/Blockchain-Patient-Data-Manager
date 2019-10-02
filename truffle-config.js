@@ -7,7 +7,7 @@ module.exports = {
     // development network is default for truffle
      development: {
       host: "localhost",     // Localhost (default: none)
-      port: 8545,            // Standard Ethereum port (default: none)
+      port: 7545,            // Standard Ethereum port (default: none)
       network_id: "*",
       accounts: 5,
       defaultEtherBalance: 500,

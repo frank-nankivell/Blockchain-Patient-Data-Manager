@@ -1,8 +1,11 @@
 import React, {Component} from 'react'
 import styled from 'styled-components'
-import {Button, Card, Form} from 'react-bootstrap';
+import {Button, Card, Form, Table } from 'react-bootstrap';
 import {Alert} from 'react-native-web'
 import {blue1,lighterWhite} from '../constants/Colors';
+import { withRouter } from 'react-router-dom';
+
+import BootstrapTable from 'react-bootstrap-table-next';
 
 const Styles = styled.div`
     .Button {
@@ -17,6 +20,14 @@ var API_url = "http://localhost:3000";
 if (process.env.NODE_ENV === 'production') {
   dbURI = 'enterProdURL';
 }
+
+const columns = [{
+    dataField: '_id',
+    text: 'Disease Name'
+  }, {
+    dataField: 'Disease_1',
+    text: 'Disease Count'
+  }];
 
 // SPA 
 // First line provides button to see counts 
@@ -74,9 +85,9 @@ export default class ResearchRequest extends Component {
     };
 
     render() {
-        const data = this.state.data;
+        const diseaseSummary = this.state.data;
         const formStatus = this.state.formStatus;
-        const listItems = data.map((d) => 
+        const listItems = diseaseSummary.map((d) => 
             <li key={d._id}> {d._id}, {d.Disease_1} </li>
             );
         if (formStatus == false) {
@@ -85,9 +96,8 @@ export default class ResearchRequest extends Component {
                     <h2>
                         Below provides a summary of data available for research by disease type
                     </h2>
-                {listItems}
+                <BootstrapTable keyField='_id' data={ diseaseSummary } columns={ columns } />
                
-
                 <Card>
                     <Card.Header>Research Request...</Card.Header>
                     <Card.Body>
@@ -120,7 +130,7 @@ export default class ResearchRequest extends Component {
                       <Form.Label>Select the type of disease you want to research upon</Form.Label>
                       <Form.Control as="select" multiple>
                       {
-                            data.map((obj) => {
+                            diseaseSummary.map((obj) => {
                                 return <option key={obj._id}>{obj._id}</option>
                             })
                         }

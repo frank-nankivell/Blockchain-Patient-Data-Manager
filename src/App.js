@@ -17,7 +17,6 @@ import { Jumbotron} from './components/Jumbotron';
 
 
 
-
 function App() {
   return (
     <React.Fragment>
