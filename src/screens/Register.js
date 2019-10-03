@@ -3,9 +3,14 @@ import styled from 'styled-components'
 import {blue1,lighterWhite} from '../constants/Colors';
 import {
   Form, 
+  Badge,
   FormGroup,
   FormControl,
   Button, 
+  Container,
+  Col,
+  OverlayTrigger,
+  Popover,
   Panel,
   Modal,
   Grid,
@@ -16,6 +21,7 @@ import {
 
 } from 'react-bootstrap';
 
+import Explanation from '../components/Explanation';
 import TruffleContract from 'truffle-contract'
 const contractAddress ='0x8a4A12479486A427109e964e90CaEB5798C13A01';
 
@@ -33,17 +39,20 @@ const Styles = styled.div`
     }
 `;
 
+
 var API_url = "http://localhost:3000";
 if (process.env.NODE_ENV === 'production') {
   API_url = 'enterProdURL';
 }
+
+
 
 // SPA 
 // First line provides button to see counts 
 // Button provides count by disease
 // Form then required 
 
-export default class Login extends Component {
+export default class Register extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -58,7 +67,7 @@ export default class Login extends Component {
             users: [],
         };
         this._handleChange = this._handleChange.bind(this)
-        this._pushForm = this._pushForm.bind(this)
+        this._registerProject = this._registerProject.bind(this)
 
     }
 
@@ -85,7 +94,7 @@ export default class Login extends Component {
       } catch (error) {
         // Catch any errors for any of the above operations.
         alert(
-          `Failed to load web3, accounts, or contract. You may need to install MetaMask. Check console for details.`
+          `Failed to load web3, accounts, or contract. You need to install MetaMask to authenticate and login`
         );
         console.log(error);
       }
@@ -116,7 +125,7 @@ export default class Login extends Component {
       }
     }
 
-     async _pushForm(event)
+     async _registerProject(event)
     {
       console.log('pushing data to chain')
 
@@ -146,26 +155,6 @@ export default class Login extends Component {
       }
     }
 
-    setLastTransactionDetails(result)
-      {
-        if(result.tx !== 'undefined')
-      {
-        this.setState({etherscanLink: etherscanBaseUrl+"/tx/"+result.tx})
-      }
-        else
-      {
-        this.setState({etherscanLink: etherscanBaseUrl})
-        }
-      }
-
-
-
-    // address
-    // name
-    // id - used as email to rename
-    // url - used as token to rename
-    // date
-    // time
 
     _getToken = async (name) => {
       var QUERY = '/api/bigchain/makeKey'
@@ -196,46 +185,85 @@ export default class Login extends Component {
         this.setState({...this.state, login: true});
     }
 
-
+  
 
     render() {
-        const {formStatus, web3, users}= this.state;
+        const {formStatus, web3, users, account}= this.state;
+        const projects = ['Project 1','example'];
         if(!web3) {
-          return<div>Loading Web3, accounts and contract</div>
+          return<div>Loading Login Details via Smart Contract...</div>
         }
         if(web3 && !formStatus) {
-                return(
-                    <div>
-                    <Form>
-                            <Form.Group controlId="exampleForm.ControlInput1">
-                            <Form.Label>Enter your username</Form.Label>
-                            <Form.Control type="username" placeholder="username@example.com" />
-                            </Form.Group>
-                            <Form.Group controlId="exampleForm.ControlInput1">
-                            <Form.Label>Enter your password</Form.Label>
-                            <Form.Control type="email" placeholder="xxxxxx"/>
-                            </Form.Group>
-                        <Button variant="outline-secondary"
-                                onClick={this._login}>
-                            Login
-                        </Button>
-                        </Form>
-                        <h4>
-                            If you have not signed up yet then you can do so below.
-                        </h4>
-
-                        <Button variant="secondary"
-                                onClick={this._getSignUp}>
-                            Sign Up Now
-                        </Button>
-                        </div>
+            return(
+                  <div>
+                    <Container>
+                      <Row>
+                        <Col>
+                        <Explanation></Explanation>
+                        </Col>
+                        <Col>
+                         <h5>You are logged in with User ID<Badge variant="secondary">{account}</Badge></h5> 
+                        </Col>
+                      </Row>
+                    </Container>
+                    <h3>
+                      You have the below number of projects registered on the blockchain ready for research
+                    </h3>
+                      {projects}
+                  <h5>
+                    To Register your project and interest to research enter the form below
+                  </h5>
+                  <Form onSubmit={this._registerProject}>
+                    <Form.Group controlId="name.signUpInput">
+                      <Form.Label>User ID</Form.Label>
+                        <Form.Control 
+                        type="text" 
+                        name="account"
+                        value={account}
+                        placeholder="your name"
+                        onChange={this._handleChange.bind(this)}
+                        />
+                  </Form.Group>
+                  <Form.Group controlId="account.signUpInput">
+                    <Form.Label>Enter your Name here</Form.Label>
+                          <Form.Control 
+                          type="text" 
+                          name="name"
+                          placeholder="your name"
+                          onChange={this._handleChange.bind(this)}
+                          />
+                    </Form.Group>
+                    <Form.Group controlId="email.signUpInput">
+                    <Form.Label>Enter your email address</Form.Label>
+                    <Form.Control 
+                      type="email" 
+                      name="email"
+                      placeholder="name@example.com"
+                      onChange={this._handleChange.bind(this)} />
+                      </Form.Group>
+                  <Form.Group controlId="password.signUpInput">
+                  <Form.Label>Project Summary</Form.Label>
+                  <Form.Control 
+                  type="text" 
+                  name="projectSummary"
+                  placeholder="a great project.."
+                  onChange={this._handleChange.bind(this)} />
+                  </Form.Group>
+                    <Button 
+                      type="submit" 
+                      variant="outline-secondary"
+                      onClick={this._registerProject.bind(this)}>
+                      Register 
+                    </Button>
+                  </Form>
+                  </div>
             )} else {
 
                 return(
                   <div>
-                        <h2>
-                            To sign up please complete the form below
-                        </h2>
+                        <h5>
+                            To Register your project and interest to research enter the form below
+                        </h5>
                     <Form onSubmit={this._pushForm}>
                     <Form.Group controlId="name.signUpInput">
                       <Form.Label>Enter your name here</Form.Label>
@@ -253,14 +281,6 @@ export default class Login extends Component {
                         name="email"
                         placeholder="name@example.com"
                         onChange={this._handleChange.bind(this)} />
-                    </Form.Group>
-                    <Form.Group controlId="email2.signUpInput">
-                      <Form.Label>Enter repeat your email address</Form.Label>
-                      <Form.Control 
-                        type="email"
-                        name="email2"
-                        placeholder="name@example.com" 
-                        onChange={this._handleChange.bind(this)}/>
                     </Form.Group>
                     <Form.Group controlId="password.signUpInput">
                       <Form.Label>Please enter your password</Form.Label>

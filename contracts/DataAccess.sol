@@ -7,8 +7,8 @@ contract DataAccess {
     // it represents a single usersData
     struct DataLocation {
         string ownerName;
-        string ownerID;
-        string url;
+        string ownerAccount;
+        string bgChainToken;
         string dateOfAccess;
         string timeOfAccess;
         uint accessCount;
@@ -39,20 +39,21 @@ contract DataAccess {
     event LogNewData   (
         address indexed dataAddress, 
         string ownerName,
-        string url,
-        string ownerID,
+        string ownerAccount,
+        string bgChainToken,
         string dateOfAccess,
         string timeOfAccess,
        // uint accessCount,
         uint index);
 
 
+
     // event for new updated data  location 
     event LogUpdateData   (
         address indexed dataAddress,
         string ownerName,
-        string url,
-        string ownerID,
+        string ownerAccount,
+        string bgChainToken,
         string dateOfAccess,
         string timeOfAccess,
      //   uint accessCount,
@@ -79,17 +80,18 @@ contract DataAccess {
     function insertDataLocation (
         address dataAddress,
         string _ownerName,
-        string _ownerID,
-        string _url,
+        string _ownerAccount,
+        string _bgChainToken,
         string _dateOfAccess,
         string _timeOfAccess)
+
 
         public returns(uint index)
         {
             if(validateData(dataAddress)) {revert();}
         datastores[dataAddress].ownerName = _ownerName;
-        datastores[dataAddress].ownerID   = _ownerID;
-        datastores[dataAddress].url = _url;
+        datastores[dataAddress].ownerAccount = _ownerAccount;
+        datastores[dataAddress].bgChainToken = _bgChainToken;
         datastores[dataAddress].dateOfAccess = _dateOfAccess;
         datastores[dataAddress].timeOfAccess = _timeOfAccess;
         datastores[dataAddress].accessCount=1;
@@ -97,8 +99,8 @@ contract DataAccess {
         LogNewData(
             dataAddress,  
             _ownerName,
-            _url,
-            _ownerID,
+            _ownerAccount,
+            _bgChainToken,
             _dateOfAccess,
             _timeOfAccess,
             datastores[dataAddress].index);
@@ -112,8 +114,8 @@ contract DataAccess {
         constant
         returns(
         string ownerName,
-        string ownerID,
-        string url,
+        string ownerAccount,
+        string bgChainToken,
         string dateOfAccess,
         string timeOfAccess,
         uint index)
@@ -121,8 +123,8 @@ contract DataAccess {
         if(!validateData(dataAddress)) {revert();} 
         return(
             datastores[dataAddress].ownerName,
-            datastores[dataAddress].ownerID,
-            datastores[dataAddress].url,
+            datastores[dataAddress].ownerAccount,
+            datastores[dataAddress].bgChainToken,
             datastores[dataAddress].dateOfAccess,
             datastores[dataAddress].timeOfAccess,
             datastores[dataAddress].index);
@@ -130,19 +132,19 @@ contract DataAccess {
 
 
     // Function updates data location
-    function updateDataLocation(address _dataAddress, string _dateOfAccess, string _timeOfAccess,  string _url) 
+    function updateDataLocation(address _dataAddress, string _dateOfAccess, string _timeOfAccess,  string _bgChainToken) 
         public
         returns(bool success)
         {
             if(!validateData(_dataAddress)) {revert();}
             datastores[_dataAddress].dateOfAccess = _dateOfAccess;
             datastores[_dataAddress].timeOfAccess = _timeOfAccess;
-            datastores[_dataAddress].url = _url;
+            datastores[_dataAddress].bgChainToken = _bgChainToken;
             LogUpdateData(
                 _dataAddress,
                 datastores[_dataAddress].ownerName,
-                _url,
-                datastores[_dataAddress].ownerID,
+                _bgChainToken,
+                datastores[_dataAddress].ownerAccount,
                 _dateOfAccess,
                 _timeOfAccess,
                 datastores[_dataAddress].index);

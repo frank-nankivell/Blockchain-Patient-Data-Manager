@@ -4,8 +4,45 @@ import {Button, Card, Form, Table } from 'react-bootstrap';
 import {Alert} from 'react-native-web'
 import {blue1,lighterWhite} from '../constants/Colors';
 import { withRouter } from 'react-router-dom';
+import Chart from "react-google-charts";
 
 import BootstrapTable from 'react-bootstrap-table-next';
+const pieOptions = {
+    title: "",
+    pieHole: 0.6,
+    slices: [
+      {
+        color: "#2BB673"
+      },
+      {
+        color: "#d91e48"
+      },
+      {
+        color: "#007fad"
+      },
+      {
+        color: "#e9a227"
+      }
+    ],
+    legend: {
+      position: "bottom",
+      alignment: "center",
+      textStyle: {
+        color: "233238",
+        fontSize: 14
+      }
+    },
+    tooltip: {
+      showColorCode: true
+    },
+    chartArea: {
+      left: 0,
+      top: 0,
+      width: "100%",
+      height: "80%"
+    },
+    fontName: "Roboto"
+  };
 
 const Styles = styled.div`
     .Button {
@@ -23,7 +60,8 @@ if (process.env.NODE_ENV === 'production') {
 
 const columns = [{
     dataField: '_id',
-    text: 'Disease Name'
+    text: 'Disease Name',
+    sort: true
   }, {
     dataField: 'Disease_1',
     text: 'Disease Count'
@@ -46,6 +84,9 @@ export default class ResearchRequest extends Component {
     componentDidMount() {
         this._getData();
         this.timer = setInterval(() => this._getData(), 5000);
+        this._convertData();
+        this.timer = setInterval(() => this._convertData(), 5000);
+
         }; 
 
     _getData() {
@@ -60,13 +101,38 @@ export default class ResearchRequest extends Component {
                         isFetching: true,
                         data: responseJson, 
                     });
-                    console.log('api reponse: ',responseJson)
+                    //console.log('api reponse: ',responseJson)
               })
                 .catch((error) => {
                     console.log(error);
                     this.setState({...this.state, isFetching: true});
             });
     };
+
+    _convertData = async () => {
+        console.log('Chart request')
+        var url = '/api/assets/summaryDisease/';
+        const request = API_url + url;
+        fetch(request) 
+            .then((response) => response.json())
+            .then((responseJson) => {        
+                const chartData = ['Disease Name', 'Disease Count']
+                const listItems = responseJson.map((data) => {data._id,data.Disease_1})
+                chartData.push(listItems)
+                console.log('charData',chartData)
+                this.setState({ 
+                   // isFetching: true,
+                    //data: responseJson,
+                    chartData: chartData
+                });
+                console.log('chart request: ', chartData)
+          })
+            .catch((error) => {
+                console.log(error);
+                //this.setState({...this.state, isFetching: true});
+        });
+};
+
 
     _getForm = async () => {
         this.setState({...this.state, formStatus: true});
@@ -84,9 +150,23 @@ export default class ResearchRequest extends Component {
         }
     };
 
+    /*
+    Add back into the render method when it works
+        <Chart
+                        chartType="PieChart"
+                        data={chartData}
+                        options={pieOptions}
+                        graph_id="PieChart"
+                        width={"100%"}
+                        height={"400px"}
+                        legend_toggle
+                        />
+                <Card>
+                */
+
     render() {
         const diseaseSummary = this.state.data;
-        const formStatus = this.state.formStatus;
+        const {formStatus, chartData,dataLoadingStatus}= this.state;
         const listItems = diseaseSummary.map((d) => 
             <li key={d._id}> {d._id}, {d.Disease_1} </li>
             );
@@ -97,8 +177,7 @@ export default class ResearchRequest extends Component {
                         Below provides a summary of data available for research by disease type
                     </h2>
                 <BootstrapTable keyField='_id' data={ diseaseSummary } columns={ columns } />
-               
-                <Card>
+                    <Card>
                     <Card.Header>Research Request...</Card.Header>
                     <Card.Body>
                         <Card.Text>

@@ -38,6 +38,7 @@
     "react-bootstrap": "^1.0.0-beta.12",
     "react-bootstrap-table-next": "^3.2.1",
     "react-dom": "^16.9.0",
+    "react-google-charts": "^3.0.15",
     "react-native-web": "^0.11.7",
     "react-navigation-hooks": "^1.0.3",
     "react-router-dom": "^5.0.1",
