@@ -9,6 +9,7 @@ import DataLogin from './screens/DataLogin';
 import ResearchRequest from './screens/ResearchRequest';
 import About from './screens/About';
 import Register from './screens/Register';
+import Research from './screens/Research';
 import NoMatch from './screens/NoMatch'
 
 import { Layout } from './components/Layout'
@@ -30,6 +31,7 @@ function App() {
           <Route exact path="/researchRequest" component={ResearchRequest} />
           <Route exact path="/about" component={About} />
           <Route exact path="/datalogin" component={DataLogin} />
+          <Route exact path="/research" components={Research} />
           <Route component={NoMatch} />
         </Switch>
       </Router>

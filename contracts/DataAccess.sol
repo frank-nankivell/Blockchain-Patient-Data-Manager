@@ -86,7 +86,7 @@ contract DataAccess {
 
         public returns(uint index)
         {
-            if(validateData(dataAddress)) {revert();}
+            if(validateData(dataAddress)) revert();
         datastores[dataAddress].ownerName = _ownerName;
         datastores[dataAddress].institution = _institution;
         datastores[dataAddress].bgChainToken = _bgChainToken;
@@ -118,7 +118,7 @@ contract DataAccess {
         string projectSummary,
         uint index)
     {
-        if(!validateData(dataAddress)) {revert();} 
+        if(!validateData(dataAddress)) revert(); 
         return(
             datastores[dataAddress].ownerName,
             datastores[dataAddress].institution,
@@ -134,7 +134,7 @@ contract DataAccess {
         public
         returns(bool success)
         {
-            if(!validateData(_dataAddress)) {revert();}
+            if(!validateData(_dataAddress)) revert();
             datastores[_dataAddress].dateOfAccess = _dateOfAccess;
             datastores[_dataAddress].projectSummary = _projectSummary;
             datastores[_dataAddress].bgChainToken = _bgChainToken;
@@ -150,7 +150,7 @@ contract DataAccess {
         }
 
     // funtion to update Data owner - not sure of use case? //
-      function getDataCount()
+    function getDataCount()
     public
     constant
     returns(uint count)

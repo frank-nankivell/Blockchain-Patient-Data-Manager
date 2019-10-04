@@ -22,11 +22,10 @@ import {
 } from 'react-bootstrap';
 
 import Explanation from '../components/Explanation';
-import TruffleContract from 'truffle-contract'
-const contractAddress ='0x8a4A12479486A427109e964e90CaEB5798C13A01';
 import BootstrapTable from 'react-bootstrap-table-next';
 
 import DataAccess from '../../build/contracts/DataAccess.json'
+import RegisterContract from '../../build/contracts/Register.json'
 import getWeb3 from '../utils/getWeb3';
 
 const columns = [{
@@ -102,12 +101,15 @@ export default class Register extends Component {
             dataAccess: undefined,
             account: null,
             web3: null,
+            userName: null,
             data: [],
             recentData: [],
             users: [],
             projectList: [],
         };
         this._handleChange = this._handleChange.bind(this)
+        this._getUserName = this._getUserName.bind(this)
+        this._
       //  this._registerProject = this._registerProject.bind(this)
 
     }
@@ -119,18 +121,27 @@ export default class Register extends Component {
         // Use web3 to get the user's accounts.
         const accounts = await web3.eth.getAccounts();
     
-        // Get the contract instance.
+        // connect dataAccess instance
         const networkId = await web3.eth.net.getId();
             const deployedNetwork = DataAccess.networks[networkId];
             const dataAccessInstance = new web3.eth.Contract(
               DataAccess.abi,
               deployedNetwork && deployedNetwork.address,
             );
-    
+        // deploy register contract
+        const net2 = await web3.eth.net.getId();
+         const deployedRegister = RegisterContract.networks[net2];
+          const registerInstance = new web3.eth.Contract(
+              RegisterContract.abi,
+              deployedRegister && deployedRegister.address,
+            );
+        
         // Set web3, accounts, and contract to the state, and then proceed with an
         // example of interacting with the contract's methods.
         this.setState({ dataAccess: dataAccessInstance, web3: web3, account: accounts[0]})
-      //  this.timer = setInterval(() => this._getExistingData(), 5000);
+        this.setState({register: registerInstance})
+        const val = this._getUserName()
+        const testRegister = this._checkRegister()
     
       } catch (error) {
         // Catch any errors for any of the above operations.
@@ -138,6 +149,35 @@ export default class Register extends Component {
           `Failed to load web3, accounts, or contract. You need to install MetaMask to authenticate and login`
         );
         console.log(error);
+      }
+    };
+
+    async _checkRegister() {
+      let test = 123;
+      let input = await this.state.register.methods.newEntity(this.state.account,test)
+
+      console.log('bool', input)
+      
+      let data = await this.state.register.methods.getEntity(this.state.account)
+      
+      console.log('data', data)
+      
+    }
+
+    async _getUserName() {
+      let val = await this.state.dataAccess.methods.enroll()
+      console.log('enrolled,', val)
+
+      let result = await this.state.dataAccess.methods.getData(this.state.account)
+      console.log('result',result.arguments)
+      let username = result.arguments[1];
+
+      if(username==undefined || username==null) {
+          this.setState({userName:'Not yet set, please register'})
+          console.log('username not set')
+      } else {
+        this.setState({userName: username})
+        console.log('username is ', username)
       }
     };
 
@@ -190,8 +230,6 @@ export default class Register extends Component {
 
 
       let result = this.state.dataAccess.methods.insertDataLocation(this.state.account,this.state.name,this.state.email,this.state.token,date,time)
-      
-      //
      
       const array = [];
       const accountID = "accountID";
@@ -209,6 +247,7 @@ export default class Register extends Component {
       var a = JSON.stringify(array)
       this.setState({transformedData: a})
       this.setState({...this.state, formStatus: true});
+      this._getUserName()
       }
     }
       
@@ -257,7 +296,7 @@ export default class Register extends Component {
   
 
     render() {
-        const {formStatus, web3, users, account, projectList, recentData,transformedData, untransformedArray}= this.state;
+        const {formStatus, web3, users, account, projectList, recentData,transformedData, untransformedArray, userName}= this.state;
         const projects = ['Project 1','example'];
         if(!web3) {
           return<div>Loading Login Details via Smart Contract...
@@ -273,7 +312,7 @@ export default class Register extends Component {
                         <Explanation></Explanation>
                         </Col>
                         <Col>
-                         <h5>You are logged in with User ID<Badge variant="secondary">{account}</Badge></h5> 
+                         <h5>You are logged in with User ID <Badge variant="secondary">{account}</Badge> and Username: {userName}</h5> 
                         </Col>
                       </Row>
                     </Container>
