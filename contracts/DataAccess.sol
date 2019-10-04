@@ -7,10 +7,10 @@ contract DataAccess {
     // it represents a single usersData
     struct DataLocation {
         string ownerName;
-        string ownerAccount;
+        string institution;
         string bgChainToken;
         string dateOfAccess;
-        string timeOfAccess;
+        string projectSummary;
         uint accessCount;
         uint index;
     }
@@ -39,23 +39,22 @@ contract DataAccess {
     event LogNewData   (
         address indexed dataAddress, 
         string ownerName,
-        string ownerAccount,
+        string institution,
         string bgChainToken,
         string dateOfAccess,
-        string timeOfAccess,
+        string projectSummary,
        // uint accessCount,
         uint index);
-
 
 
     // event for new updated data  location 
     event LogUpdateData   (
         address indexed dataAddress,
         string ownerName,
-        string ownerAccount,
+        string institution,
         string bgChainToken,
         string dateOfAccess,
-        string timeOfAccess,
+        string projectsSummary,
      //   uint accessCount,
         uint index);
     
@@ -80,29 +79,28 @@ contract DataAccess {
     function insertDataLocation (
         address dataAddress,
         string _ownerName,
-        string _ownerAccount,
+        string _institution,
         string _bgChainToken,
         string _dateOfAccess,
-        string _timeOfAccess)
-
+        string _projectSummary)
 
         public returns(uint index)
         {
             if(validateData(dataAddress)) {revert();}
         datastores[dataAddress].ownerName = _ownerName;
-        datastores[dataAddress].ownerAccount = _ownerAccount;
+        datastores[dataAddress].institution = _institution;
         datastores[dataAddress].bgChainToken = _bgChainToken;
         datastores[dataAddress].dateOfAccess = _dateOfAccess;
-        datastores[dataAddress].timeOfAccess = _timeOfAccess;
+        datastores[dataAddress].projectSummary = _projectSummary;
         datastores[dataAddress].accessCount=1;
         datastores[dataAddress].index = userIndex.push(dataAddress)-1;
         LogNewData(
             dataAddress,  
             _ownerName,
-            _ownerAccount,
+            _institution,
             _bgChainToken,
             _dateOfAccess,
-            _timeOfAccess,
+            _projectSummary,
             datastores[dataAddress].index);
             return userIndex.length-1;
         }
@@ -114,39 +112,39 @@ contract DataAccess {
         constant
         returns(
         string ownerName,
-        string ownerAccount,
+        string institution,
         string bgChainToken,
         string dateOfAccess,
-        string timeOfAccess,
+        string projectSummary,
         uint index)
     {
         if(!validateData(dataAddress)) {revert();} 
         return(
             datastores[dataAddress].ownerName,
-            datastores[dataAddress].ownerAccount,
+            datastores[dataAddress].institution,
             datastores[dataAddress].bgChainToken,
             datastores[dataAddress].dateOfAccess,
-            datastores[dataAddress].timeOfAccess,
+            datastores[dataAddress].projectSummary,
             datastores[dataAddress].index);
     }
 
 
     // Function updates data location
-    function updateDataLocation(address _dataAddress, string _dateOfAccess, string _timeOfAccess,  string _bgChainToken) 
+    function updateDataLocation(address _dataAddress, string _dateOfAccess, string _projectSummary,  string _bgChainToken) 
         public
         returns(bool success)
         {
             if(!validateData(_dataAddress)) {revert();}
             datastores[_dataAddress].dateOfAccess = _dateOfAccess;
-            datastores[_dataAddress].timeOfAccess = _timeOfAccess;
+            datastores[_dataAddress].projectSummary = _projectSummary;
             datastores[_dataAddress].bgChainToken = _bgChainToken;
             LogUpdateData(
                 _dataAddress,
                 datastores[_dataAddress].ownerName,
+                datastores[_dataAddress].institution,
                 _bgChainToken,
-                datastores[_dataAddress].ownerAccount,
                 _dateOfAccess,
-                _timeOfAccess,
+                _projectSummary,
                 datastores[_dataAddress].index);
                 return true;
         }

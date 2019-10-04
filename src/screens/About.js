@@ -2,12 +2,14 @@ import React, {Component} from 'react'
 import {
     Container,
     Row,
+    Col,
     Tabs,
     Tab,
+    Image,
 } from 'react-bootstrap';
 
 import styled from 'styled-components';
-
+import design from '../assets/Picture1.png'
 const Styles = styled.div`
     h2 {
         color:#5E99C9
@@ -52,15 +54,26 @@ render() {
         </Row>
       </Tab>
       <Tab eventKey="blockckchain" title="The Blockchain">
+          <Row>  
             <p>The application has been built through using an open blockchain concept where users are able
                 to login and store credentials with a private key, normally handled via metamask. Users then use an
                 encrypted system token stored on the blockchain which is then able to used to complete a tranfer of patients records.
             </p>
+            </Row>
+            <Row>
+                <Col>
+                </Col>
+                <Col> 
+                    <Image src = {design} rounded style={{ width: '30rem' }} />
+                </Col>
+                <Col>
+                </Col>
+            </Row>
       </Tab>
       <Tab eventKey="researcher" title="The Researcher">
         <p> Reseachers (like yourselves) can now access this application and make researh requests to get an understanding of
             what data is available. This data can then be requested and tranferred for analysis if approved by the end user owner.
-                </p>
+        </p>
       </Tab>
     </Tabs>
         </div>

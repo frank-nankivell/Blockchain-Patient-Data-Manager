@@ -4,6 +4,7 @@ import {blue1,lighterWhite} from '../constants/Colors';
 import {
   Form, 
   Badge,
+  Spinner,
   FormGroup,
   FormControl,
   Button, 
@@ -16,7 +17,6 @@ import {
   Grid,
   HelpBlock,
   Row,
-  BootstrapTable,
   TableHeaderColumn,
 
 } from 'react-bootstrap';
@@ -24,10 +24,50 @@ import {
 import Explanation from '../components/Explanation';
 import TruffleContract from 'truffle-contract'
 const contractAddress ='0x8a4A12479486A427109e964e90CaEB5798C13A01';
+import BootstrapTable from 'react-bootstrap-table-next';
 
 import DataAccess from '../../build/contracts/DataAccess.json'
 import getWeb3 from '../utils/getWeb3';
 
+const columns = [{
+  dataField: '_id',
+  text: 'User ID',
+  sort: true
+}, {
+  dataField: 'dateOfAccess',
+  text: 'Date Created'
+},
+{
+  dataField: 'timeOfAccess',
+  text: 'Time Created'
+},
+{
+  dataField: 'projectSummary',
+  text: 'Project Summary'
+}];
+
+const secondTable = [{
+  dataField: "accountID",
+  text: 'User ID',
+  sort: true
+}, 
+{
+  dataField: "name",
+  text: 'UserName'
+},
+
+{
+  dataField: "date",
+  text: 'Date Created'
+},
+{
+  dataField: "time",
+  text: 'Time Created'
+},
+{
+  dataField: 'projectSummary',
+  text: 'Project Summary'
+}];
 
 
 const Styles = styled.div`
@@ -62,12 +102,13 @@ export default class Register extends Component {
             dataAccess: undefined,
             account: null,
             web3: null,
-            etherscanLink: "https://rinkeby.etherscan.io",
             data: [],
+            recentData: [],
             users: [],
+            projectList: [],
         };
         this._handleChange = this._handleChange.bind(this)
-        this._registerProject = this._registerProject.bind(this)
+      //  this._registerProject = this._registerProject.bind(this)
 
     }
 
@@ -89,7 +130,7 @@ export default class Register extends Component {
         // Set web3, accounts, and contract to the state, and then proceed with an
         // example of interacting with the contract's methods.
         this.setState({ dataAccess: dataAccessInstance, web3: web3, account: accounts[0]})
-        //this.addEventListener.bind(this)
+      //  this.timer = setInterval(() => this._getExistingData(), 5000);
     
       } catch (error) {
         // Catch any errors for any of the above operations.
@@ -116,9 +157,9 @@ export default class Register extends Component {
             this.setState({"email": event.target.value})
             console.log('email is', event.target.value)
             break;
-        case "password":
-            this.setState({"password": event.target.value})
-            console.log('password is', event.target.value)
+        case "projectSummary":
+            this.setState({"projectSummary": event.target.value})
+            console.log('projectSummary is', event.target.value)
             break;
         default:
             break;
@@ -147,13 +188,30 @@ export default class Register extends Component {
       console.log("name: ",this.state.name)
       console.log("email: ",this.state.email)
 
-      let result = await this.state.dataAccess.methods.insertDataLocation(this.state.account,this.state.name,this.state.email,this.state.token,date,time)
+
+      let result = this.state.dataAccess.methods.insertDataLocation(this.state.account,this.state.name,this.state.email,this.state.token,date,time)
+      
+      //
+     
+      const array = [];
+      const accountID = "accountID";
+      const name = "name";
+      const email = "email";
+      const Arrtime = "time";
+      const Arrdate = "date";
+
+      array.push({[accountID]: (result.arguments[0]),[name]:(result.arguments[1]),[Arrtime]:(result.arguments[5]),[Arrdate]:(result.arguments[4]) })  
+     var jsonObj = {};
+      //this._getExistingData(this)
+      console.log('result', array)
+      this.setState({untransformedArray: array[0]})
+      
+      var a = JSON.stringify(array)
+      this.setState({transformedData: a})
       this.setState({...this.state, formStatus: true});
-      this.setState({result: result})
-      this.addEventListener(this)
-      console.log('result', this.state.result)
       }
     }
+      
 
 
     _getToken = async (name) => {
@@ -169,13 +227,24 @@ export default class Register extends Component {
   }
  
   addEventListener(component) {
-    this.state.dataAccess.events.LogNewData({fromBlock: 0, toBlock: 'latest'})
+    this.state.dataAccess.getData({fromBlock: 0, toBlock: 'latest'})
     .on('data', function(event){
       console.log(event); // same results as the optional callback above
       var newUserArray = component.state.users.slice()
       newUserArray.push(event.returnValues)
       component.setState({ users: newUserArray })
       console.log('users set already are',newUserArray)
+    })
+    .on('error', console.error);
+  }
+
+  _getExistingData = async () => {
+    console.log('getting existing data');
+    this.state.dataAccess.methods.getData(this.state.account)
+    .on('data', function(researchProjects){
+      console.log(researchProjects); // same results as the optional callback above
+      component.setState({ projectList: researchProjects })
+      console.log('users set already are', newUserArray)
     })
     .on('error', console.error);
   }
@@ -188,10 +257,12 @@ export default class Register extends Component {
   
 
     render() {
-        const {formStatus, web3, users, account}= this.state;
+        const {formStatus, web3, users, account, projectList, recentData,transformedData, untransformedArray}= this.state;
         const projects = ['Project 1','example'];
         if(!web3) {
-          return<div>Loading Login Details via Smart Contract...</div>
+          return<div>Loading Login Details via Smart Contract...
+            <Spinner animation="border" variant="primary" />
+          </div>
         }
         if(web3 && !formStatus) {
             return(
@@ -209,10 +280,15 @@ export default class Register extends Component {
                     <h3>
                       You have the below number of projects registered on the blockchain ready for research
                     </h3>
-                      {projects}
-                  <h5>
-                    To Register your project and interest to research enter the form below
-                  </h5>
+                    
+                    <BootstrapTable keyField='ownerAccount' data={ projectList } columns={ columns } />
+                    <Row>
+                      <Col> </Col>
+                    </Row>
+                    <Row>
+                      <Col> </Col>
+                    </Row>
+                    <p>To Register a new project and interest to research enter the form below</p>
                   <Form onSubmit={this._registerProject}>
                     <Form.Group controlId="name.signUpInput">
                       <Form.Label>User ID</Form.Label>
@@ -258,56 +334,14 @@ export default class Register extends Component {
                   </Form>
                   </div>
             )} else {
-
                 return(
                   <div>
-                        <h5>
-                            To Register your project and interest to research enter the form below
-                        </h5>
-                    <Form onSubmit={this._pushForm}>
-                    <Form.Group controlId="name.signUpInput">
-                      <Form.Label>Enter your name here</Form.Label>
-                      <Form.Control 
-                          type="text" 
-                          name="name"
-                          placeholder="your name"
-                          onChange={this._handleChange.bind(this)}
-                            />
-                    </Form.Group>
-                    <Form.Group controlId="email.signUpInput">
-                      <Form.Label>Enter your email address</Form.Label>
-                      <Form.Control 
-                        type="email" 
-                        name="email"
-                        placeholder="name@example.com"
-                        onChange={this._handleChange.bind(this)} />
-                    </Form.Group>
-                    <Form.Group controlId="password.signUpInput">
-                      <Form.Label>Please enter your password</Form.Label>
-                      <Form.Control 
-                        type="text" 
-                        name="password"
-                        placeholder="examplepassword"
-                        onChange={this._handleChange.bind(this)} />
-                    </Form.Group>
-                    <Form.Group controlId="passwordRepeat.signUpInput">
-                      <Form.Label>Repeat your password</Form.Label>
-                      <Form.Control 
-                        type="text"
-                        name="password2"
-                        placeholder="examplepassword"
-                        onChange={this._handleChange.bind(this)} />
-                    </Form.Group>
-                    <Button 
-                        type="submit" 
-                        variant="outline-secondary"
-                        onClick={this._pushForm.bind(this)}>
-                        Sign Up
-                    </Button>
-                  </Form>
-
-                  <p> Users JSON is here: {users}</p>
+                  
+                    <h3>Your Project is now <Badge variant="secondary">Registered</Badge></h3> 
                     
+
+
+  
                   </div>
                 )
              
