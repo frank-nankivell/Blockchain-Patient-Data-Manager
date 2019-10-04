@@ -13,10 +13,11 @@ contract Register {
     return entityStructs[entityAddress].isEntity;
   }
 
-  function newEntity(address entityAddress, uint entityData) public returns(bool success) {
+  function newEntity(address entityAddress, uint _entityData) public returns(bool success) {
     if(isEntity(entityAddress)) revert(); 
-    entityStructs[entityAddress].entityData = entityData;
+    entityStructs[entityAddress].entityData = _entityData;
     entityStructs[entityAddress].isEntity = true;
+    EntityCreated(entityAddress, _entityData);
     return true;
   }
 
@@ -36,4 +37,10 @@ contract Register {
     if(!isEntity(entityAddress)) revert();
     return entityStructs[entityAddress].entityData = entityData;
   }
+  /**
+  * Events
+  */
+  event EntityCreated(address entityAddress, uint entityData);
+
+
 }

@@ -1225,7 +1225,7 @@
                       "name": "msg",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 541,
+                      "referencedDeclaration": 552,
                       "src": "1568:3:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_magic_message",
@@ -1809,7 +1809,7 @@
                         "name": "revert",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 545,
+                        "referencedDeclaration": 556,
                         "src": "2265:6:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_revert_pure$__$returns$__$",
@@ -3121,7 +3121,7 @@
                         "name": "revert",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 545,
+                        "referencedDeclaration": 556,
                         "src": "3321:6:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_revert_pure$__$returns$__$",
@@ -3804,7 +3804,7 @@
                         "name": "revert",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 545,
+                        "referencedDeclaration": 556,
                         "src": "3909:6:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_revert_pure$__$returns$__$",
@@ -5715,7 +5715,7 @@
                       "name": "msg",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 541,
+                      "referencedDeclaration": 552,
                       "src": "1568:3:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_magic_message",
@@ -6299,7 +6299,7 @@
                         "name": "revert",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 545,
+                        "referencedDeclaration": 556,
                         "src": "2265:6:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_revert_pure$__$returns$__$",
@@ -7611,7 +7611,7 @@
                         "name": "revert",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 545,
+                        "referencedDeclaration": 556,
                         "src": "3321:6:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_revert_pure$__$returns$__$",
@@ -8294,7 +8294,7 @@
                         "name": "revert",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 545,
+                        "referencedDeclaration": 556,
                         "src": "3909:6:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_revert_pure$__$returns$__$",
@@ -9301,8 +9301,8 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0xC2621100061bBf54F6392C2Cf7F6220Df1e36684",
-      "transactionHash": "0xdc300187ad21f8be57d74ef044a56c5650c300fd2498ef9d38c5e68dec71816b"
+      "address": "0x211Fa72Ad2ad7F513F506A37162Bab0a8040663E",
+      "transactionHash": "0x689b337d33050b25d40be6b18657e794a19bf2f3780a3c1e71939b752f234316"
     },
     "1569352824133": {
       "events": {},
@@ -9312,7 +9312,7 @@
     }
   },
   "schemaVersion": "3.0.10",
-  "updatedAt": "2019-10-04T15:03:40.555Z",
+  "updatedAt": "2019-10-04T15:45:17.963Z",
   "devdoc": {
     "methods": {}
   },

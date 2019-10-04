@@ -109,7 +109,7 @@ export default class Register extends Component {
         };
         this._handleChange = this._handleChange.bind(this)
         this._getUserName = this._getUserName.bind(this)
-        this._
+        this._listentest = this._listentest.bind(this)
       //  this._registerProject = this._registerProject.bind(this)
 
     }
@@ -142,6 +142,8 @@ export default class Register extends Component {
         this.setState({register: registerInstance})
         const val = this._getUserName()
         const testRegister = this._checkRegister()
+        this.timer = setInterval(() => this._checkRegister(), 5000);
+        const a = this._listentest()
     
       } catch (error) {
         // Catch any errors for any of the above operations.
@@ -161,7 +163,21 @@ export default class Register extends Component {
       let data = await this.state.register.methods.getEntity(this.state.account)
       
       console.log('data', data)
+      this._listentest()
       
+    }
+
+
+     _listentest(component) {
+      this.state.register.events.EntityCreated({fromBlock: 0, toBlock: 'latest'})
+      .on('entityData', function(event){
+        console.log(event); // same results as the optional callback above
+        var newData = component.state.Entity.slice()
+        newData.push(event.returnValues)
+        component.setState({ Entity: newData })
+      })
+      .on('error', console.error);
+      console.log(this.state.Entity,'Entity');
     }
 
     async _getUserName() {
