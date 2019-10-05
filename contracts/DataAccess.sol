@@ -84,7 +84,7 @@ contract DataAccess {
         string _dateOfAccess,
         string _projectSummary)
 
-        public returns(uint index)
+        public returns(bool success)
         {
             if(validateData(dataAddress)) revert();
         datastores[dataAddress].ownerName = _ownerName;
@@ -102,7 +102,7 @@ contract DataAccess {
             _dateOfAccess,
             _projectSummary,
             datastores[dataAddress].index);
-            return userIndex.length-1;
+            return(true);
         }
 
 

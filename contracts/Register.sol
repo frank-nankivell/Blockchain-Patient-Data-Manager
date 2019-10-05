@@ -3,7 +3,7 @@ pragma solidity ^0.4.18;
 contract Register {
 
   struct EntityStruct {
-    uint entityData;
+    string entityData;
     bool isEntity;
   }
 
@@ -13,8 +13,12 @@ contract Register {
     return entityStructs[entityAddress].isEntity;
   }
 
-  function newEntity(address entityAddress, uint _entityData) public returns(bool success) {
+  function newEntity(
+          address entityAddress, 
+          string _entityData) 
+          public returns(bool success) {
     if(isEntity(entityAddress)) revert(); 
+    
     entityStructs[entityAddress].entityData = _entityData;
     entityStructs[entityAddress].isEntity = true;
     EntityCreated(entityAddress, _entityData);
@@ -27,20 +31,20 @@ contract Register {
     return true;
   }
 
-  function updateEntity(address entityAddress, uint entityData) public returns(bool success) {
+  function updateEntity(address entityAddress, string entityData) public returns(bool success) {
     if(!isEntity(entityAddress)) revert();
     entityStructs[entityAddress].entityData = entityData;
     return true;
   }
 
-  function getEntity(address entityAddress) public returns(uint entityData) {
+  function getEntity(address entityAddress) public returns(string entityData) {
     if(!isEntity(entityAddress)) revert();
     return entityStructs[entityAddress].entityData = entityData;
   }
   /**
   * Events
   */
-  event EntityCreated(address entityAddress, uint entityData);
+  event EntityCreated(address entityAddress, string entityData);
 
 
 }

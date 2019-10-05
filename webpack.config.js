@@ -8,7 +8,7 @@ module.exports = {
   entry: ['babel-polyfill',"./src/index.js"],
   output: { 
     path: path.join(__dirname, 'dist'),
-    filename:  '[name].[hash:8].js',
+    filename:  'main.js',
     sourceMapFilename: '[name].[hash:8].map',
   }, 
   devServer: {

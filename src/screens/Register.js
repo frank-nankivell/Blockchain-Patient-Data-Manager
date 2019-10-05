@@ -1,407 +1,276 @@
 import React, {Component} from 'react'
 import styled from 'styled-components'
-import {blue1,lighterWhite} from '../constants/Colors';
+
+// UI components
+import BootstrapTable from 'react-bootstrap-table-next';
 import {
-  Form, 
+  Form,
   Badge,
   Spinner,
   FormGroup,
   FormControl,
-  Button, 
+  Button,
   Container,
   Col,
   OverlayTrigger,
   Popover,
   Panel,
   Modal,
-  Grid,
-  HelpBlock,
   Row,
   TableHeaderColumn,
 
 } from 'react-bootstrap';
 
+// custom components and development
 import Explanation from '../components/Explanation';
-import BootstrapTable from 'react-bootstrap-table-next';
-
-import DataAccess from '../../build/contracts/DataAccess.json'
-import RegisterContract from '../../build/contracts/Register.json'
 import getWeb3 from '../utils/getWeb3';
 
-const columns = [{
-  dataField: '_id',
-  text: 'User ID',
-  sort: true
-}, {
-  dataField: 'dateOfAccess',
-  text: 'Date Created'
-},
-{
-  dataField: 'timeOfAccess',
-  text: 'Time Created'
-},
-{
-  dataField: 'projectSummary',
-  text: 'Project Summary'
-}];
-
-const secondTable = [{
-  dataField: "accountID",
-  text: 'User ID',
-  sort: true
-}, 
-{
-  dataField: "name",
-  text: 'UserName'
-},
-
-{
-  dataField: "date",
-  text: 'Date Created'
-},
-{
-  dataField: "time",
-  text: 'Time Created'
-},
-{
-  dataField: 'projectSummary',
-  text: 'Project Summary'
-}];
-
-
-const Styles = styled.div`
-    .Button {
-        color: ${blue1}
-    }
-    .Card {
-
-    }
-`;
-
-
-var API_url = "http://localhost:3000";
+// constants and utility data
+import {firstTablecolumns,
+        secondTableColumns} from '../utils/columns';
+const API_url = "http://localhost:3000";
 if (process.env.NODE_ENV === 'production') {
   API_url = 'enterProdURL';
 }
 
+// contract data
+import DataAccess from '../../build/contracts/DataAccess.json'
+import RegisterContract from '../../build/contracts/Register.json';
 
-
-// SPA 
-// First line provides button to see counts 
-// Button provides count by disease
-// Form then required 
-
+//  constructor and class definition
 export default class Register extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            isFetching: false,
-            formStatus: false,
-            login: false,
-            dataAccess: undefined,
-            account: null,
-            web3: null,
-            userName: null,
-            data: [],
-            recentData: [],
-            users: [],
-            projectList: [],
-        };
-        this._handleChange = this._handleChange.bind(this)
-        this._getUserName = this._getUserName.bind(this)
-        this._listentest = this._listentest.bind(this)
-      //  this._registerProject = this._registerProject.bind(this)
+  constructor(props) {
+      super(props)
+      this.state = {
+          formStatus: false,
+          existingProject: [],
+          dataAccess: undefined,
+          account: null,
+          web3: null,
+          userName: null,
+          data: [],
+          recentData: [],
+          users: [],
+          projectList: [],
+          count: '1',
+      };
+      this._handleChange = this._handleChange.bind(this)
+      this._validateData = this._validateData.bind(this)
+      this._getToken = this._getToken.bind(this)
+      this._registerProject = this._registerProject.bind(this);
+  };
 
+  //
+  componentDidMount = async () => {
+    try {
+      // Get network provider and web3 instance.
+      const web3 = await getWeb3();
+      // Use web3 to get the user's accounts.
+      const accounts = await web3.eth.getAccounts();
+
+      // connect dataAccess instance
+      const networkId = await web3.eth.net.getId();
+          const deployedNetwork = DataAccess.networks[networkId];
+          console.log('dataaccess network',DataAccess.networks[networkId])
+          const dataAccessInstance = new web3.eth.Contract(
+            DataAccess.abi,
+            deployedNetwork && deployedNetwork.address,
+          );
+   
+      // Set web3, accounts, and contract to the state, and then proceed with updating UI flag
+      this.setState({ dataAccess: dataAccessInstance, web3: web3, account: accounts[0]})
+
+      this._validateData();
+ 
+    } catch (error) {
+      // Catch any errors for any of the above operations.
+      alert(
+        `Failed to load web3, accounts, or contract. You need to install MetaMask to authenticate and login`
+      );
+      console.log(error);
     }
-
-    componentDidMount = async () => {
-      try {
-        // Get network provider and web3 instance.
-        const web3 = await getWeb3();
-        // Use web3 to get the user's accounts.
-        const accounts = await web3.eth.getAccounts();
-    
-        // connect dataAccess instance
-        const networkId = await web3.eth.net.getId();
-            const deployedNetwork = DataAccess.networks[networkId];
-            const dataAccessInstance = new web3.eth.Contract(
-              DataAccess.abi,
-              deployedNetwork && deployedNetwork.address,
-            );
-        // deploy register contract
-        const net2 = await web3.eth.net.getId();
-         const deployedRegister = RegisterContract.networks[net2];
-          const registerInstance = new web3.eth.Contract(
-              RegisterContract.abi,
-              deployedRegister && deployedRegister.address,
-            );
-        
-        // Set web3, accounts, and contract to the state, and then proceed with an
-        // example of interacting with the contract's methods.
-        this.setState({ dataAccess: dataAccessInstance, web3: web3, account: accounts[0]})
-        this.setState({register: registerInstance})
-        const val = this._getUserName()
-        const testRegister = this._checkRegister()
-        this.timer = setInterval(() => this._checkRegister(), 5000);
-        const a = this._listentest()
-    
-      } catch (error) {
-        // Catch any errors for any of the above operations.
-        alert(
-          `Failed to load web3, accounts, or contract. You need to install MetaMask to authenticate and login`
-        );
-        console.log(error);
-      }
-    };
-
-    async _checkRegister() {
-      let test = 123;
-      let input = await this.state.register.methods.newEntity(this.state.account,test)
-
-      console.log('bool', input)
-      
-      let data = await this.state.register.methods.getEntity(this.state.account)
-      
-      console.log('data', data)
-      this._listentest()
-      
-    }
+  };
 
 
-     _listentest(component) {
-      this.state.register.events.EntityCreated({fromBlock: 0, toBlock: 'latest'})
-      .on('entityData', function(event){
-        console.log(event); // same results as the optional callback above
-        var newData = component.state.Entity.slice()
-        newData.push(event.returnValues)
-        component.setState({ Entity: newData })
-      })
-      .on('error', console.error);
-      console.log(this.state.Entity,'Entity');
-    }
+  // function to validate whether 
+  //  user has recorded project previously 
+   _validateData() {
+    this.state.dataAccess.methods.getDataCount().call()
+    .then((result) => {
+      console.log("GetDataCount: " + result);
+      if(result == 0) {
+        console.log("Contract less than 1, No data stored");
+        this._getToken();
 
-    async _getUserName() {
-      let val = await this.state.dataAccess.methods.enroll()
-      console.log('enrolled,', val)
-
-      let result = await this.state.dataAccess.methods.getData(this.state.account)
-      console.log('result',result.arguments)
-      let username = result.arguments[1];
-
-      if(username==undefined || username==null) {
-          this.setState({userName:'Not yet set, please register'})
-          console.log('username not set')
       } else {
-        this.setState({userName: username})
-        console.log('username is ', username)
+        this.state.dataAccess.methods.getData(this.state.account).call()
+        .then((result) =>{
+          console.log("getData: " + result);
+          var a = JSON.stringify(result)
+          console.log('obkect',a)
+          var newProjectArray = this.state.project.slice()
+          newProjectArray.push(result.returnValues)
+          console.log('newProjectArray: ',newProjectArray)
+          this.setState({existingProject: newProjectArray})
+        })
+        .catch((err) => {
+          console.log("Error GetData: "+err)
+        });
       }
-    };
+  })
+  .catch(function(err) {
+      console.log("Error GetDataCount: "+err);
+  });
+};
 
-
-    _getSignUp = async () => {
-        this.setState({...this.state, formStatus: true});
-    };
-
-    _handleChange(event) {
-
+  // function to update state from form
+  _handleChange(event) {
     switch(event.target.name) {
         case "name":
             this.setState({"name": event.target.value})
-            console.log('name is', event.target.value)
+            //console.log('name is', event.target.value)
             break;
-        case "email":
-            this.setState({"email": event.target.value})
-            console.log('email is', event.target.value)
+        case "institution":
+            this.setState({"institution": event.target.value})
+            //console.log('email is', event.target.value)
             break;
         case "projectSummary":
             this.setState({"projectSummary": event.target.value})
-            console.log('projectSummary is', event.target.value)
+           // console.log('projectSummary is', event.target.value)
             break;
         default:
             break;
       }
     }
+    // function to get token to record on the chain
+      _getToken = async () => {
+        var QUERY = '/api/bigchain/makeKey'
+  
+        fetch(API_url + QUERY, {
+          method: 'post',
+          body: JSON.stringify('name')
+        })
+        .then(response => response.json())
+        .then(token => this.setState({...this.state, token: token}));
+    }
 
-     async _registerProject(event)
+
+    // function to register project on chain
+    async _registerProject(event)
     {
-      console.log('pushing data to chain')
-
-      const name  = this.state.name;
-      this._getToken(name)
-
       if (typeof this.state.dataAccess !== 'undefined' || typeof this.state.token !=='undefined') {
         event.preventDefault();
-
+      
+      console.log('pushing data to chain')
+      console.log('token: ',this.state.token)
       let today = new Date();
       let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-      let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
-      // visual checks for data
-      console.log("time: ",time)
-      console.log("date: ",date)
-      console.log("token: ",this.state.token)
-      console.log("acount: ",this.state.account)
-      console.log("name: ",this.state.name)
-      console.log("email: ",this.state.email)
-
-
-      let result = this.state.dataAccess.methods.insertDataLocation(this.state.account,this.state.name,this.state.email,this.state.token,date,time)
-     
-      const array = [];
-      const accountID = "accountID";
-      const name = "name";
-      const email = "email";
-      const Arrtime = "time";
-      const Arrdate = "date";
-
-      array.push({[accountID]: (result.arguments[0]),[name]:(result.arguments[1]),[Arrtime]:(result.arguments[5]),[Arrdate]:(result.arguments[4]) })  
-     var jsonObj = {};
-      //this._getExistingData(this)
-      console.log('result', array)
-      this.setState({untransformedArray: array[0]})
-      
-      var a = JSON.stringify(array)
-      this.setState({transformedData: a})
-      this.setState({...this.state, formStatus: true});
-      this._getUserName()
-      }
+      await this.state.dataAccess.methods.insertDataLocation(
+        this.state.account,
+        this.state.name,
+        this.state.institution,
+        this.state.token,
+        date,
+        this.state.projectSummary,
+        )
+      .send({ from: this.state.account})
+      .then(function (result) {
+        console.log("data access insertdataLocation callback: "+result);
+        })
+      .catch(function(error) {
+        console.log('Error insertdataLocation: '+error)
+      });
+    this.setState({...this.state, formStatus: true});
     }
-      
+  };
 
 
-    _getToken = async (name) => {
-      var QUERY = '/api/bigchain/makeKey'
 
-      fetch(API_url + QUERY, {
-        method: 'post',
-        body: JSON.stringify(name)
-      })
-      .then(response => response.json())
-      .then(token => this.setState({...this.state, token: token}));
-      console.log('token is',this.state.token)
-  }
- 
-  addEventListener(component) {
-    this.state.dataAccess.getData({fromBlock: 0, toBlock: 'latest'})
-    .on('data', function(event){
-      console.log(event); // same results as the optional callback above
-      var newUserArray = component.state.users.slice()
-      newUserArray.push(event.returnValues)
-      component.setState({ users: newUserArray })
-      console.log('users set already are',newUserArray)
-    })
-    .on('error', console.error);
-  }
-
-  _getExistingData = async () => {
-    console.log('getting existing data');
-    this.state.dataAccess.methods.getData(this.state.account)
-    .on('data', function(researchProjects){
-      console.log(researchProjects); // same results as the optional callback above
-      component.setState({ projectList: researchProjects })
-      console.log('users set already are', newUserArray)
-    })
-    .on('error', console.error);
-  }
-    
-
-    _login = async () => {
-        this.setState({...this.state, login: true});
+  render() {
+    const {formStatus, web3, account, projectList, userName, existingProject}= this.state;
+    if(!web3) {
+      return<div>Loading Login Details via Smart Contract...
+        <Spinner animation="border" variant="primary" />
+      </div>
     }
-
+    if(web3 && !formStatus) {
+        return(
+              <div>
+                <h2>existing projects</h2>
+                <Container>
+                  <Row>
+                    <Col>
+                    <Explanation></Explanation>
+                    </Col>
+                    <Col>
+                     <h5>You are logged in with User ID <Badge variant="secondary">{account}</Badge> and Username: {userName}</h5>
+                    </Col>
+                  </Row>
+                </Container>
+                <h3>
+                  You have the below number of projects registered on the blockchain ready for research
+                </h3>
   
-
-    render() {
-        const {formStatus, web3, users, account, projectList, recentData,transformedData, untransformedArray, userName}= this.state;
-        const projects = ['Project 1','example'];
-        if(!web3) {
-          return<div>Loading Login Details via Smart Contract...
-            <Spinner animation="border" variant="primary" />
-          </div>
-        }
-        if(web3 && !formStatus) {
-            return(
-                  <div>
-                    <Container>
-                      <Row>
-                        <Col>
-                        <Explanation></Explanation>
-                        </Col>
-                        <Col>
-                         <h5>You are logged in with User ID <Badge variant="secondary">{account}</Badge> and Username: {userName}</h5> 
-                        </Col>
-                      </Row>
-                    </Container>
-                    <h3>
-                      You have the below number of projects registered on the blockchain ready for research
-                    </h3>
-                    
-                    <BootstrapTable keyField='ownerAccount' data={ projectList } columns={ columns } />
-                    <Row>
-                      <Col> </Col>
-                    </Row>
-                    <Row>
-                      <Col> </Col>
-                    </Row>
-                    <p>To Register a new project and interest to research enter the form below</p>
-                  <Form onSubmit={this._registerProject}>
-                    <Form.Group controlId="name.signUpInput">
-                      <Form.Label>User ID</Form.Label>
-                        <Form.Control 
-                        type="text" 
-                        name="account"
-                        value={account}
-                        placeholder="your name"
-                        onChange={this._handleChange.bind(this)}
-                        />
-                  </Form.Group>
-                  <Form.Group controlId="account.signUpInput">
-                    <Form.Label>Enter your Name here</Form.Label>
-                          <Form.Control 
-                          type="text" 
-                          name="name"
-                          placeholder="your name"
-                          onChange={this._handleChange.bind(this)}
-                          />
-                    </Form.Group>
-                    <Form.Group controlId="email.signUpInput">
-                    <Form.Label>Enter your email address</Form.Label>
-                    <Form.Control 
-                      type="email" 
-                      name="email"
-                      placeholder="name@example.com"
-                      onChange={this._handleChange.bind(this)} />
-                      </Form.Group>
-                  <Form.Group controlId="password.signUpInput">
-                  <Form.Label>Project Summary</Form.Label>
-                  <Form.Control 
-                  type="text" 
-                  name="projectSummary"
-                  placeholder="a great project.."
+                <BootstrapTable keyField='ownerAccount' data={ existingProject } columns={ firstTablecolumns } />
+                <Row>
+                  <Col> </Col>
+                </Row>
+                <Row>
+                  <Col> </Col>
+                </Row>
+                <p>To Register a new project and interest to research enter the form below</p>
+              <Form onSubmit={this._registerProject}>
+                <Form.Group controlId="name.signUpInput">
+                  <Form.Label>User ID</Form.Label>
+                    <Form.Control
+                    type="text"
+                    name="account"
+                    value={account}
+                    placeholder="your name"
+                    onChange={this._handleChange.bind(this)}
+                    />
+              </Form.Group>
+              <Form.Group controlId="account.signUpInput">
+                <Form.Label>Enter your Name here</Form.Label>
+                      <Form.Control
+                      type="text"
+                      name="name"
+                      placeholder="your name"
+                      onChange={this._handleChange.bind(this)}
+                      />
+                </Form.Group>
+                <Form.Group controlId="institution.signUpInput">
+                <Form.Label>Enter your Institutions name below (University)</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="institution"
+                  placeholder="University of somewhere.."
                   onChange={this._handleChange.bind(this)} />
                   </Form.Group>
-                    <Button 
-                      type="submit" 
-                      variant="outline-secondary"
-                      onClick={this._registerProject.bind(this)}>
-                      Register 
-                    </Button>
-                  </Form>
-                  </div>
-            )} else {
-                return(
-                  <div>
-                  
-                    <h3>Your Project is now <Badge variant="secondary">Registered</Badge></h3> 
-                    
-
-
-  
-                  </div>
-                )
-             
-        };
-        };
+              <Form.Group controlId="projectSummary.signUpInput">
+              <Form.Label>Project Summary</Form.Label>
+              <Form.Control
+              type="text"
+              name="projectSummary"
+              placeholder="a great project.."
+              onChange={this._handleChange.bind(this)} />
+              </Form.Group>
+                <Button
+                  type="submit"
+                  variant="outline-secondary"
+                  onClick={this._registerProject.bind(this)}>
+                  Register
+                </Button>
+              </Form>
+              </div>
+        )} else {
+            return(
+              <div>
+                <h3>Your Project is now <Badge variant="secondary">Registered</Badge></h3>
+                <p>{projectList}</p>
+              </div>
+            )};
     };
 
-    
+}
