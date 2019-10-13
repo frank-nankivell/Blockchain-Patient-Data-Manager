@@ -65,6 +65,7 @@ app.get('/api/assets/searchDisease/:_id',ctrlData.getDisease_ID_fromSummary);
 
 
 app.post('/api/bigchain/makeKey',ctrlBigChain.createUserKey);
+app.post('/api/bigchain/testTransfer',ctrlBigChain.testTransfer);
 app.post('/api/bigchain/transfer',ctrlBigChain.transferAsset);
 
 //app.get('/api/assets/searchResponse/:_id',ctrlhealthData.getResponse_ID);

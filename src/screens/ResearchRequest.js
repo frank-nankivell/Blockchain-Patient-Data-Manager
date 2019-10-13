@@ -6,6 +6,9 @@ import {blue1,lighterWhite} from '../constants/Colors';
 import { withRouter } from 'react-router-dom';
 import Chart from "react-google-charts";
 
+import getWeb3 from '../utils/getWeb3';
+import DataAccess from '../../build/contracts/DataAccess.json'
+
 import BootstrapTable from 'react-bootstrap-table-next';
 const pieOptions = {
     title: "",
@@ -78,18 +81,51 @@ export default class ResearchRequest extends Component {
         this.state = {
             isFetching: false,
             formStatus: false,
-            data: []
+            data: [],
+            existingProject: []
         };
+      this._loadBlockchain = this._loadBlockchain.bind(this)
     }
     componentDidMount() {
         this._getData();
-        this.timer = setInterval(() => this._getData(), 5000);
+        this.timer = setInterval(() => this._getData(), 20000);
         this._convertData();
-        this.timer = setInterval(() => this._convertData(), 5000);
+        //this.timer = setInterval(() => this._convertData(), 5000);
+        this._loadBlockchain()
 
-        }; 
+        };
 
-    _getData() {
+      _loadBlockchain = async() => {
+        try {
+          // Get network provider and web3 instance.
+          const web3 = await getWeb3();
+          // Use web3 to get the user's accounts.
+          const accounts = await web3.eth.getAccounts();
+    
+          // connect dataAccess instance
+          const networkId = await web3.eth.net.getId();
+              const deployedNetwork = DataAccess.networks[networkId];
+              console.log('dataaccess network',DataAccess.networks[networkId])
+              const dataAccessInstance = new web3.eth.Contract(
+                DataAccess.abi,
+                deployedNetwork && deployedNetwork.address,
+              );
+       
+          // Set web3, accounts, and contract to the state, and then proceed with updating UI flag
+          this.setState({ dataAccess: dataAccessInstance, web3: web3, account: accounts[0]})
+    
+          this._validateData();
+     
+        } catch (error) {
+          // Catch any errors for any of the above operations.
+          alert(
+            `Failed to load web3, accounts, or contract. You need to install MetaMask to authenticate and login`
+          );
+          console.log(error);
+        }
+      };
+
+        _getData() {
             console.log('making front end request for disease summary...')
             var url = '/api/assets/summaryDisease/';
             const request = API_url + url;
@@ -107,7 +143,7 @@ export default class ResearchRequest extends Component {
                     console.log(error);
                     this.setState({...this.state, isFetching: true});
             });
-    };
+          };
 
     _convertData = async () => {
         console.log('Chart request')
@@ -131,7 +167,31 @@ export default class ResearchRequest extends Component {
                 console.log(error);
                 //this.setState({...this.state, isFetching: true});
         });
-};
+      };
+
+      _validateData() {
+        this.state.dataAccess.methods.getDataCount().call()
+        .then((result) => {
+          console.log("GetDataCount: " + result);
+          if(result == 0) {
+            console.log("Contract less than 1, No data stored");    
+          } else {
+            this.state.dataAccess.methods.getData(this.state.account).call()
+            .then((result) =>{
+              console.log("getData: " + result);
+              var a = JSON.stringify(result)
+              console.log('object: ',a)
+              this.setState({existingProject: result})
+            })
+            .catch((err) => {
+              console.log("Error GetData: "+err)
+            });
+          }
+      })
+      .catch(function(err) {
+          console.log("Error GetDataCount: "+err);
+      });
+    };
 
 
     _getForm = async () => {
@@ -166,7 +226,7 @@ export default class ResearchRequest extends Component {
 
     render() {
         const diseaseSummary = this.state.data;
-        const {formStatus, chartData,dataLoadingStatus}= this.state;
+        const {formStatus, chartData,dataLoadingStatus, existingProject}= this.state;
         const listItems = diseaseSummary.map((d) => 
             <li key={d._id}> {d._id}, {d.Disease_1} </li>
             );
@@ -198,12 +258,20 @@ export default class ResearchRequest extends Component {
                         </h2>
                     <Form>
                     <Form.Group controlId="exampleForm.ControlInput1">
-                      <Form.Label>Enter your email address</Form.Label>
-                      <Form.Control type="email" placeholder="name@example.com" />
+                      <Form.Label>Your name</Form.Label>
+                      <Form.Control 
+                        type="text" 
+                        placeholder="My Name"
+                        readOnly='true'
+                        value={existingProject.ownerName} />
                     </Form.Group>
                     <Form.Group controlId="exampleForm.ControlInput1">
                       <Form.Label>Please enter your research institution</Form.Label>
-                      <Form.Control type="email" placeholder="My institution" />
+                      <Form.Control 
+                        type="text" 
+                        placeholder="My institution"
+                        readOnly='true'
+                        value={existingProject.institution} />
                     </Form.Group>
                     <Form.Group controlId="exampleForm.ControlSelect1">
                       <Form.Label>Select the type of disease you want to research upon</Form.Label>
@@ -226,7 +294,11 @@ export default class ResearchRequest extends Component {
                     </Form.Group>
                     <Form.Group controlId="exampleForm.ControlTextarea1">
                       <Form.Label>Provide a lay summary of your research project</Form.Label>
-                      <Form.Control as="textarea" rows="3" />
+                      <Form.Control 
+                      as="textarea" 
+                      rows="3" 
+                      readOnly='true'
+                      value={existingProject.projectSummary}/>
                     </Form.Group>
                     <Button 
                         variant="outline-secondary"

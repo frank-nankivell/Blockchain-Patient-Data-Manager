@@ -47,6 +47,7 @@ export default class Register extends Component {
           dataAccess: undefined,
           account: null,
           web3: null,
+          error: false,
           userName: null,
           data: [],
           recentData: [],
@@ -107,11 +108,11 @@ export default class Register extends Component {
         .then((result) =>{
           console.log("getData: " + result);
           var a = JSON.stringify(result)
-          console.log('obkect',a)
-          var newProjectArray = this.state.project.slice()
-          newProjectArray.push(result.returnValues)
-          console.log('newProjectArray: ',newProjectArray)
-          this.setState({existingProject: newProjectArray})
+          console.log('object: ',a)
+          var array =[]
+          array.push(result[0]);
+          console.log('array,',array)
+          this.setState({existingProject: array})
         })
         .catch((err) => {
           console.log("Error GetData: "+err)
@@ -120,6 +121,7 @@ export default class Register extends Component {
   })
   .catch(function(err) {
       console.log("Error GetDataCount: "+err);
+      this._getToken();
   });
 };
 
@@ -175,13 +177,16 @@ export default class Register extends Component {
         this.state.projectSummary,
         )
       .send({ from: this.state.account})
-      .then(function (result) {
-        console.log("data access insertdataLocation callback: "+result);
+      .then((result) => { 
+        console.log("data access insertdataLocation callback: "+ result);
+        this.setState({...this.state, formStatus: true});
+        this.setState({...this.state, data: result})
         })
-      .catch(function(error) {
-        console.log('Error insertdataLocation: '+error)
+        .catch((error) => { 
+        console.log('Error insertdataLocation: '+ error)
+        this.setState({...this.state, error: true});
       });
-    this.setState({...this.state, formStatus: true});
+    
     }
   };
 
@@ -189,6 +194,9 @@ export default class Register extends Component {
 
   render() {
     const {formStatus, web3, account, projectList, userName, existingProject}= this.state;
+   /* const items = existingProject.map((items, index) => 
+            <li key={index}> {items.ownerName}, {items.institution},{items.bgChainToken},{items.dateOfAccess},{items.projectSummary} </li>
+            );*/
     if(!web3) {
       return<div>Loading Login Details via Smart Contract...
         <Spinner animation="border" variant="primary" />
@@ -211,8 +219,8 @@ export default class Register extends Component {
                 <h3>
                   You have the below number of projects registered on the blockchain ready for research
                 </h3>
-  
-                <BootstrapTable keyField='ownerAccount' data={ existingProject } columns={ firstTablecolumns } />
+                <li>{existingProject}</li>
+                <BootstrapTable keyField='ownerName' data={ existingProject } columns={ firstTablecolumns } />
                 <Row>
                   <Col> </Col>
                 </Row>

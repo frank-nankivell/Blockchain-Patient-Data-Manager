@@ -1,11 +1,12 @@
 export const firstTablecolumns = [{
-    ownerName: 'ownerName',
+
+    dataField: 'ownerName',
     text: 'Name of Researcher',
     sort: true
   },
   {
     dataField: 'institution',
-    text: 'Name of Instition',
+    text: 'Name of Institution',
     sort: true
   }, {
     dataField: 'dateOfAccess',
