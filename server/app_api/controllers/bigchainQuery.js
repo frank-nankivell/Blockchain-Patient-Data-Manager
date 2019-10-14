@@ -88,6 +88,7 @@ conn.postTransactionCommit(txCreateAliceSimpleSigned)
 
         // Transfer bicycle to Bob
         .then(() => {
+                console.log('CHECK KEY:',txCreateAliceSimpleSigned.id)
                 conn.getTransaction(txCreateAliceSimpleSigned.id)
                 .then((result) => {
                   console.log('getTransaction as callback: ', result)
@@ -105,13 +106,13 @@ conn.postTransactionCommit(txCreateAliceSimpleSigned)
                 // Sign with alice's private key
                 let txTransferBobSigned = driver.Transaction.signTransaction(txTransferBob, alice.privateKey)
                 console.log('Posting signed transaction: ', txTransferBobSigned)
-                res.status(200).json(txTransferBobSigned)
+                
 
                 // Post with commit so transaction is validated and included in a block
                 return conn.postTransaction(txTransferBobSigned)
         })
         .then(tx => {
-               // res.status(200).json(tx)
+                res.status(200).json(tx)
                 console.log('Response from BDB server:', tx)
                 console.log('Is Bob the owner?', tx['outputs'][0]['public_keys'][0] == bob.publicKey)
                 console.log('Was Alice the previous owner?', tx['inputs'][0]['owners_before'][0] == alice.publicKey )
@@ -128,12 +129,11 @@ conn.postTransactionCommit(txCreateAliceSimpleSigned)
 /// Actual code but not functioning 
   module.exports.transferAsset = function(req, res) {
 
-        // patientID_79 08102019
-    // written as variable directly whilst testing
-    var privateKey = 'AE1hUbzmmDe6CPsMNVM48KSrSqcFAjUF9gbDDYbhVVwJ';
+    // patient 54
+    var privateKey = 'G8Cv6kEZjnwZLDyUXmFRzhu6PBJY4PMCpWFtRDRB4nYt';
     // CREATE transaction id
     // written as variable directly whilst testing
-    var id = '44f30e4feb82f53ae1407aed61d43a82c3db2891fa039019d926dfeb340c1714';
+    var id = '95d0693c5c880f7b0c5b267c033c429ad6c4d7ad2c08870dccd8d76d68787ccc';
 
     const conn = new driver.Connection(API_PATH)
     // create new owner for the asset
@@ -165,16 +165,16 @@ conn.postTransactionCommit(txCreateAliceSimpleSigned)
           }
 
         )
-        const txtransfer = driver.Transaction
-          .signTransaction(newTransfer, name.privateKey)
+        let txtransfer = driver.Transaction
+          .signTransaction(newTransfer, privateKey)
                 console.log('Posting signed transaction: ', txtransfer)
 
                 // Post with commit so transaction is validated and included in a block
-                return conn.postTransactionCommit(txtransfer)
+                return conn.postTransaction(txtransfer)
         })
-        .then(res => {
-          console.log('Transfer Succesful', res.id)
-          res.status(200).json(res.id)
+        .then(callback => {
+          console.log('Transfer Succesfull', callback.id)
+          res.status(200).json('Transfer Succesfull. New transfer ID'+ callback.id)
         })
         .catch(error => {
           console.log('error',error)
