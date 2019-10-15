@@ -132,6 +132,7 @@ export default class ResearchRequest extends Component {
             fetch(request) 
                 .then((response) => response.json())
                 .then((responseJson) => {
+                  console.log('_getData() success:',JSON.stringify(responseJson))
                     
                     this.setState({ 
                         isFetching: true,

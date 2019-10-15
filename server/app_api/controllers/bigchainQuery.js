@@ -12,6 +12,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 const conn = new driver.Connection(API_PATH)
 
+// creat user key
 module.exports.createUserKey = function (req, res) {
     var name = req.name;
     console.log('making key for', name)
@@ -32,7 +33,7 @@ module.exports.createUserKey = function (req, res) {
     };
   };
 
-
+// test function from documentation
 module.exports.testTransfer = function (req, res) {
 
 const alice = new driver.Ed25519Keypair()
@@ -126,7 +127,7 @@ conn.postTransactionCommit(txCreateAliceSimpleSigned)
 
 
 
-/// Actual code but not functioning 
+/// Test directly typed code
   module.exports.transferAsset = function(req, res) {
 
     // patient 54
@@ -187,87 +188,46 @@ conn.postTransactionCommit(txCreateAliceSimpleSigned)
     }
   };
 
+  // function that gets assets with IDs
+  // from the selected dataset user wants to use
+  //
+  const getAssetObject= function(req, res, callback) {
+    console.log('Search Assets',req.params.asset)
+    if (req.params.asset) {
+    conn.searchAssets(req.params.asset)
+        .then(assets => {
+          console.log('Found asset:'+JSON.stringify(assets))
+          callback(req, res, assets)
+        }).catch(error => {
+          console.log('Error:'+error)
+          sendJSONresponse(res, 504, "Error: Bigchain Query Error")
+        })
+    }
+    
+    sendJSONresponse(res,400, "Error: Incorrect Payload")
+  };
 
 
+  // 
+  module.exports.searchAsset = function(req, res) {
+    getAssetObject(req, res, function(req, res, data) {
+      // data is object of data, including ids 
 
-
-/*
-const signedTransfer = BigchainDB.Transaction.signTransaction(createTranfer,
-    keypair.privateKey)
-
-  /*
-  key: 'makeTransferTransaction',
-  value: function makeTransferTransaction(unspentOutputs, outputs, metadata) {
-      var inputs = unspentOutputs.map((unspentOutput) => {
-          var _tx$outputIndex = { tx: unspentOutput.tx, outputIndex: unspentOutput.output_index },
-              tx = _tx$outputIndex.tx,
-              outputIndex = _tx$outputIndex.outputIndex;
-
-          var fulfilledOutput = tx.outputs[outputIndex];
-          var transactionLink = {
-              'output_index': outputIndex,
-              'transaction_id': tx.id
-          };
-
-          return Transaction.makeInputTemplate(fulfilledOutput.public_keys, transactionLink);
-      });
-
-      var assetLink = {
-          'id': unspentOutputs[0].tx.operation === 'CREATE' ? unspentOutputs[0].tx.id : unspentOutputs[0].tx.asset.id
-      };
-      return Transaction.makeTransaction('TRANSFER', assetLink, metadata, outputs, inputs);
-  }
-
-  */
+      // need to then select each ID of object
+      // then make a request (somewhere - to a JSON paylaod or ganache ideally?!) to get patient keys
+      // create new object which has [{ id: xxx, patientPrivateKey: xx }, { id: xxx, patientPrivateKey: xx },]
+      // send object to transfer asset List
+      
+    });
+  };
   
 
-/* 
 
- .then(() => {
-                const txTransferBob = driver.Transaction.makeTransferTransaction(
-                        // signedTx to transfer and output index
-                        [{ tx: txCreateAliceSimpleSigned, output_index: 0 }],
-                        [driver.Transaction.makeOutput(driver.Transaction.makeEd25519Condition(bob.publicKey))],
-                        // metadata
-                        {price: '100 euro'}
-                )
+  // function to transfer list of assets 
+  module.exports.transferAssetList = function(req, res) {
 
-                // Sign with alice's private key
-                let txTransferBobSigned = driver.Transaction.signTransaction(txTransferBob, alice.privateKey)
-                console.log('Posting signed transaction: ', txTransferBobSigned)
+  };
 
-                // Post with commit so transaction is validated and included in a block
-                return conn.postTransactionCommit(txTransferBobSigned)
-        })
+  // return all data 
+  module.exports.getOwnedAssets = function(req, res) {};
 
-
-      .then(transaction => {
-
-      // create new transfer transaction
-      const newTransfer = driver.Transaction.makeTransferTransaction(
-        // signedTx to transfer and output index
-        [{ tx: transaction, output_index: 0 }],
-
-        [driver.Transaction.makeOutput(driver.Transaction.makeEd25519Condition(name.publicKey))],
-
-        // metadata
-        {
-        time: '30 days',
-        research_project: 'analysis',
-        lay_summary:'analysis on xyz'
-        }
-        )
-    .then(newTransfer => {
-    // sign and send the transaction
-    let txTransferNewsigned = driver.Transaction.signTransaction(newTransfer, privateKey);
-    conn.postTransactionCommit(txTransferNewsigned)
-    console.log('Posting signed transaction: ', txTransferNewsigned)
-    conn.postTransactionCommit(txTransferNewsigned)
-    
-  })
-  ).then()
-
-
-  res.status(200).json(txTransferNewsigned)
-
-*/
