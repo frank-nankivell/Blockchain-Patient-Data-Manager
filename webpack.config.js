@@ -10,7 +10,10 @@ module.exports = {
     path: path.join(__dirname, 'dist'),
     filename:  'main.js',
     sourceMapFilename: '[name].[hash:8].map',
-  }, 
+  },
+  node: {
+    fs: 'empty'
+  },
   devServer: {
     watchContentBase: true,
     compress: true,
@@ -24,6 +27,18 @@ module.exports = {
         use: {
           loader: "babel-loader"
         }
+      },
+      {
+        test: /\.(txt|csv|mmdb)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: "[path][name].[ext]",
+              emitFile: true,
+            },
+          },
+        ],
       },
       {
         test: /\.(png|svg|jpg|gif)$/,

@@ -1,4 +1,11 @@
 const driver = require('bigchaindb-driver')
+const csv = require('csv-parser')
+const path = require('path')
+
+'use strict'
+const fs = require('fs')
+
+
 
 var sendJSONresponse = function(res, status, content) {
     res.status(status);
@@ -130,6 +137,8 @@ conn.postTransactionCommit(txCreateAliceSimpleSigned)
 /// Test directly typed code
   module.exports.transferAsset = function(req, res) {
 
+    // needs three paramaters {transferID, privateKeyOfOwner, newPublicKey}
+
     // patient 54
     var privateKey = 'G8Cv6kEZjnwZLDyUXmFRzhu6PBJY4PMCpWFtRDRB4nYt';
     // CREATE transaction id
@@ -190,36 +199,74 @@ conn.postTransactionCommit(txCreateAliceSimpleSigned)
 
   // function that gets assets with IDs
   // from the selected dataset user wants to use
-  //
+  // -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
   const getAssetObject= function(req, res, callback) {
     console.log('Search Assets',req.params.asset)
-    if (req.params.asset) {
+    if (req.params.asset!=null) {
     conn.searchAssets(req.params.asset)
         .then(assets => {
-          console.log('Found asset:'+JSON.stringify(assets))
+        //  console.log('Found asset:'+JSON.stringify(assets))
           callback(req, res, assets)
         }).catch(error => {
           console.log('Error:'+error)
           sendJSONresponse(res, 504, "Error: Bigchain Query Error")
         })
-    }
-    
+    } else {
     sendJSONresponse(res,400, "Error: Incorrect Payload")
+    };
   };
 
 
-  // 
+  // -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+  // - - - - - - - - - - - - - - - - - - - - - - -
   module.exports.searchAsset = function(req, res) {
-    getAssetObject(req, res, function(req, res, data) {
+
+    getAssetObject(req, res, function(req, res, output) {
+    const vals = output; // only one value right now - need to make it a loop of objects
+    const arr = [];
+    console.log(output[0].data.id,'id')
+
+    var inputFilePath = './server/app_api/controllers/output_v1.csv'
+    fs.createReadStream(inputFilePath)
+    .pipe(csv())
+    .on('data', function(data){
+        try {
+          arr.push(data)
+          //console.log(arr)    
+        }
+        catch(err) {
+         console.log(err)
+            //error handler
+        }
+    })
+    .on('end',function()
+    {
+      console.log(output[0].data.id,'id-vals')
+      console.log(vals)
+      console.log(arr[0].prepared_create_tx,'prep tx arr0')
+      var i = arr.length;
+      var ownerData;
+      while(i--) {
+      if(vals.id == arr[i].prepared_create_tx) {
+          ownerData = users[i];
+          break;
+          
+      };
+      
+    };
+    console.log('test',ownerData)
+    sendJSONresponse(res, 200, ownerData)
+  });
+  
+});
+ }
+
       // data is object of data, including ids 
 
       // need to then select each ID of object
       // then make a request (somewhere - to a JSON paylaod or ganache ideally?!) to get patient keys
       // create new object which has [{ id: xxx, patientPrivateKey: xx }, { id: xxx, patientPrivateKey: xx },]
       // send object to transfer asset List
-      
-    });
-  };
   
 
 
