@@ -70,7 +70,7 @@ app.get('/api/assets/searchDisease/:_id',ctrlData.getDisease_ID_fromSummary);
 app.post('/api/bigchain/makeKey',ctrlBigChain.createUserKey);
 app.post('/api/bigchain/testTransfer',ctrlBigChain.testTransfer);
 app.post('/api/bigchain/transfer',ctrlBigChain.transferAsset);
-app.get('/api/bigchain/getAsset/:asset',ctrlBigChain.searchAsset);
+app.post('/api/bigchain/getAsset/:asset',ctrlBigChain.makeTransfer);
 
 //app.get('/api/assets/searchResponse/:_id',ctrlhealthData.getResponse_ID);
 //app.get('api/assets/summaryResponse',ctrlhealthData.getResponse_Summary);

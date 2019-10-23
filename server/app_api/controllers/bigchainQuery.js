@@ -135,21 +135,33 @@ conn.postTransactionCommit(txCreateAliceSimpleSigned)
 
 
 /// Test directly typed code
-  module.exports.transferAsset = function(req, res) {
+  module.exports.transferAsset = function(req, res) {};
 
-    // needs three paramaters {transferID, privateKeyOfOwner, newPublicKey}
 
-    // patient 54
-    var privateKey = 'G8Cv6kEZjnwZLDyUXmFRzhu6PBJY4PMCpWFtRDRB4nYt';
-    // CREATE transaction id
-    // written as variable directly whilst testing
-    var id = '95d0693c5c880f7b0c5b267c033c429ad6c4d7ad2c08870dccd8d76d68787ccc';
+  // 
+  const transferAssets_1 = function(req, res, data, pubkey, callback) {
+
+    console.log(JSON.stringify(data))
+    console.log(JSON.stringify(pubkey))
+
+
+    var privateKey = data[0].private_key;
+    var id = data[0].prepared_create_tx;
+    var pubkey = pubkey;
+
+    console.log('key',privateKey)
+    console.log('id',id)
+    console.log('pubkey',pubkey)
+
+    var it = 5
+
+    callback(req,res,it)
+
+  };
+    
+const transferAssets = function(req, res, data, pubkey, callback) {
 
     const conn = new driver.Connection(API_PATH)
-    // create new owner for the asset
-    var name = new driver.Ed25519Keypair()
-
-    console.log('New persons public key', name.publicKey)
 
         if (name!=undefined) {
         // find original transaction via the transaction ID
@@ -188,12 +200,12 @@ conn.postTransactionCommit(txCreateAliceSimpleSigned)
         })
         .catch(error => {
           console.log('error',error)
-          res.status(400).json(error)
+          sendJSONresponse(req, 400, error)
         })
     } 
     else {
       var error = "error"
-      res.status(400).json(error)
+      sendJSONresponse(req, 400,error)
     }
   };
 
@@ -205,10 +217,17 @@ conn.postTransactionCommit(txCreateAliceSimpleSigned)
     if (req.params.asset!=null) {
     conn.searchAssets(req.params.asset)
         .then(assets => {
-        //  console.log('Found asset:'+JSON.stringify(assets))
-          callback(req, res, assets)
+          console.log("GetassetsCheck: ",assets)
+
+        // TO DO loop through obj and create array with ID
+        // currently only one ID
+
+        callback(req, res, assets[0].id)
+        
         }).catch(error => {
           console.log('Error:'+error)
+          // will send error if function has problem i.e network etc
+          // but also  if the user enters a bad value...
           sendJSONresponse(res, 504, "Error: Bigchain Query Error")
         })
     } else {
@@ -217,14 +236,14 @@ conn.postTransactionCommit(txCreateAliceSimpleSigned)
   };
 
 
-  // -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-  // - - - - - - - - - - - - - - - - - - - - - - -
-  module.exports.searchAsset = function(req, res) {
+  // function to get Key from List loaded in CSV
+  // if the system was built out in a broader fashion 
+  // then this function would request data from a user 
+  // not automatically provide a list of keys
+  const getKeyfromList = function(req, res, output, callback) {
 
-    getAssetObject(req, res, function(req, res, output) {
-    const vals = output; // only one value right now - need to make it a loop of objects
     const arr = [];
-    console.log(output[0].data.id,'id')
+    const finalArr = [];
 
     var inputFilePath = './server/app_api/controllers/output_v1.csv'
     fs.createReadStream(inputFilePath)
@@ -241,32 +260,52 @@ conn.postTransactionCommit(txCreateAliceSimpleSigned)
     })
     .on('end',function()
     {
-      console.log(output[0].data.id,'id-vals')
-      console.log(vals)
-      console.log(arr[0].prepared_create_tx,'prep tx arr0')
+    // will only work for one record
+    // need to loop through it for more records 
       var i = arr.length;
-      var ownerData;
+      var ownerKeySet;
       while(i--) {
-      if(vals.id == arr[i].prepared_create_tx) {
-          ownerData = users[i];
-          break;
-          
+      if(output == arr[i].prepared_create_tx) {
+        ownerKeySet = arr[i];
+        finalArr.push(ownerKeySet)
+          break;   
       };
       
     };
-    console.log('test',ownerData)
-    sendJSONresponse(res, 200, ownerData)
+    console.log('KeySetCheck: ',finalArr)
+    callback(req, res, finalArr)
   });
   
-});
- }
 
-      // data is object of data, including ids 
 
-      // need to then select each ID of object
-      // then make a request (somewhere - to a JSON paylaod or ganache ideally?!) to get patient keys
-      // create new object which has [{ id: xxx, patientPrivateKey: xx }, { id: xxx, patientPrivateKey: xx },]
-      // send object to transfer asset List
+};
+
+  // data is object of data, including ids - yes
+  // need to then select each ID of object
+  // then make a request (somewhere - to a JSON paylaod or ganache ideally?!) to get patient keys
+  // create new object which has [{ id: xxx, patientPrivateKey: xx }, { id: xxx, patientPrivateKey: xx },]
+  // send object to transfer asset List
+
+  module.exports.makeTransfer = function(req, res) {
+    const pubkey = req.pubkey;
+    console.log(pubkey,'pubketcheck')
+
+    getAssetObject(req, res, function(req, res, output) {
+
+      getKeyfromList(req,res, output, function(req, res, data) {
+
+        transferAssets_1(req, res, data, pubkey, function(req, res, callback) {
+        
+          sendJSONresponse(res, 200, callback)
+
+        });
+        // 
+      });
+
+    });
+
+  };
+    
   
 
 
@@ -277,4 +316,3 @@ conn.postTransactionCommit(txCreateAliceSimpleSigned)
 
   // return all data 
   module.exports.getOwnedAssets = function(req, res) {};
-
