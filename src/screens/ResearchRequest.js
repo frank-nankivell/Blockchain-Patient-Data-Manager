@@ -85,6 +85,7 @@ export default class ResearchRequest extends Component {
             existingProject: []
         };
       this._loadBlockchain = this._loadBlockchain.bind(this)
+      this._handleChange = this._handleChange.bind(this)
     }
     componentDidMount() {
         this._getData();
@@ -198,10 +199,54 @@ export default class ResearchRequest extends Component {
     _getForm = async () => {
         this.setState({...this.state, formStatus: true});
     };
+      // function to update state from form
+    _handleChange(event) {
+      switch(event.target.name) {
+          case "_disease":
+              this.setState({"_disease": event.target.value})
+              console.log('_disease is', event.target.value)
+              break;
+          case "institution":
+              this.setState({"institution": event.target.value})
+              //console.log('email is', event.target.value)
+              break;
+          case "projectSummary":
+              this.setState({"projectSummary": event.target.value})
+            // console.log('projectSummary is', event.target.value)
+              break;
+          default:
+              break;
+        }
+      }
 
     _pushForm = async() => {
-        //
-    }
+      let url = '/api/bigchain/transferAsset';
+      let request = API_url + url;
+      let data = {
+        "pubkey": this.state.existingProject.bgChainToken,
+        "asset_Type": this.state._disease
+      };
+
+            fetch(request, {
+              method: 'POST',
+              body: data
+              })
+                .then((response) => response.json())
+                .then((responseJson) => {
+                  console.log('_pushForm() success:',responseJson)
+                    
+                    this.setState({ 
+                        assetPush: true,
+                        tx: responseJson, 
+                    });
+                    //console.log('api reponse: ',responseJson)
+              })
+                .catch((error) => {
+                    console.log(error);
+                    this.setState({...this.state, assetPush: false});
+            });
+          };
+    
     
     clearCache = async () => {
         try {
@@ -211,19 +256,7 @@ export default class ResearchRequest extends Component {
         }
     };
 
-    /*
-    Add back into the render method when it works
-        <Chart
-                        chartType="PieChart"
-                        data={chartData}
-                        options={pieOptions}
-                        graph_id="PieChart"
-                        width={"100%"}
-                        height={"400px"}
-                        legend_toggle
-                        />
-                <Card>
-                */
+
 
     render() {
         const diseaseSummary = this.state.data;
@@ -263,7 +296,6 @@ export default class ResearchRequest extends Component {
                       <Form.Control 
                         type="text" 
                         placeholder="My Name"
-                        readOnly='true'
                         value={existingProject.ownerName} />
                     </Form.Group>
                     <Form.Group controlId="exampleForm.ControlInput1">
@@ -271,13 +303,15 @@ export default class ResearchRequest extends Component {
                       <Form.Control 
                         type="text" 
                         placeholder="My institution"
-                        readOnly='true'
                         value={existingProject.institution} />
                     </Form.Group>
                     <Form.Group controlId="exampleForm.ControlSelect1">
                       <Form.Label>Select the type of disease you want to research upon</Form.Label>
-                      <Form.Control as="select" multiple>
-                      {
+                      <Form.Control 
+                        as="select" multiple
+                        name="_disease"
+                        onChange={this._handleChange.bind(this)}>
+                        {
                             diseaseSummary.map((obj) => {
                                 return <option key={obj._id}>{obj._id}</option>
                             })
@@ -286,7 +320,11 @@ export default class ResearchRequest extends Component {
                     </Form.Group>
                     <Form.Group controlId="exampleForm.ControlSelect2">
                       <Form.Label>Please describe the status of your project</Form.Label>
-                      <Form.Control as="select">
+                      <Form.Control 
+                        as="select"
+                        name="_researchStatus"
+                        onChange={this._handleChange.bind(this)}
+                        >
                         <option>Pre-Research anaylsis</option>
                         <option>Ongoing Research Project</option>
                         <option>New Research Project</option>

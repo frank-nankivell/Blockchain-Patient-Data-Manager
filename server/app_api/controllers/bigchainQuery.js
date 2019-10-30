@@ -29,14 +29,13 @@ module.exports.createUserKey = function (req, res) {
     console.log('test key: ',key, 'for user: ', name) 
     
     if(key!=null || key!=undefined ) {
+      
+    sendJSONresponse(res, 200, key)
 
-    var output = 'Public Key is:'+ key
-
-    res.status(200).json(output)
     }
     else {
         console.log('error')
-        res.status(200).json('error with key creation');
+        sendJSONresponse(res, 404, 'error with key creation')
     };
   };
 
@@ -136,9 +135,7 @@ conn.postTransactionCommit(txCreateAliceSimpleSigned)
 
 /// Test directly typed code
   module.exports.transferAsset = function(req, res) {};
-
-
-  // 
+  /*
   const transferAssets_1 = function(req, res, data, pubkey, callback) {
 
     console.log(JSON.stringify(data))
@@ -147,28 +144,33 @@ conn.postTransactionCommit(txCreateAliceSimpleSigned)
 
     var privateKey = data[0].private_key;
     var id = data[0].prepared_create_tx;
-    var pubkey = pubkey;
+    let key = req.body.pubkey;
 
-    console.log('key',privateKey)
-    console.log('id',id)
-    console.log('pubkey',pubkey)
+    console.log('keycheck: --',key)
+
+    console.log('key :',privateKey)
+    console.log('id :',id)
 
     var it = 5
 
     callback(req,res,it)
 
   };
+  */
     
-const transferAssets = function(req, res, data, pubkey, callback) {
+const transferAssetFunction = function(req, res, data, callback) {
+
+    var name_key = req.body.pubkey;
+    var privateKey = data[0].private_key;
+    var id = data[0].prepared_create_tx;
 
     const conn = new driver.Connection(API_PATH)
 
-        if (name!=undefined) {
+        if (name_key!=undefined && privateKey!=undefined && id!=undefined) {
         // find original transaction via the transaction ID
         conn.getTransaction(id)
         .then((result) => {
           console.log('getTransaction as callback: ', result)
-          var outcome = result;
           const newTransfer = driver.Transaction
             .makeTransferTransaction(
           [{ 
@@ -178,7 +180,7 @@ const transferAssets = function(req, res, data, pubkey, callback) {
         // outputs
         [driver.Transaction.makeOutput(
           driver.Transaction
-          .makeEd25519Condition(name.publicKey))],
+          .makeEd25519Condition(name_key))],
           // metadata
           {
           time: '30 days',
@@ -194,9 +196,9 @@ const transferAssets = function(req, res, data, pubkey, callback) {
                 // Post with commit so transaction is validated and included in a block
                 return conn.postTransaction(txtransfer)
         })
-        .then(callback => {
-          console.log('Transfer Succesfull', callback.id)
-          res.status(200).json('Transfer Succesfull. New transfer ID'+ callback.id)
+        .then(tx => {
+          console.log('Transfer Succesfull: ', tx.id)
+          callback(tx)
         })
         .catch(error => {
           console.log('error',error)
@@ -213,9 +215,9 @@ const transferAssets = function(req, res, data, pubkey, callback) {
   // from the selected dataset user wants to use
   // -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
   const getAssetObject= function(req, res, callback) {
-    console.log('Search Assets',req.params.asset)
-    if (req.params.asset!=null) {
-    conn.searchAssets(req.params.asset)
+    console.log('Search Assets',req.body.asset_Type)
+    if (req.body.asset!=null) {
+    conn.searchAssets(req.body.asset_Type)
         .then(assets => {
           console.log("GetassetsCheck: ",assets)
 
@@ -287,14 +289,12 @@ const transferAssets = function(req, res, data, pubkey, callback) {
   // send object to transfer asset List
 
   module.exports.makeTransfer = function(req, res) {
-    const pubkey = req.pubkey;
-    console.log(pubkey,'pubketcheck')
 
     getAssetObject(req, res, function(req, res, output) {
 
       getKeyfromList(req,res, output, function(req, res, data) {
 
-        transferAssets_1(req, res, data, pubkey, function(req, res, callback) {
+        transferAssetFunction(req, res, data, function(req, res, callback) {
         
           sendJSONresponse(res, 200, callback)
 
@@ -305,14 +305,26 @@ const transferAssets = function(req, res, data, pubkey, callback) {
     });
 
   };
+  
+  module.exports.checkUser = function(req, res) {
+    // function checks who owns dataset
+
+    let tx = req.body.tx;
+    let key = req.body.tx;
+
+    conn.getTransaction(tx.id)
+                .then((result) => {
+
+                });
+
+
+  };
     
   
 
 
   // function to transfer list of assets 
-  module.exports.transferAssetList = function(req, res) {
-
-  };
+  module.exports.transferAssetList = function(req, res) {};
 
   // return all data 
   module.exports.getOwnedAssets = function(req, res) {};
