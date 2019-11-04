@@ -86,10 +86,12 @@ export default class ResearchRequest extends Component {
         };
       this._loadBlockchain = this._loadBlockchain.bind(this)
       this._handleChange = this._handleChange.bind(this)
+      this._pushForm = this._pushForm.bind(this)
+
     }
     componentDidMount() {
         this._getData();
-        this.timer = setInterval(() => this._getData(), 20000);
+       // this.timer = setInterval(() => this._getData(), 20000);
         this._convertData();
         //this.timer = setInterval(() => this._convertData(), 5000);
         this._loadBlockchain()
@@ -219,21 +221,31 @@ export default class ResearchRequest extends Component {
         }
       }
 
-    _pushForm = async() => {
+    _pushForm() {
+
       let url = '/api/bigchain/transferAsset';
       let request = API_url + url;
+      
       let data = {
         "pubkey": this.state.existingProject.bgChainToken,
         "asset_Type": this.state._disease
       };
 
-            fetch(request, {
-              method: 'POST',
+      console.log('pubkey:',data.pubkey)
+      console.log('asset_Type:',this.state._disease)
+
+
+      fetch(request, {
+        method: 'POST',
+       // headers: {
+       //   'Accept': 'application/json',
+       //   'Content-Type': 'application/json'
+      //  },
               body: data
               })
                 .then((response) => response.json())
                 .then((responseJson) => {
-                  console.log('_pushForm() success:',responseJson)
+                  console.log('_pushForm Request Made, response: ',responseJson)
                     
                     this.setState({ 
                         assetPush: true,
@@ -242,7 +254,7 @@ export default class ResearchRequest extends Component {
                     //console.log('api reponse: ',responseJson)
               })
                 .catch((error) => {
-                    console.log(error);
+                    console.log('_pushForm error: ',error);
                     this.setState({...this.state, assetPush: false});
             });
           };

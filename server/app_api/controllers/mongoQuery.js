@@ -23,12 +23,17 @@ module.exports.getDisease_ID_fromSummary = function(req, res) {
    // var db = Connection;
     if (req.params && req.params._id) {
     db.collection('assets').find({ 'data.Disease_1': req.params._id }).toArray()
-                .then(response => res.status(200).json(response))
-                .catch(error => console.error(error));
-    }
-    else {
+                .then(response => {
+                  sendJSONresponse(res, 200, response)
+                  console.log('response: ',response)
+                })
+                .catch(error => {
+                  sendJSONresponse(res, 400, error)
+                  console.error(error)
+                });
+      } else {
     console.log('No value entered',req.params._id)
-    sendJSONresponse(res, 400, {
+    sendJSONresponse(res, 504, {
       "message": "Incorrect params given"
     });
   };
@@ -55,13 +60,6 @@ module.exports.getDisease_Summary = function(req, res) {
     .then(response => res.status(200).json(response))
     .catch(error => console.error(error));
   };
-
-
-
-
-
-
-  /// below API calls not required
 
 
 

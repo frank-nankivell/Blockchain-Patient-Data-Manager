@@ -166,6 +166,9 @@ const transferAssetFunction = function(req, res, data, callback) {
 
     const conn = new driver.Connection(API_PATH)
 
+    // need to check that name_key is 32 chars long
+    // need to check that privateKey is 32 chars long
+
         if (name_key!=undefined && privateKey!=undefined && id!=undefined) {
         // find original transaction via the transaction ID
         conn.getTransaction(id)
@@ -215,8 +218,11 @@ const transferAssetFunction = function(req, res, data, callback) {
   // from the selected dataset user wants to use
   // -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
   const getAssetObject= function(req, res, callback) {
-    console.log('Search Assets',req.body.asset_Type)
-    if (req.body.asset!=null) {
+
+    console.log('Search Assets: ',req.body.asset_Type)
+
+    if (req.body.asset_Type!=null || req.body.asset_Type!=undefined) {
+
     conn.searchAssets(req.body.asset_Type)
         .then(assets => {
           console.log("GetassetsCheck: ",assets)
@@ -233,6 +239,7 @@ const transferAssetFunction = function(req, res, data, callback) {
           sendJSONresponse(res, 504, "Error: Bigchain Query Error")
         })
     } else {
+
     sendJSONresponse(res,400, "Error: Incorrect Payload")
     };
   };
@@ -290,6 +297,8 @@ const transferAssetFunction = function(req, res, data, callback) {
 
   module.exports.makeTransfer = function(req, res) {
 
+    console.log(JSON.stringify('reqchecl',));
+
     getAssetObject(req, res, function(req, res, output) {
 
       getKeyfromList(req,res, output, function(req, res, data) {
@@ -319,12 +328,58 @@ const transferAssetFunction = function(req, res, data, callback) {
 
 
   };
-    
   
+  module.exports.getdata = function(req, res) {
+
+      console.log('SearchDataBack: ',req.body.asset_Type)
+  
+      if (req.body.asset_Type!=null || req.body.asset_Type!=undefined) {
+  
+      conn.searchAssets(req.body.asset_Type)
+          .then(assets => {
+          console.log("getdata: ",assets)
+          sendJSONresponse(res, 200, assets)
+          
+          }).catch(error => {
+            console.log('Error:'+ error)
+            sendJSONresponse(res, 504, "Error: Bigchain Query Error")
+          })
+        } else {
+
+      sendJSONresponse(res,400, "Error: Incorrect Payload")
+      };
+  };
+
+
+  module.exports.getOwner = function(req, res) {
+    var outcome = false;
+    if (req.body.tx!=null || req.body.pubkey!=undefined) {
+
+    conn.getTransaction(req.body.tx)
+
+    .then((result) => {
+      if(result['outputs'][0]['public_keys'][0] == req.body.pubkey) {
+        outcome=true;
+      }
+      console.log('Is the owner of this tx: .',req.body.tx, 'this key?', req.body.pubkey,' : ', outcome)
+      sendJSONresponse(res,200, outcome)
+    }).catch(error => {
+          console.log('Error:'+error)
+          // will send error if function has problem i.e network etc
+          // but also  if the user enters a bad value...
+          sendJSONresponse(res, 504, "Error: Bigchain Query Error")
+        })
+    } else {
+
+    sendJSONresponse(res,400, "Error: Incorrect Payload")
+    };
+};
+
 
 
   // function to transfer list of assets 
   module.exports.transferAssetList = function(req, res) {};
+
 
   // return all data 
   module.exports.getOwnedAssets = function(req, res) {};
