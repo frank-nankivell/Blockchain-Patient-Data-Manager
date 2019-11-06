@@ -5,7 +5,13 @@ const path = require('path')
 'use strict'
 const fs = require('fs')
 
+var JsonError  = {
+  "error": "Bigchain Query Error"
+}
 
+var PayError = {
+  "error" : "Incorrect Payload"
+}
 
 var sendJSONresponse = function(res, status, content) {
     res.status(status);
@@ -128,7 +134,10 @@ conn.postTransactionCommit(txCreateAliceSimpleSigned)
         .then(() => conn.searchAssets('Bicycle Inc.'))
         .then(assets => console.log('Found assets with serial number Bicycle Inc.:', asset))
     })
-    .catch(error => console.log('error',error))
+    .catch(error =>{
+      console.log('error',error)
+    });
+    
   };
 
 
@@ -166,10 +175,7 @@ const transferAssetFunction = function(req, res, data, callback) {
 
     const conn = new driver.Connection(API_PATH)
 
-    // need to check that name_key is 32 chars long
-    // need to check that privateKey is 32 chars long
-
-        if (name_key!=undefined && privateKey!=undefined && id!=undefined) {
+        if (name_key.length!=32 && privateKey.length!=32 && id!=undefined) {
         // find original transaction via the transaction ID
         conn.getTransaction(id)
         .then((result) => {
@@ -201,16 +207,16 @@ const transferAssetFunction = function(req, res, data, callback) {
         })
         .then(tx => {
           console.log('Transfer Succesfull: ', tx.id)
-          callback(tx)
+          callback(req, res, tx)
         })
         .catch(error => {
-          console.log('error',error)
-          sendJSONresponse(req, 400, error)
+          console.log('Error in Transacaction',error)
+          res.status(400).json(error)
+          //sendJSONresponse(req, 400, error)
         })
     } 
     else {
-      var error = "error"
-      sendJSONresponse(req, 400,error)
+      sendJSONresponse(req, 400, PayError)
     }
   };
 
@@ -236,11 +242,11 @@ const transferAssetFunction = function(req, res, data, callback) {
           console.log('Error:'+error)
           // will send error if function has problem i.e network etc
           // but also  if the user enters a bad value...
-          sendJSONresponse(res, 504, "Error: Bigchain Query Error")
+          sendJSONresponse(res, 504, JsonError)
         })
     } else {
 
-    sendJSONresponse(res,400, "Error: Incorrect Payload")
+    sendJSONresponse(res,400, PayError)
     };
   };
 
@@ -297,13 +303,13 @@ const transferAssetFunction = function(req, res, data, callback) {
 
   module.exports.makeTransfer = function(req, res) {
 
-    console.log(JSON.stringify('reqchecl',));
-
     getAssetObject(req, res, function(req, res, output) {
 
       getKeyfromList(req,res, output, function(req, res, data) {
 
         transferAssetFunction(req, res, data, function(req, res, callback) {
+
+          console.log('callback', callback)
         
           sendJSONresponse(res, 200, callback)
 
@@ -342,11 +348,11 @@ const transferAssetFunction = function(req, res, data, callback) {
           
           }).catch(error => {
             console.log('Error:'+ error)
-            sendJSONresponse(res, 504, "Error: Bigchain Query Error")
+            sendJSONresponse(res, 504, JsonError)
           })
         } else {
 
-      sendJSONresponse(res,400, "Error: Incorrect Payload")
+      sendJSONresponse(res,400, PayError)
       };
   };
 
@@ -367,12 +373,39 @@ const transferAssetFunction = function(req, res, data, callback) {
           console.log('Error:'+error)
           // will send error if function has problem i.e network etc
           // but also  if the user enters a bad value...
-          sendJSONresponse(res, 504, "Error: Bigchain Query Error")
+          
+          sendJSONresponse(res, 504, JsonError)
         })
     } else {
 
-    sendJSONresponse(res,400, "Error: Incorrect Payload")
+    sendJSONresponse(res,400, PayError)
     };
+};
+
+module.exports.checkSpends = function(req, res) {
+
+  if (req.body.pubkey!=undefined) {
+
+  conn.listOutputs(req.body.pubkey, true)
+  .then(listSpentOutputs => {
+                console.log("\nSpent outputs for User: ", listSpentOutputs.length)
+                console.log("\nDetails ", listSpentOutputs)
+        return conn.listOutputs(req.body.pubkey, false)
+  .then(listUnspentOutputs => {
+          console.log("Unspent outputs for User: ", listUnspentOutputs.length)
+          console.log("Details ", listUnspentOutputs)
+  sendJSONresponse(res,200,listUnspentOutputs)
+        })
+    })
+  .catch(error => {
+    console.log(error)
+    sendJSONresponse(res, 400, error)
+  })
+} else {
+
+  sendJSONresponse(res,400, PayError)
+  };
+
 };
 
 

@@ -65,12 +65,14 @@ var ctrlBigChain = require('./app_api/controllers/bigchainQuery');
 app.get('/api/assets/searchAll',ctrlData.getAllAssets);
 app.get('/api/assets/summaryDisease',ctrlData.getDisease_Summary);
 app.get('/api/assets/searchDisease/:_id',ctrlData.getDisease_ID_fromSummary);
+app.post('/api/assets/getDatabyID',ctrlData.getDatabyID);
 
 
 app.post('/api/bigchain/makeKey',ctrlBigChain.createUserKey);
 app.post('/api/bigchain/testTransfer',ctrlBigChain.testTransfer);
 app.post('/api/bigchain/transfer',ctrlBigChain.transferAsset);
 app.post('/api/bigchain/transferAsset',ctrlBigChain.makeTransfer);
+app.post('/api/bigchain/checkspends',ctrlBigChain.checkSpends);
 
 app.post('/api/bigchain/getOwner',ctrlBigChain.getOwner);
 

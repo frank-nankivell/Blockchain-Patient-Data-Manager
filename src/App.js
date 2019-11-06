@@ -10,7 +10,8 @@ import ResearchRequest from './screens/ResearchRequest';
 import About from './screens/About';
 import Register from './screens/Register';
 import Research from './screens/Research';
-import NoMatch from './screens/NoMatch'
+import Analyse from './screens/Analyse';
+import NoMatch from './screens/NoMatch';
 
 import { Layout } from './components/Layout'
 import {NavigationBar} from './components/NavigationBar';
@@ -30,6 +31,7 @@ function App() {
           <Route exact path="/register" component={Register} />
           <Route exact path="/researchRequest" component={ResearchRequest} />
           <Route exact path="/about" component={About} />
+          <Route exact path="/analyse" component={Analyse} />
           <Route exact path="/datalogin" component={DataLogin} />
           <Route exact path="/research" components={Research} />
           <Route component={NoMatch} />

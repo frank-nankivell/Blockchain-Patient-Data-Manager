@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import styled from 'styled-components'
-import {Button, Card, Form, Table } from 'react-bootstrap';
-import {Alert} from 'react-native-web'
+import {Button, Card, Form, Table, Row, Col} from 'react-bootstrap';
 import {blue1,lighterWhite} from '../constants/Colors';
 import { withRouter } from 'react-router-dom';
 import Chart from "react-google-charts";
@@ -81,13 +80,15 @@ export default class ResearchRequest extends Component {
         this.state = {
             isFetching: false,
             formStatus: false,
+            assetError: false,
             data: [],
             existingProject: []
         };
+      this.analyseRequest = this.analyseRequest.bind(this);
       this._loadBlockchain = this._loadBlockchain.bind(this)
       this._handleChange = this._handleChange.bind(this)
       this._pushForm = this._pushForm.bind(this)
-
+      this._navAnalyse=this._navAnalyse.bind(this)
     }
     componentDidMount() {
         this._getData();
@@ -221,43 +222,73 @@ export default class ResearchRequest extends Component {
         }
       }
 
-    _pushForm() {
+    async _savetransactionKey() {
+      try {
+        // this function needs to run to then save the transaction key to the blochcain
+      } catch (err) 
+      {
+          console.log(err);
+      }
+    }
 
-      let url = '/api/bigchain/transferAsset';
-      let request = API_url + url;
-      
-      let data = {
-        "pubkey": this.state.existingProject.bgChainToken,
-        "asset_Type": this.state._disease
-      };
+     async _navAnalyse() {
+      await this.props.navigation.navigate('Analyse')
+    };
 
-      console.log('pubkey:',data.pubkey)
-      console.log('asset_Type:',this.state._disease)
+    async _pushForm() {
 
+      try {
 
-      fetch(request, {
+        let url = '/api/bigchain/transferAsset';
+        let request = API_url + url;
+
+        let data = {
+          "pubkey": this.state.existingProject.bgChainToken,
+          "asset_Type": this.state._disease
+        };
+
+        console.log('pubkey:',data.pubkey)
+        console.log('asset_Type:',this.state._disease)
+      await fetch(request, {
         method: 'POST',
-       // headers: {
-       //   'Accept': 'application/json',
-       //   'Content-Type': 'application/json'
-      //  },
-              body: data
-              })
-                .then((response) => response.json())
-                .then((responseJson) => {
-                  console.log('_pushForm Request Made, response: ',responseJson)
+          headers: {
+           'Accept': 'application/json',
+           'Content-Type': 'application/json'
+          },
+            body: JSON.stringify(data)
+                  })
+                  .then((response) => response.json())
+                  .then((responseJson) => {
+                    console.log('_pushForm Request Made, response: ',responseJson)
                     
-                    this.setState({ 
-                        assetPush: true,
-                        tx: responseJson, 
-                    });
-                    //console.log('api reponse: ',responseJson)
-              })
-                .catch((error) => {
-                    console.log('_pushForm error: ',error);
-                    this.setState({...this.state, assetPush: false});
-            });
-          };
+                    if(responseJson.status = "400 BAD REQUEST") {
+
+                      this.setState({
+                        assetError: true
+                      })
+                      console.log('Error - data already owned by user')
+                    }
+                    else {     
+                      this.setState({ 
+                          assetPush: true,
+                          tx: responseJson, 
+                      });
+                    }
+                })
+                .then(() => {
+                  if (this.state.tx) {
+                  this._navAnalyse();   
+                  }
+                })
+                  .catch((error) => {
+                      console.log('_pushForm error: ',error);
+                      this.setState({...this.state, assetPush: false});
+              });
+          } catch (err) {
+            console.log(err);
+
+          }
+        };
     
     
     clearCache = async () => {
@@ -268,15 +299,46 @@ export default class ResearchRequest extends Component {
         }
     };
 
+    analyseRequest() {
+      let path = `/analyse`;
+      this.props.history.push(path);
+    }
+
 
 
     render() {
         const diseaseSummary = this.state.data;
-        const {formStatus, chartData,dataLoadingStatus, existingProject}= this.state;
+        const {formStatus, chartData,dataLoadingStatus, existingProject, assetError, _disease}= this.state;
         const listItems = diseaseSummary.map((d) => 
             <li key={d._id}> {d._id}, {d.Disease_1} </li>
             );
-        if (formStatus == false) {
+        if(assetError == true) 
+        {
+        return(
+          <div>
+            <h2>
+               Already requested these Records
+            </h2>
+            
+            <Col>
+            <Row>
+              You already have access to all data classified as {_disease}
+            </Row>
+            <Row>
+            <Button 
+                    variant="outline-secondary"
+                    onClick={this.analyseRequest}>
+                    View data</Button>
+
+            </Row>
+            <Row>
+              
+            </Row>
+            </Col>
+          </div>
+        )
+      }
+        else if (assetError == false && formStatus == false) {
                 return(
                 <div>
                     <h2>
