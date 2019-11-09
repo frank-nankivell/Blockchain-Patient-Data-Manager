@@ -27,26 +27,17 @@ const conn = new driver.Connection(API_PATH)
 
 // creat user key
 module.exports.createUserKey = function (req, res) {
-    var name = req.name;
-
-    if(name) {
-    console.log('making key for', name)
-    name = new driver.Ed25519Keypair()
-    var key = name.publicKey;
-
+    let name = new driver.Ed25519Keypair()
+    let key = name.publicKey;
     console.log('test key: ',key, 'for user: ', name) 
+
     if(key!=null || key!=undefined ) {
     sendJSONresponse(res, 200, key)
     console.log("Key Created",key)
-    }
-    else {
-        console.log('error')
-        sendJSONresponse(res, 504, 'error with key creation')
+    } else {
+      console.log('error')
+    sendJSONresponse(res, 400, JsonError)
     };
-  } else {
-    console.log(PayError)
-    sendJSONresponse(res,400, PayError)
-  };
 };
 
 // test function from documentation
@@ -390,23 +381,17 @@ module.exports.checkOwnedData = function(req, res) {
 
   if (req.body.pubkey!=undefined) {
 
-  conn.listOutputs(req.body.pubkey, true)
-  .then(listSpentOutputs => {
-                console.log("\nSpent outputs for User: ", listSpentOutputs.length)
-                console.log("\nDetails ", listSpentOutputs)
-        return conn.listOutputs(req.body.pubkey, false)
+conn.listOutputs(req.body.pubkey, false)
   .then(listUnspentOutputs => {
           console.log("Unspent outputs for User: ", listUnspentOutputs.length)
           console.log("Details ", listUnspentOutputs)
   sendJSONresponse(res,200,listUnspentOutputs)
-        })
-    })
+  })
   .catch(error => {
     console.log(error)
     sendJSONresponse(res, 400, error)
   })
 } else {
-
   sendJSONresponse(res,400, PayError)
   };
 

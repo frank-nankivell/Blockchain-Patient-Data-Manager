@@ -7,6 +7,8 @@ import {
   Form,
   Badge,
   Spinner,
+  Alert,
+  ProgressBar,
   FormGroup,
   FormControl,
   Button,
@@ -25,13 +27,26 @@ import {
 import Explanation from '../components/Explanation';
 import getWeb3 from '../utils/getWeb3';
 
-// constants and utility data
-import {firstTablecolumns,
-        secondTableColumns} from '../utils/columns';
 const API_url = "http://localhost:3000";
 if (process.env.NODE_ENV === 'production') {
   API_url = 'enterProdURL';
 }
+const withErrorHandling = WrappedComponent => ({ showError, children }) => {
+  return (
+    <WrappedComponent>
+      {showError && <div className="error-message">
+        <Alert variant="danger" onClose={() => setShow(false)} dismissible>
+        <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+        <p>
+          We are working on it - apologies!
+        </p>
+      </Alert>
+      </div>}
+      {children}
+    </WrappedComponent>
+  );
+};
+const DivWithErrorHandling = withErrorHandling(({children, message}) => <div>{children}</div>)
 
 // contract data
 import DataAccess from '../../build/contracts/DataAccess.json'
@@ -43,6 +58,7 @@ export default class Register extends Component {
       super(props)
       this.state = {
           formStatus: false,
+          showError: false,
           existingProject: [],
           dataAccess: undefined,
           account: null,
@@ -92,6 +108,17 @@ export default class Register extends Component {
     }
   };
 
+  routeAnalyse() {
+    let path = `/analyse`;
+    this.props.history.push(path);
+  }
+
+  
+  routeResearchRequest() {
+    let path = `/researchRequest`;
+    this.props.history.push(path);
+  }
+
 
   // function to validate whether 
   //  user has recorded project previously 
@@ -112,7 +139,8 @@ export default class Register extends Component {
           var array =[]
           array.push(result[0]);
           console.log('array,',array)
-          this.setState({existingProject: array})
+          this.setState({existingProject: result, 
+                        formStatus: true})
         })
         .catch((err) => {
           console.log("Error GetData: "+err)
@@ -145,24 +173,33 @@ export default class Register extends Component {
       }
     }
     // function to get token to record on the chain
-      _getToken = async () => {
+      _getToken() {
         var QUERY = '/api/bigchain/makeKey'
-  
         fetch(API_url + QUERY, {
-          method: 'post',
-          body: JSON.stringify('name')
         })
         .then(response => response.json())
-        .then(token => this.setState({...this.state, token: token}));
-    }
-
+        .then(responseJson => {
+          console.log(responseJson);      
+          if(responseJson.error) {
+            this.setState({
+              showError: true,
+            })
+          } else {
+            this.setState({...this.state, token: responseJson})
+          }
+        })
+        .catch(error => {
+          console.log(error)
+          this.setState({
+            showError: true,
+            errorMessage: error})
+        })
+      };
 
     // function to register project on chain
     async _registerProject(event)
     {
-      if (typeof this.state.dataAccess !== 'undefined' || typeof this.state.token !=='undefined') {
-        event.preventDefault();
-      
+      if (this.state.dataAccess!='undefined' || this.state.token !='undefined') {
       console.log('pushing data to chain')
       console.log('token: ',this.state.token)
       let today = new Date();
@@ -179,60 +216,43 @@ export default class Register extends Component {
       .send({ from: this.state.account})
       .then((result) => { 
         console.log("data access insertdataLocation callback: "+ result);
-        this.setState({...this.state, formStatus: true});
-        this.setState({...this.state, data: result})
+        this.setState({...this.state, formStatus: true, data: result});
         })
         .catch((error) => { 
         console.log('Error insertdataLocation: '+ error)
-        this.setState({...this.state, error: true});
+        this.setState({...this.state, showError: true});
       });
     
+    } else {
+      this.setState({...this.state, showError: true});
     }
   };
 
 
 
   render() {
-    const {formStatus, web3, account, projectList, userName, existingProject}= this.state;
+    const {formStatus, web3, account, projectList, userName, existingProject, errorMessage}= this.state;
    /* const items = existingProject.map((items, index) => 
             <li key={index}> {items.ownerName}, {items.institution},{items.bgChainToken},{items.dateOfAccess},{items.projectSummary} </li>
             );*/
     if(!web3) {
-      return<div>Loading Login Details via Smart Contract...
+      return<div>Loading...
+        <DivWithErrorHandling showError={this.state.showError}></DivWithErrorHandling>
         <Spinner animation="border" variant="primary" />
       </div>
     }
     if(web3 && !formStatus) {
         return(
               <div>
-                <h2>existing projects</h2>
-                <Container>
-                  <Row>
-                    <Col>
-                    <Explanation></Explanation>
-                    </Col>
-                    <Col>
-                     <h5>You are logged in with User ID <Badge variant="secondary">{account}</Badge> and Username: {userName}</h5>
-                    </Col>
-                  </Row>
-                </Container>
-                <h3>
-                  You have the below number of projects registered on the blockchain ready for research
-                </h3>
-                <li>{existingProject}</li>
-                <BootstrapTable keyField='ownerName' data={ existingProject } columns={ firstTablecolumns } />
-                <Row>
-                  <Col> </Col>
-                </Row>
-                <Row>
-                  <Col> </Col>
-                </Row>
+                <DivWithErrorHandling showError={this.state.showError}></DivWithErrorHandling>
+                <ProgressBar animated now={20} label={'Registration'}/>
                 <p>To Register a new project and interest to research enter the form below</p>
               <Form onSubmit={this._registerProject}>
                 <Form.Group controlId="name.signUpInput">
                   <Form.Label>User ID</Form.Label>
                     <Form.Control
                     type="text"
+                    readOnly='true'
                     name="account"
                     value={account}
                     placeholder="your name"
@@ -275,8 +295,72 @@ export default class Register extends Component {
         )} else {
             return(
               <div>
-                <h3>Your Project is now <Badge variant="secondary">Registered</Badge></h3>
-                <p>{projectList}</p>
+              <DivWithErrorHandling showError={this.state.showError}></DivWithErrorHandling>
+              <ProgressBar animated now={33} label={'Registered'}/>
+                <h3>Your Project is <Badge variant="secondary">Registered</Badge></h3>
+                <Row>
+                  <Col>
+                  <Button
+                      type="submit"
+                      variant="outline-primary"
+                      onClick={this.routeResearchRequest.bind(this)}>
+                      Select a new cohort
+                    </Button>
+                  </Col>
+                  <Col>
+                  <Button
+                      type="submit"
+                      variant="outline-primary"
+                      onClick={this.routeAnalyse.bind(this)}>
+                      Go to analysis
+                    </Button>
+                  </Col>
+                </Row>
+                <Form>
+                <Form.Group controlId="name.signUpInput">
+                  <Form.Label>User ID</Form.Label>
+                    <Form.Control
+                    type="text"
+                    readOnly={'true'}
+                    name="account"
+                    value={account}/>
+              </Form.Group>
+              <Form.Group controlId="name.signUpInput">
+                  <Form.Label>Creation Date</Form.Label>
+                    <Form.Control
+                    type="text"
+                    readOnly={'true'}
+                    name="account"
+                    value={existingProject.dateOfAccess}/>
+              </Form.Group>
+              <Form.Group controlId="account.signUpInput">
+                <Form.Label>User Name</Form.Label>
+                      <Form.Control
+                      type="text"
+                      readOnly={'true'}
+                      name="name"
+                      value={existingProject.ownerName}
+                      placeholder="your name"
+                      />
+                </Form.Group>
+                <Form.Group controlId="institution.signUpInput">
+                <Form.Label>Institution Name (University)</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="institution"
+                  readOnly={'true'}
+                  value={existingProject.institution}
+                   />
+                  </Form.Group>
+              <Form.Group controlId="projectSummary.signUpInput">
+              <Form.Label>Project Summary</Form.Label>
+              <Form.Control
+                type="text"
+                readOnly={'true'}
+                name="projectSummary"
+                value={existingProject.projectSummary} />
+                </Form.Group>
+              </Form>
               </div>
             )};
     };

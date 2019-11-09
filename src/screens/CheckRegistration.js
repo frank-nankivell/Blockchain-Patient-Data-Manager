@@ -21,9 +21,16 @@ if (process.env.NODE_ENV === 'production') {
 const withErrorHandling = WrappedComponent => ({ showError, children }) => {
     return (
       <WrappedComponent>
-        {showError && <div className="error-message">Oops! Something went wrong!</div>}
-        {children}
-      </WrappedComponent>
+      {showError && <div className="error-message">
+        <Alert variant="danger" onClose={() => setShow(false)} dismissible>
+        <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+        <p>
+          We are working on it - apologies!
+        </p>
+      </Alert>
+      </div>}
+      {children}
+    </WrappedComponent>
     );
   };
 const DivWithErrorHandling = withErrorHandling(({children}) => <div>{children}</div>)
@@ -66,17 +73,21 @@ function Greeting(props) {
 
 function AnalysisButton(props) {
     return (
-      <button onClick={props.onClick}>
-        Login
-      </button>
+      <Button 
+      variant="outline-secondary"
+      onClick={props.onClick}>
+      View data
+    </Button>
     );
   }
   
   function RegisterButton(props) {
     return (
-      <button onClick={props.onClick}>
-        Select to Register
-      </button>
+      <Button 
+      variant="outline-secondary"
+      onClick={props.onClick}>
+      Select to register
+    </Button>
     );
   }
 
@@ -259,6 +270,7 @@ render() {
 
     return(
         <div>
+        <DivWithErrorHandling showError={this.state.showError}></DivWithErrorHandling>
         <Greeting isRegistered={isRegistered} />
             {button}
             <Button 

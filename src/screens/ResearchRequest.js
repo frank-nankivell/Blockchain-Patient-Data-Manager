@@ -1,6 +1,12 @@
 import React, {Component} from 'react'
 import styled from 'styled-components'
-import {Button, Card, Form, Table, Row, Col} from 'react-bootstrap';
+import {Button, 
+  Card, 
+  Form, 
+  Table, 
+  Row, 
+  Col,
+  ProgressBar} from 'react-bootstrap';
 import {blue1,lighterWhite} from '../constants/Colors';
 import { withRouter } from 'react-router-dom';
 import Chart from "react-google-charts";
@@ -9,51 +15,7 @@ import getWeb3 from '../utils/getWeb3';
 import DataAccess from '../../build/contracts/DataAccess.json'
 
 import BootstrapTable from 'react-bootstrap-table-next';
-const pieOptions = {
-    title: "",
-    pieHole: 0.6,
-    slices: [
-      {
-        color: "#2BB673"
-      },
-      {
-        color: "#d91e48"
-      },
-      {
-        color: "#007fad"
-      },
-      {
-        color: "#e9a227"
-      }
-    ],
-    legend: {
-      position: "bottom",
-      alignment: "center",
-      textStyle: {
-        color: "233238",
-        fontSize: 14
-      }
-    },
-    tooltip: {
-      showColorCode: true
-    },
-    chartArea: {
-      left: 0,
-      top: 0,
-      width: "100%",
-      height: "80%"
-    },
-    fontName: "Roboto"
-  };
 
-const Styles = styled.div`
-    .Button {
-        color: ${blue1}
-    }
-    .Card {
-
-    }
-`;
 
 var API_url = "http://localhost:3000";
 if (process.env.NODE_ENV === 'production') {
@@ -344,6 +306,7 @@ export default class ResearchRequest extends Component {
                     <h2>
                         Below provides a summary of data available for research by disease type
                     </h2>
+                <ProgressBar animated now={50} label={'Cohort Selection'}/>
                 <BootstrapTable keyField='_id' data={ diseaseSummary } columns={ columns } />
                     <Card>
                     <Card.Header>Research Request...</Card.Header>
@@ -364,12 +327,14 @@ export default class ResearchRequest extends Component {
                         <h2>
                             To complete research on the data use the simple form below
                         </h2>
+                      <ProgressBar animated now={75} label={'Request'}/>
                     <Form>
                     <Form.Group controlId="exampleForm.ControlInput1">
                       <Form.Label>Your name</Form.Label>
                       <Form.Control 
                         type="text" 
                         placeholder="My Name"
+                        readOnly={'true'}
                         value={existingProject.ownerName} />
                     </Form.Group>
                     <Form.Group controlId="exampleForm.ControlInput1">
@@ -377,6 +342,7 @@ export default class ResearchRequest extends Component {
                       <Form.Control 
                         type="text" 
                         placeholder="My institution"
+                        readOnly={'true'}
                         value={existingProject.institution} />
                     </Form.Group>
                     <Form.Group controlId="exampleForm.ControlSelect1">
