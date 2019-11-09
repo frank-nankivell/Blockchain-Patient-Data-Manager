@@ -15,6 +15,10 @@ class Analyse extends Component {
     constructor(props) {
         super(props)
 
+        this.state = {
+          loaded: false
+        };
+
         this.routeRequest = this.routeRequest.bind(this);
         this.routeAbout = this.routeAbout.bind(this);
         this._loadBlockchain = this._loadBlockchain.bind(this)

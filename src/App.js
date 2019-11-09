@@ -11,6 +11,7 @@ import About from './screens/About';
 import Register from './screens/Register';
 import Research from './screens/Research';
 import Analyse from './screens/Analyse';
+import CheckRegistration from './screens/CheckRegistration';
 import NoMatch from './screens/NoMatch';
 
 import { Layout } from './components/Layout'
@@ -29,6 +30,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/register" component={Register} />
+          <Route exact path="/checkRegistration" component={CheckRegistration} />
           <Route exact path="/researchRequest" component={ResearchRequest} />
           <Route exact path="/about" component={About} />
           <Route exact path="/analyse" component={Analyse} />

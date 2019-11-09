@@ -41,7 +41,6 @@ module.exports.getDisease_ID_fromSummary = function(req, res) {
 
 module.exports.getDatabyID = function(req, res) {
   var db=req.db;
-
   var array =[
     {
         "transaction_id": "3c39dd41b9a0ad0c34fdfce683e452619b643069156fdb071336a4419f54c328",

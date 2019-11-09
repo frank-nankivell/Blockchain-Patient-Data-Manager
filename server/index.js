@@ -72,7 +72,8 @@ app.post('/api/bigchain/makeKey',ctrlBigChain.createUserKey);
 app.post('/api/bigchain/testTransfer',ctrlBigChain.testTransfer);
 app.post('/api/bigchain/transfer',ctrlBigChain.transferAsset);
 app.post('/api/bigchain/transferAsset',ctrlBigChain.makeTransfer);
-app.post('/api/bigchain/checkspends',ctrlBigChain.checkSpends);
+app.post('/api/bigchain/checkOwnedData',ctrlBigChain.checkOwnedData);
+app.post('/apig/bigchain/checkPreviousData',ctrlBigChain.checkPreviousAsset);
 
 app.post('/api/bigchain/getOwner',ctrlBigChain.getOwner);
 

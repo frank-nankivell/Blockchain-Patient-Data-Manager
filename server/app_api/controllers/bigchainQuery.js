@@ -28,22 +28,26 @@ const conn = new driver.Connection(API_PATH)
 // creat user key
 module.exports.createUserKey = function (req, res) {
     var name = req.name;
+
+    if(name) {
     console.log('making key for', name)
     name = new driver.Ed25519Keypair()
     var key = name.publicKey;
 
     console.log('test key: ',key, 'for user: ', name) 
-    
     if(key!=null || key!=undefined ) {
-      
     sendJSONresponse(res, 200, key)
-
+    console.log("Key Created",key)
     }
     else {
         console.log('error')
-        sendJSONresponse(res, 404, 'error with key creation')
+        sendJSONresponse(res, 504, 'error with key creation')
     };
+  } else {
+    console.log(PayError)
+    sendJSONresponse(res,400, PayError)
   };
+};
 
 // test function from documentation
 module.exports.testTransfer = function (req, res) {
@@ -260,7 +264,7 @@ const transferAssetFunction = function(req, res, data, callback) {
     const arr = [];
     const finalArr = [];
 
-    var inputFilePath = './server/app_api/controllers/output_v1.csv'
+    var inputFilePath = './server/app_api/controllers/output.csv'
     fs.createReadStream(inputFilePath)
     .pipe(csv())
     .on('data', function(data){
@@ -382,7 +386,7 @@ const transferAssetFunction = function(req, res, data, callback) {
     };
 };
 
-module.exports.checkSpends = function(req, res) {
+module.exports.checkOwnedData = function(req, res) {
 
   if (req.body.pubkey!=undefined) {
 
@@ -396,6 +400,27 @@ module.exports.checkSpends = function(req, res) {
           console.log("Details ", listUnspentOutputs)
   sendJSONresponse(res,200,listUnspentOutputs)
         })
+    })
+  .catch(error => {
+    console.log(error)
+    sendJSONresponse(res, 400, error)
+  })
+} else {
+
+  sendJSONresponse(res,400, PayError)
+  };
+
+};
+
+module.exports.checkPreviousAsset = function(req, res) {
+
+  if (req.body.pubkey!=undefined) {
+
+  conn.listOutputs(req.body.pubkey, true)
+  .then(listSpentOutputs => {
+                console.log("\nSpent outputs for User: ", listSpentOutputs.length)
+                console.log("\nDetails ", listSpentOutputs)
+                sendJSONresponse(res,200,listSpentOutputs)
     })
   .catch(error => {
     console.log(error)
