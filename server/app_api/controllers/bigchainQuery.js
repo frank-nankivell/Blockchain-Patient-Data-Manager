@@ -170,7 +170,11 @@ const transferAssetFunction = function(req, res, data, callback) {
 
     const conn = new driver.Connection(API_PATH)
 
-        if (name_key.length!=32 && privateKey.length!=32 && id!=undefined) {
+    if(name_key==undefined || privateKey ==undefined || id==undefined ) {
+      sendJSONresponse(res, 400, PayError)
+      return;
+    } else {
+    if (name_key.length!=32 && privateKey.length!=32 && id!=undefined) {
         // find original transaction via the transaction ID
         conn.getTransaction(id)
         .then((result) => {
@@ -212,8 +216,10 @@ const transferAssetFunction = function(req, res, data, callback) {
     } 
     else {
       sendJSONresponse(req, 400, PayError)
+      return;
     }
-  };
+  }
+};
 
   // function that gets assets with IDs
   // from the selected dataset user wants to use
@@ -230,9 +236,35 @@ const transferAssetFunction = function(req, res, data, callback) {
 
         // TO DO loop through obj and create array with ID
         // currently only one ID
+        //
+        //
+        //
+        //
 
         callback(req, res, assets[0].id)
         
+        }).catch(error => {
+          console.log('Error:'+error)
+          // will send error if function has problem i.e network etc
+          // but also  if the user enters a bad value...
+          sendJSONresponse(res, 504, JsonError)
+        })
+    } else {
+
+    sendJSONresponse(res,400, PayError)
+    };
+  };
+
+  module.exports.searchbyID= function(req, res, callback) {
+
+    console.log('Search Assets: ',req.body.asset_ID)
+
+    if (req.body.asset_ID!=null || req.body.asset_ID!=undefined) {
+
+    conn.searchAssets(req.body.asset_ID)
+        .then(assets => {
+          console.log("_searchbyID: ",assets)
+        sendJSONresponse(req, res, assets)
         }).catch(error => {
           console.log('Error:'+error)
           // will send error if function has problem i.e network etc
@@ -396,6 +428,7 @@ conn.listOutputs(req.body.pubkey, false)
   };
 
 };
+
 
 module.exports.checkPreviousAsset = function(req, res) {
 

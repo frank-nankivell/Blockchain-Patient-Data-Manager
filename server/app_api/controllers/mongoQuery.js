@@ -40,47 +40,77 @@ module.exports.getDisease_ID_fromSummary = function(req, res) {
 };
 
 module.exports.getDatabyID = function(req, res) {
-  var db=req.db;
-  var array =[
-    {
-        "transaction_id": "3c39dd41b9a0ad0c34fdfce683e452619b643069156fdb071336a4419f54c328",
-        "output_index": 0
-    },
-    {
-        "transaction_id": "7c66de7d426f342fce2cdb62807aa2c04f67164accacc4c1273748b2cf16aff9",
-        "output_index": 0
-    },
-    {
-        "transaction_id": "bc0157684d5cbbbdb2351863df125b6f49fbf2b7535dc693cff9eb03d25aceb5",
-        "output_index": 0
-    },
-    {
-        "transaction_id": "3c3314e0e92d64d1d78256761adc4cf9f653e3197f21095240ed72c0e6809c33",
-        "output_index": 0
-    },
-    {
-        "transaction_id": "f94d85d03af7a41ffc499cfe40ca9ae1617e3445da4f423ac244c78404ac80ca",
-        "output_index": 0
-    },
-    {
-        "transaction_id": "ffe19c00cb8749c5b2a902a4b4536959504af60f891273771b65a1b44364a305",
-        "output_index": 0
-    },
-    {
-        "transaction_id": "f676f49da03e92597e023701d3b9a49f0dea66c5e1f1cd34c9fb54b64106a6df",
-        "output_index": 0
-    }
-]
 
-db.collection('assets').find({ "id": array[0].transaction_id})
+//var val =[{"transaction_id":"2cc05d94846f8a128bca4c3f5d9a48e748f35b243da008b5c8ad42972ca4e61a","output_index":0},{"transaction_id":"288df6839de48c113b99a00bf37c1545a980b6cb1945890d76f36f252b667d41","output_index":0},{"transaction_id":"aa69de55c8f37a2539b27d8c6d91c4d6b509f5a0f630ba8bc5e3f152bba26aa0","output_index":0},{"transaction_id":"1eb5766555f7a32907aa2b8edb0d49d81f3bbdacf0c47bf769238fd044d8a08f","output_index":0},{"transaction_id":"d1175c4def8aede6c5c0bf5806739b6392637d95a83053b1a9fdbb9d9154c9b4","output_index":0}]
+var val= req.body.array;
+console.log("val: ",val)
+var db=req.db;
+let txArr = [];
+var assetMerge;
+
+for(let txIds in val) {
+  txArr.push(Object.values(val[txIds])); 
+};
+let txMerge = [].concat.apply([], txArr);
+console.log("txMerge: ",txMerge)
+
+console.log('newArr', txMerge)
+
+var db=req.db
+      db.collection('transactions').find({"id": { $in: txMerge}})
       .toArray()
-      .then(response => sendJSONresponse(res, 200, response))
+      .then(response => {
+        let idArr = []
+        for(let i=0; i<response.length; i++) {  
+        idArr.push(response[i].asset.id);
+
+        };
+        assetMerge = [].concat.apply([],idArr);
+        console.log("getassetIds: ", assetMerge);
+
+      })
+      .then(() => {
+        db.collection('assets').find({"id": { $in: assetMerge}})
+        .toArray()
+        .then(assets => {
+          console.log('list of assets: ',assets)
+          sendJSONresponse(res, 200, assets)
+      })
       .catch(error => {
         console.log(error)
         sendJSONresponse(res, 504, error)
       });
-};
+    })
+  };
 
+
+module.exports.getAssets = function(req, res) {
+
+  var val= req.body.array;
+  var db=req.db;
+  let newArr = [];
+  
+  for(let ids in val) {
+    newArr.push(Object.values(val[ids])); 
+  };
+  var merged = [].concat.apply([], newArr);
+  
+  console.log('newArr', merged)
+  
+  var db=req.db
+  db.collection('transactions').find({"id": { $in: merged}})
+        .toArray()
+        .then(response => {
+          // -> make a request to get assets from id's 
+          sendJSONresponse(res, 200, response)
+          console.log('getDatabyId: ',response)
+        })
+        .catch(error => {
+          console.log(error)
+          sendJSONresponse(res, 504, error)
+        });
+  };
+  
 
 module.exports.getDisease_Summary = function(req, res) {
   var db = req.db;

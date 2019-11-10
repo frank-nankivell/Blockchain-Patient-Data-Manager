@@ -66,6 +66,7 @@ app.get('/api/assets/searchAll',ctrlData.getAllAssets);
 app.get('/api/assets/summaryDisease',ctrlData.getDisease_Summary);
 app.get('/api/assets/searchDisease/:_id',ctrlData.getDisease_ID_fromSummary);
 app.post('/api/assets/getDatabyID',ctrlData.getDatabyID);
+app.post('/api/assets/getAssets',ctrlData.getAssets);
 
 
 app.get('/api/bigchain/makeKey',ctrlBigChain.createUserKey);
@@ -73,10 +74,7 @@ app.post('/api/bigchain/testTransfer',ctrlBigChain.testTransfer);
 app.post('/api/bigchain/transfer',ctrlBigChain.transferAsset);
 app.post('/api/bigchain/transferAsset',ctrlBigChain.makeTransfer);
 app.post('/api/bigchain/checkOwnedData',ctrlBigChain.checkOwnedData);
-app.post('/apig/bigchain/checkPreviousData',ctrlBigChain.checkPreviousAsset);
-
-app.post('/api/bigchain/getOwner',ctrlBigChain.getOwner);
-
+app.post('/api/bigchain/checkPreviousData',ctrlBigChain.checkPreviousAsset);
 
 //app.get('/api/assets/searchResponse/:_id',ctrlhealthData.getResponse_ID);
 //app.get('api/assets/summaryResponse',ctrlhealthData.getResponse_Summary);

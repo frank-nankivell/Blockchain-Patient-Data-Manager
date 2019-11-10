@@ -7,7 +7,8 @@ import {
     Tab,
     Image,
     Button, 
-    Spinner
+    Spinner,
+    Alert,
 } from 'react-bootstrap';
 
 import getWeb3 from '../utils/getWeb3';
@@ -162,6 +163,7 @@ class CheckRegistration extends Component {
                 loaded:true,
                 isRegistered:false
             })
+            return;
           } else {
             this.state.dataAccess.methods.getData(this.state.account).call()
             .then((result) =>{
@@ -272,12 +274,19 @@ render() {
         <div>
         <DivWithErrorHandling showError={this.state.showError}></DivWithErrorHandling>
         <Greeting isRegistered={isRegistered} />
-            {button}
+        <Container>
+          <Row>
+        <Col>
+          {button}
+        </Col>
+        <Col>
             <Button 
                 variant="outline-info"
                 onClick={this.routeHome}>
                 Go back </Button>
-    
+                </Col>
+                </Row>
+          </Container>
         </div>
         )
         };

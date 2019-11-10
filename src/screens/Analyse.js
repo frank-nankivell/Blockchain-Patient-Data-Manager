@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import BootstrapTable from 'react-bootstrap-table-next';
 import {
     Container,
     Row,
@@ -7,7 +8,8 @@ import {
     Tab,
     Image,
     Alert,
-    Spinner
+    Spinner,
+    Button,
 } from 'react-bootstrap';
 
 
@@ -36,14 +38,39 @@ const withErrorHandling = WrappedComponent => ({ showError, children }) => {
 };
 const DivWithErrorHandling = withErrorHandling(({children}) => <div>{children}</div>)
 
+const columns = [{
+  dataField: 'data.Patient_ID',
+  text:'Patient Identifier',
+  sort: true
+}, {
+  dataField: 'data.Birth_date',
+  text: 'Date of Birth',
+  sort: true
+},
+{
+  dataField: 'data.Gender',
+  text: 'Gender',
+  sort: true,
+},
+{
+  dataField: 'data.Disease_1',
+  text: 'Disease Name'
+},{
+  dataField: 'data.Response_1',
+  text: 'Response to Disease '
+}, {
+  dataField: 'data.Clinician_name',
+  text: 'Name of Clinican'
+}];
+
 class Analyse extends Component {
     constructor(props) {
         super(props)
-
         this.state = {
           loaded: false,
           assetPush: false,
-          num: 0
+          num: 0,
+          dataAnalysis: []
 
         };
 
@@ -54,9 +81,14 @@ class Analyse extends Component {
 
     };
 
-    componentDidMount = async () => {
-        this._loadBlockchain()
-    };
+    async componentDidMount () {
+      this._loadBlockchain()
+    }
+
+
+    onFocusFunction = () => {
+      this._loadBlockchain()
+    }
     
     _loadBlockchain = async() => {
         try {
@@ -99,6 +131,11 @@ class Analyse extends Component {
         this.props.history.push(path);
       }
 
+      routeResearchRequest() {
+        let path = `/researchRequest`;
+        this.props.history.push(path);
+      }
+
       _validateData() {
         this.state.dataAccess.methods.getDataCount().call()
         .then((result) => {
@@ -124,15 +161,15 @@ class Analyse extends Component {
       });
     };
 
-    async _getAssets() {
-        try {
+       _getAssets() {
+        
           let url = '/api/bigchain/checkOwnedData';
           let request = API_url + url;
           let data = {
             "pubkey": this.state.existingProject.bgChainToken,
           };
           
-        await fetch(request, {
+          fetch(request, {
           method: 'POST',
             headers: {
              'Accept': 'application/json',
@@ -150,31 +187,51 @@ class Analyse extends Component {
                     assetPush: true,
                     assetNum: num,
                     tx: responseJson, 
-
-                });
+          });
           console.log("values numbered are ", num);
 
           })
           .then(() => {
-            
             this._getData();
           })
           .catch((error) => {
               console.log('_getAssets error: ',error);
               this.setState({...this.state, showError: true});
         });
-  } catch (err) {
-    console.log(err)
-    this.setState({...this.state, showError: true});
-  }
-};
+  };
 
   _getData() {
+      let url = '/api/assets/getDatabyID';
+      let request = API_url + url;
+      let data = {
+        "array": this.state.tx,
+      };
+      fetch(request, {
+      method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+        })
+        .then((response) => response.json())
+        .then((responseJson) => {
+          console.log('_getData Request Made, response: ',responseJson)
+          console.log(JSON.stringify(responseJson))
+            this.setState({ 
+                assetPush: true,
+                dataAnalysis: responseJson
+      });
+    })
+      .catch((error) => {
+        console.log('_getData error: ',error);
+        this.setState({...this.state, showError: true});
+  });
+};
 
-  }
 
 render() {
-  const {assetNum, assetPush} = this.state
+  const {assetNum, assetPush, dataAnalysis} = this.state
 
   if(!assetPush){
     return(
@@ -192,7 +249,21 @@ render() {
             <h2>
                 Analysis
             </h2>
-            <p> You have already had confirmed access to research on {assetNum} records</p>
+            <Row>
+                  <Col>
+                  <Button
+                      type="submit"
+                      variant="outline-primary"
+                      onClick={this.routeResearchRequest.bind(this)}>
+                      Select a new cohort to analyse
+                    </Button>
+                  </Col>
+                  <Col>
+                  <p> You have already had confirmed access to research on {assetNum} records</p>
+                  </Col>
+                </Row>
+            
+            <BootstrapTable keyField='_id' data={ dataAnalysis } columns={ columns } />
         </div>
         )
     };

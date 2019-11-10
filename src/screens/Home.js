@@ -14,6 +14,7 @@ class Home extends Component {
     componentDidMount = async () => {};
 
     routeRequest() {
+        
         let path = `/researchRequest`;
         this.props.history.push(path);
       }
@@ -33,22 +34,17 @@ render() {
 
         </Row>
         <Card>
-            <Card.Img variant="top" src={icon} style={{ width: '8rem' }}  />
+            <Card.Img variant="top"  style={{ width: '8rem' }}  />
             <Card.Body>
                 <Card.Title>This application is designed for researchers to quickly complete research </Card.Title>
                 <Card.Text>
                 We enable researchers to see summary level data and request access to patients records for
                 research purposes.
                 {"\n"}
-                Make a research request now or select about to find out more...
-                
+                Register a project now to access data within the system
                 </Card.Text>
                 <Row>
                 <Col>
-                <Button 
-                    variant="outline-secondary"
-                    onClick={this.routeRequest}>
-                        Research</Button>
                 </Col>
                 <Col>
                 <Button 

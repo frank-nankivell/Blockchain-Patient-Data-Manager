@@ -6,6 +6,7 @@ import {Button,
   Table, 
   Row, 
   Col,
+  Alert,
   ProgressBar} from 'react-bootstrap';
 import {blue1,lighterWhite} from '../constants/Colors';
 import { withRouter } from 'react-router-dom';
@@ -21,6 +22,22 @@ var API_url = "http://localhost:3000";
 if (process.env.NODE_ENV === 'production') {
   dbURI = 'enterProdURL';
 }
+const withErrorHandling = WrappedComponent => ({ showError, children }) => {
+  return (
+    <WrappedComponent>
+    {showError && <div className="error-message">
+      <Alert variant="danger" onClose={() => setShow(false)} dismissible>
+      <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+      <p>
+        We are working on it - apologies!
+      </p>
+    </Alert>
+    </div>}
+    {children}
+  </WrappedComponent>
+  );
+};
+const DivWithErrorHandling = withErrorHandling(({children}) => <div>{children}</div>)
 
 const columns = [{
     dataField: '_id',
@@ -41,6 +58,7 @@ export default class ResearchRequest extends Component {
         super()
         this.state = {
             isFetching: false,
+            showError: false,
             formStatus: false,
             assetError: false,
             data: [],
@@ -79,8 +97,8 @@ export default class ResearchRequest extends Component {
        
           // Set web3, accounts, and contract to the state, and then proceed with updating UI flag
           this.setState({ dataAccess: dataAccessInstance, web3: web3, account: accounts[0]})
-    
-          this._validateData();
+          
+          this.timer = setInterval(() => this._validateData(), 5000);
      
         } catch (error) {
           // Catch any errors for any of the above operations.
@@ -136,14 +154,14 @@ export default class ResearchRequest extends Component {
         });
       };
 
-      _validateData() {
+     _validateData() {
         this.state.dataAccess.methods.getDataCount().call()
         .then((result) => {
           console.log("GetDataCount: " + result);
           if(result == 0) {
             console.log("Contract less than 1, No data stored");    
           } else {
-            this.state.dataAccess.methods.getData(this.state.account).call()
+             this.state.dataAccess.methods.getData(this.state.account).call()
             .then((result) =>{
               console.log("getData: " + result);
               var a = JSON.stringify(result)
@@ -193,9 +211,10 @@ export default class ResearchRequest extends Component {
       }
     }
 
-     async _navAnalyse() {
-      await this.props.navigation.navigate('Analyse')
-    };
+      _navAnalyse() {
+      let path = `/analyse`;
+      this.props.history.push(path);
+    }
 
     async _pushForm() {
 
@@ -223,17 +242,20 @@ export default class ResearchRequest extends Component {
                   .then((responseJson) => {
                     console.log('_pushForm Request Made, response: ',responseJson)
                     
-                    if(responseJson.status = "400 BAD REQUEST") {
-
+                    if(responseJson.error == "Bigchain Query Error" || responseJson.error == "Incorrect Payload" ) {
+                      this.setState({
+                        showError: true
+                      })
+                    } else if (responseJson.message == "HTTP Error: Requested page not reachable") {
                       this.setState({
                         assetError: true
                       })
                       console.log('Error - data already owned by user')
-                    }
-                    else {     
+                    }else {     
                       this.setState({ 
                           assetPush: true,
                           tx: responseJson, 
+                          showError: true,
                       });
                     }
                 })
@@ -244,7 +266,10 @@ export default class ResearchRequest extends Component {
                 })
                   .catch((error) => {
                       console.log('_pushForm error: ',error);
-                      this.setState({...this.state, assetPush: false});
+                      this.setState({...this.state, 
+                        assetPush: false,
+                        showError: true,
+                      });
               });
           } catch (err) {
             console.log(err);
@@ -306,6 +331,7 @@ export default class ResearchRequest extends Component {
                     <h2>
                         Below provides a summary of data available for research by disease type
                     </h2>
+                <DivWithErrorHandling showError={this.state.showError}></DivWithErrorHandling>
                 <ProgressBar animated now={50} label={'Cohort Selection'}/>
                 <BootstrapTable keyField='_id' data={ diseaseSummary } columns={ columns } />
                     <Card>
@@ -327,6 +353,7 @@ export default class ResearchRequest extends Component {
                         <h2>
                             To complete research on the data use the simple form below
                         </h2>
+                      <DivWithErrorHandling showError={this.state.showError}></DivWithErrorHandling>
                       <ProgressBar animated now={75} label={'Request'}/>
                     <Form>
                     <Form.Group controlId="exampleForm.ControlInput1">
