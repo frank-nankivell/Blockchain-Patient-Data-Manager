@@ -201,6 +201,10 @@ export default class ResearchRequest extends Component {
               this.setState({"projectSummary": event.target.value})
             // console.log('projectSummary is', event.target.value)
               break;
+              case "_researchStatus":
+                this.setState({"_researchStatus": event.target.value})
+              // console.log('projectSummary is', event.target.value)
+                break;
           default:
               break;
         }
@@ -229,11 +233,13 @@ export default class ResearchRequest extends Component {
 
         let data = {
           "pubkey": this.state.existingProject.bgChainToken,
-          "asset_Type": this.state._disease
+          "asset_Type": this.state._disease,
+          "summary": this.state.existingProject.projectSummary,
+          "researchStatus":this.state._researchStatus
         };
+      console.log('pubkey:',data.pubkey)
+      console.log('asset_Type:',this.state._disease)
 
-        console.log('pubkey:',data.pubkey)
-        console.log('asset_Type:',this.state._disease)
       await fetch(request, {
         method: 'POST',
           headers: {

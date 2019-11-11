@@ -163,7 +163,8 @@ conn.postTransactionCommit(txCreateAliceSimpleSigned)
   */
     
 const transferAssetFunction = function(req, res, data, callback) {
-
+    var summary = req.body.summary;
+    var researchStatus = req.body.researchStatus;
     var name_key = req.body.pubkey;
     var privateKey = data[0].private_key;
     var id = data[0].prepared_create_tx;
@@ -192,8 +193,8 @@ const transferAssetFunction = function(req, res, data, callback) {
           // metadata
           {
           time: '30 days',
-          research_project: 'analysis',
-          lay_summary:'analysis on xyz'
+          research_project: researchStatus,
+          lay_summary: summary 
           }
 
         )
