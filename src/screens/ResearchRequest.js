@@ -155,28 +155,32 @@ export default class ResearchRequest extends Component {
       };
 
      _validateData() {
-        this.state.dataAccess.methods.getDataCount().call()
-        .then((result) => {
-          console.log("GetDataCount: " + result);
-          if(result == 0) {
-            console.log("Contract less than 1, No data stored");    
-          } else {
-             this.state.dataAccess.methods.getData(this.state.account).call()
-            .then((result) =>{
-              console.log("getData: " + result);
-              var a = JSON.stringify(result)
-              console.log('object: ',a)
-              this.setState({existingProject: result})
-            })
-            .catch((err) => {
-              console.log("Error GetData: "+err)
-            });
-          }
-      })
-      .catch(function(err) {
-          console.log("Error GetDataCount: "+err);
-      });
-    };
+      this.state.dataAccess.methods.validateData(this.state.account).call()
+      .then((result) => {
+        console.log('validateData', JSON.stringify(result))
+        if (result == false) {
+        } else {
+          this.state.dataAccess.methods.getData(this.state.account).call()
+          .then((result) =>{
+            console.log("getData: " + result);
+            var a = JSON.stringify(result)
+            console.log('object: ',a)
+            this.setState({
+                existingProject: result,
+              })
+            // make API call to check projects existing
+          })
+          .catch((err) => {
+            console.log("Error GetData: "+err)
+            this.setState({...this.state,showError:true})
+          });
+        }
+    })
+    .catch((error) => {
+        console.log("Error GetDataCount: "+error);
+        this.setState({...this.state,showError:true})
+    });
+  };
 
 
     _getForm = async () => {

@@ -154,16 +154,14 @@ class CheckRegistration extends Component {
       };
 
       _loadRegistration() {
-        this.state.dataAccess.methods.getDataCount().call()
+        this.state.dataAccess.methods.validateData(this.state.account).call()
         .then((result) => {
-          console.log("GetDataCount: " + result);
-          if(result == 0) {
-            console.log("Contract less than 1, No data stored");
-            this.setState({
-                loaded:true,
-                isRegistered:false
+          console.log('validateData', JSON.stringify(result))
+          if (result == false) {
+          this.setState({
+            loaded:true,
+            isRegistered:false
             })
-            return;
           } else {
             this.state.dataAccess.methods.getData(this.state.account).call()
             .then((result) =>{

@@ -67,6 +67,7 @@ contract DataAccess {
     }
 
 
+
     function validateData(address dataAddress) 
         public 
         constant 

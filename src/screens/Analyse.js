@@ -136,12 +136,14 @@ class Analyse extends Component {
         this.props.history.push(path);
       }
 
+
       _validateData() {
-        this.state.dataAccess.methods.getDataCount().call()
+        this.state.dataAccess.methods.validateData(this.state.account).call()
         .then((result) => {
           console.log("GetDataCount: " + result);
-          if(result == 0) {
-            console.log("Contract less than 1, No data stored");    
+          if(result == false) {
+            console.log("No project registered -> result:",result);
+                
           } else {
             this.state.dataAccess.methods.getData(this.state.account).call()
             .then((result) =>{
@@ -153,11 +155,13 @@ class Analyse extends Component {
             })
             .catch((err) => {
               console.log("Error GetData: "+err)
+              this.setState({...this.state,showError:true})
             });
           }
       })
       .catch(function(err) {
-          console.log("Error GetDataCount: "+err);
+          console.log("Error GetDataCount: "+err)
+          this.setState({...this.state,showError:true})
       });
     };
 

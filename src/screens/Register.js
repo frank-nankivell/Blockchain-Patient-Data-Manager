@@ -50,7 +50,6 @@ const DivWithErrorHandling = withErrorHandling(({children, message}) => <div>{ch
 
 // contract data
 import DataAccess from '../../build/contracts/DataAccess.json'
-import RegisterContract from '../../build/contracts/Register.json';
 
 //  constructor and class definition
 export default class Register extends Component {
@@ -120,18 +119,14 @@ export default class Register extends Component {
   }
 
 
-  // function to validate whether 
-  //  user has recorded project previously 
-   _validateData() {
-    this.state.dataAccess.methods.getDataCount().call()
-    .then((result) => {
-      console.log("GetDataCount: " + result);
-      if(result == 0) {
-        console.log("Contract less than 1, No data stored");
-        this._getToken();
-
-      } else {
-        this.state.dataAccess.methods.getData(this.state.account).call()
+  _validateData() {
+  this.state.dataAccess.methods.validateData(this.state.account).call()
+  .then((result) => {
+    console.log('validateData', JSON.stringify(result))
+    if (result == false) {
+    this._getToken();
+    } else {
+      this.state.dataAccess.methods.getData(this.state.account).call()
         .then((result) =>{
           console.log("getData: " + result);
           var a = JSON.stringify(result)
@@ -139,18 +134,20 @@ export default class Register extends Component {
           var array =[]
           array.push(result[0]);
           console.log('array,',array)
-          this.setState({existingProject: result, 
-                        formStatus: true})
+          this.setState({
+            existingProject: result, 
+            formStatus: true})
         })
-        .catch((err) => {
-          console.log("Error GetData: "+err)
-        });
-      }
-  })
-  .catch(function(err) {
-      console.log("Error GetDataCount: "+err);
-      this._getToken();
-  });
+      .catch((err) => {
+        console.log("Error GetData: "+err)
+        this.setState({...this.state,showError:true})
+      });
+    }
+})
+.catch((error) => {
+    console.log("Error GetDataCount: "+error);
+    this.setState({...this.state,showError:true})
+});
 };
 
   // function to update state from form
@@ -158,15 +155,15 @@ export default class Register extends Component {
     switch(event.target.name) {
         case "name":
             this.setState({"name": event.target.value})
-            //console.log('name is', event.target.value)
+            console.log('name is', event.target.value)
             break;
         case "institution":
             this.setState({"institution": event.target.value})
-            //console.log('email is', event.target.value)
+            console.log('email is', event.target.value)
             break;
         case "projectSummary":
             this.setState({"projectSummary": event.target.value})
-           // console.log('projectSummary is', event.target.value)
+            console.log('projectSummary is', event.target.value)
             break;
         default:
             break;
@@ -197,15 +194,17 @@ export default class Register extends Component {
       };
 
     // function to register project on chain
-    async _registerProject(event)
-    {
-      if (this.state.dataAccess!='undefined' || this.state.token !='undefined') {
+     async _registerProject(event)
+    { 
+    try {
+      if (typeof this.state.dataAccess !== 'undefined' || typeof this.state.token !=='undefined') {
+        event.preventDefault();
       console.log('pushing data to chain')
       console.log('token: ',this.state.token)
       let today = new Date();
       let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 
-      await this.state.dataAccess.methods.insertDataLocation(
+       await this.state.dataAccess.methods.insertDataLocation(
         this.state.account,
         this.state.name,
         this.state.institution,
@@ -218,23 +217,24 @@ export default class Register extends Component {
         console.log("data access insertdataLocation callback: "+ result);
         this.setState({...this.state, formStatus: true, data: result});
         })
-        .catch((error) => { 
+      .catch((error) => { 
         console.log('Error insertdataLocation: '+ error)
         this.setState({...this.state, showError: true});
-      });
-    
+      }); 
     } else {
       this.setState({...this.state, showError: true});
     }
-  };
+  } catch {
+    console.log("Error catch")
+    this.setState({...this.state, showError: true});
+  }
+};
 
 
 
   render() {
-    const {formStatus, web3, account, projectList, userName, existingProject, errorMessage}= this.state;
-   /* const items = existingProject.map((items, index) => 
-            <li key={index}> {items.ownerName}, {items.institution},{items.bgChainToken},{items.dateOfAccess},{items.projectSummary} </li>
-            );*/
+    const {formStatus, web3, account, existingProject, errorMessage}= this.state;
+
     if(!web3) {
       return<div>Loading...
         <DivWithErrorHandling showError={this.state.showError}></DivWithErrorHandling>
