@@ -227,17 +227,40 @@ class CheckRegistration extends Component {
 
     _routeAnalysis() {
         let path = `/analyse`;
-        this.props.history.push(path);
-    }
+        this.props.history.push({
+        pathname: path,
+        state: { loaded: false,
+                  assetPush: false,
+                  num: 0,
+                  dataAnalysis: [] 
+        }
+      })
+  };
     _routeRegister() {
         let path = `/register`;
-        this.props.history.push(path);
-    }
+        this.props.history.push({
+          pathname: path,
+          state : {
+          formStatus: false,
+          showError: false,
+          existingProject: [],
+          dataAccess: undefined,
+          account: null,
+          web3: null,
+          error: false,
+          userName: null,
+          data: [],
+          recentData: [],
+          users: [],
+          projectList: [],
+          count: '1'
+      }
+    })
+  };
     _routeHome() {
         let path = `/home`;
         this.props.history.push(path);
     }
-
      
 
 

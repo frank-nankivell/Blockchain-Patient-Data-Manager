@@ -228,11 +228,11 @@ const transferAssetFunction = function(req, res, data, callback) {
   const getAssetObject= function(req, res, callback) {
 
     console.log('Search Assets: ',req.body.asset_Type)
-
     if (req.body.asset_Type!=null || req.body.asset_Type!=undefined) {
 
     conn.searchAssets(req.body.asset_Type)
         .then(assets => {
+
           console.log("GetassetsCheck: ",assets)
 
         // TO DO loop through obj and create array with ID
@@ -331,6 +331,8 @@ const transferAssetFunction = function(req, res, data, callback) {
 
   module.exports.makeTransfer = function(req, res) {
 
+    //console.log('assets',JSON.parse(req.body.asset_Type))
+
     getAssetObject(req, res, function(req, res, output) {
 
       getKeyfromList(req,res, output, function(req, res, data) {
@@ -339,14 +341,12 @@ const transferAssetFunction = function(req, res, data, callback) {
 
           console.log('callback', callback)
         
-          sendJSONresponse(res, 200, callback)
+          sendJSONresponse(res, 200, output)
 
         });
         // 
-      });
-
     });
-
+    });
   };
   
   module.exports.checkUser = function(req, res) {

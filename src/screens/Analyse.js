@@ -71,7 +71,6 @@ class Analyse extends Component {
           assetPush: false,
           num: 0,
           dataAnalysis: []
-
         };
 
         this.routeRequest = this.routeRequest.bind(this);
