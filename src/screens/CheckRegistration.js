@@ -10,7 +10,7 @@ import {
     Spinner,
     Alert,
 } from 'react-bootstrap';
-import { location, history} from "react-router-dom"
+import { location} from "react-router-dom"
 
 import getWeb3 from '../utils/getWeb3';
 import DataAccess from '../../build/contracts/DataAccess.json'
@@ -36,6 +36,8 @@ const withErrorHandling = WrappedComponent => ({ showError, children }) => {
     );
   };
 const DivWithErrorHandling = withErrorHandling(({children}) => <div>{children}</div>)
+import createHistory from 'history/createBrowserHistory'
+const history = createHistory();
 
 function AnalysisGreeting(props) {
     return(
@@ -108,21 +110,25 @@ class CheckRegistration extends Component {
             dataAccess: null,
             existingProject: null
         }
-
+        
         this._loadBlockchain = this._loadBlockchain.bind(this)
         this._loadRegistration = this._loadRegistration.bind(this)
         this._routeAnalysis = this._routeAnalysis.bind(this)
         this._routeHome = this._routeHome.bind(this)
         this._routeRegister = this._routeRegister.bind(this)
+        this._loadBlockchain()
        // this.loadPage = this.loadPage.bind(this);
      //   this.renderAnalyis = this.renderAnalyis.bind()
      //   this.renderAnalyisEmpty = this.renderAnalyisEmpty.bind(this)
 
     };
+    componentDidUpdate () {
+      
+      this._loadBlockchain()
+    }
+  
+    componentDidMount() {
 
-
-    componentDidMount = async () => {
-       // this.loadPage()
         this._loadBlockchain()
     };
 

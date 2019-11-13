@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Card, Button, Row, Container, Col} from 'react-bootstrap';
 import icon from '../assets/care.png'
-import { withRouter } from 'react-router-dom';
+import { withRouter, router } from 'react-router-dom';
 
 class Home extends Component {
     constructor(props) {
