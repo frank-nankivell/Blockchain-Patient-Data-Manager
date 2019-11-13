@@ -10,6 +10,7 @@ import {
     Spinner,
     Alert,
 } from 'react-bootstrap';
+import { location, history} from "react-router-dom"
 
 import getWeb3 from '../utils/getWeb3';
 import DataAccess from '../../build/contracts/DataAccess.json'
@@ -113,6 +114,7 @@ class CheckRegistration extends Component {
         this._routeAnalysis = this._routeAnalysis.bind(this)
         this._routeHome = this._routeHome.bind(this)
         this._routeRegister = this._routeRegister.bind(this)
+       // this.loadPage = this.loadPage.bind(this);
      //   this.renderAnalyis = this.renderAnalyis.bind()
      //   this.renderAnalyisEmpty = this.renderAnalyisEmpty.bind(this)
 
@@ -120,8 +122,10 @@ class CheckRegistration extends Component {
 
 
     componentDidMount = async () => {
+       // this.loadPage()
         this._loadBlockchain()
     };
+
     
     _loadBlockchain = async() => {
         try {
@@ -301,11 +305,13 @@ render() {
           {button}
         </Col>
         <Col>
+
             <Button 
                 variant="outline-info"
                 onClick={this.routeHome}>
                 Go back </Button>
                 </Col>
+
                 </Row>
           </Container>
         </div>

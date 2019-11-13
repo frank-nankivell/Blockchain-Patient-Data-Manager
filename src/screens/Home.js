@@ -8,15 +8,21 @@ class Home extends Component {
         super(props)
         this.routeRequest = this.routeRequest.bind(this);
         this.routeAbout = this.routeAbout.bind(this);
-    
+        this.routeCheckRegistration = this.routeCheckRegistration.bind(this);
     };
 
     componentDidMount = async () => {};
 
     routeRequest() {
-        
         let path = `/researchRequest`;
         this.props.history.push(path);
+      }
+
+      routeCheckRegistration() {
+        let path = `/checkRegistration`;
+        this.props.history.push(path);
+        this.props.history.replace({pathname: '/checkRegistration'})
+
       }
 
       
@@ -45,12 +51,16 @@ render() {
                 </Card.Text>
                 <Row>
                 <Col>
-                </Col>
-                <Col>
                 <Button 
                     variant="outline-info"
                     onClick={this.routeAbout}>
                         Learn More </Button>
+                </Col>
+                <Col>
+                <Button 
+                    variant="outline-info"
+                    onClick={this.routeCheckRegistration}>
+                       Check Registration </Button>
                 </Col>
                 </Row>
             </Card.Body>
