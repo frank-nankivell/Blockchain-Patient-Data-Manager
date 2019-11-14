@@ -122,13 +122,12 @@ class CheckRegistration extends Component {
      //   this.renderAnalyisEmpty = this.renderAnalyisEmpty.bind(this)
 
     };
+    
     componentDidUpdate () {
-      
       this._loadBlockchain()
     }
   
     componentDidMount() {
-
         this._loadBlockchain()
     };
 

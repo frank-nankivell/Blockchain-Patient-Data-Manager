@@ -12,11 +12,12 @@ import {
     Button,
 } from 'react-bootstrap';
 
-
 var API_url = "http://localhost:3000";
 if (process.env.NODE_ENV === 'production') {
   dbURI = 'enterProdURL';
 }
+import { Chart } from "react-google-charts";
+
 
 import getWeb3 from '../utils/getWeb3';
 import DataAccess from '../../build/contracts/DataAccess.json'
@@ -254,6 +255,9 @@ render() {
             </h2>
             <Row>
                   <Col>
+                  <p> You have already had confirmed access to research on {assetNum} records</p>
+                  </Col>
+                  <Col>
                   <Button
                       type="submit"
                       variant="outline-primary"
@@ -261,12 +265,45 @@ render() {
                       Select a new cohort to analyse
                     </Button>
                   </Col>
-                  <Col>
-                  <p> You have already had confirmed access to research on {assetNum} records</p>
-                  </Col>
                 </Row>
-            
-            <BootstrapTable keyField='_id' data={ dataAnalysis } columns={ columns } />
+        <Tabs id="controlled-tab-about" defaultActiveKey="table">
+        <Tab eventKey="table" title="Data Table">
+          <Row>
+          <BootstrapTable keyField='_id' data={ dataAnalysis } columns={ columns } />
+          </Row>
+        </Tab>
+        <Tab eventKey="graphs" title="Graphs">
+            <Row>  
+            <Chart
+                chartType="ScatterChart"
+                data={[["Age", "Weight"], [4, 5.5], [8, 12]]}
+                width="100%"
+                height="400px"
+                legendToggle
+              />
+            </Row>
+      </Tab>
+      <Tab eventKey="export" title="Data Export">
+        <p> 
+          data export
+        </p>
+      </Tab>
+    </Tabs>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         </div>
         )
     };
