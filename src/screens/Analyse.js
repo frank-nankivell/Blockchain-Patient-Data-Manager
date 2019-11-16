@@ -38,6 +38,9 @@ const withErrorHandling = WrappedComponent => ({ showError, children }) => {
   );
 };
 const DivWithErrorHandling = withErrorHandling(({children}) => <div>{children}</div>)
+import ExportCSV from '../components/ExportCsv'
+import ToolkitProvider, { CSVExport } from 'react-bootstrap-table2-toolkit';
+
 
 const columns = [{
   dataField: 'data.Patient_ID',
@@ -71,13 +74,16 @@ class Analyse extends Component {
           loaded: false,
           assetPush: false,
           num: 0,
-          dataAnalysis: []
+          dataAnalysis: [],
+          fileName: "name"
         };
 
         this.routeRequest = this.routeRequest.bind(this);
         this._validateData = this._validateData.bind(this);
         this.routeAbout = this.routeAbout.bind(this);
-        this._loadBlockchain = this._loadBlockchain.bind(this)
+        this._loadBlockchain = this._loadBlockchain.bind(this);
+        this._getData = this._getData.bind(this)
+        this._doGraphs = this._doGraphs.bind(this);
 
     };
 
@@ -225,7 +231,8 @@ class Analyse extends Component {
             this.setState({ 
                 assetPush: true,
                 dataAnalysis: responseJson
-      });
+      })
+      this._doGraphs();
     })
       .catch((error) => {
         console.log('_getData error: ',error);
@@ -233,9 +240,48 @@ class Analyse extends Component {
   });
 };
 
+  _doGraphs() { 
+
+    // function to convert data into graphical info
+    let genderArry, diseaseArray, info;
+    info = this.state.dataAnalysis;
+    
+    // this sets to summarise by disease
+    diseaseArray = info.map(x => x.data.Disease_1);
+    let counts = {};
+    diseaseArray.forEach(function(x) { counts[x] = (counts[x] || 0)+1; });
+    const chartData = [['Disease Name', 'Count']]
+    const names = Object.keys(counts)
+    const Values = Object.values(counts)
+
+    for (let i = 0; i < names.length; i += 1) {
+      chartData.push([names[i], Values[i]])
+    }
+    // sets state
+    this.setState({
+      chartDisease: chartData
+    })
+    // this summarises by Gender
+    genderArry = info.map(x => x.data.Gender);
+    let countsGender = {};
+    genderArry.forEach(function(x) { countsGender[x] = (countsGender[x] || 0)+1; });
+    const chartDataGender = [['Gender', 'Count']]
+    const namesGender = Object.keys(countsGender)
+    const ValuesGender = Object.values(countsGender)
+
+    for (let i = 0; i < names.length; i += 1) {
+      chartDataGender.push([namesGender[i], ValuesGender[i]])
+    }
+      // sets state
+      this.setState({
+        chartGender: chartDataGender
+      })
+}
+
 
 render() {
-  const {assetNum, assetPush, dataAnalysis} = this.state
+  const {assetNum, assetPush, dataAnalysis, chartDisease, chartGender} = this.state
+  const {ExportCSVButton} = CSVExport;
 
   if(!assetPush){
     return(
@@ -273,37 +319,62 @@ render() {
           </Row>
         </Tab>
         <Tab eventKey="graphs" title="Graphs">
-            <Row>  
+            <Row>
+            <Col>  
+                <p>
+                   By Disease
+                 </p>
             <Chart
-                chartType="ScatterChart"
-                data={[["Age", "Weight"], [4, 5.5], [8, 12]]}
-                width="100%"
-                height="400px"
-                legendToggle
-              />
+                width={'500px'}
+                height={'300px'}
+                chartType="PieChart"
+                loader={<div>Loading Chart</div>}
+                data={chartDisease}
+                options={{
+                  title: 'Summary by Disease type',
+                }}
+                rootProps={{ 'data-testid': '1' }}
+                />
+                 </Col>
+                 <Col>
+                 <p>
+                   By Gender
+                 </p>
+            <Chart
+                width={'500px'}
+                height={'300px'}
+                chartType="PieChart"
+                loader={<div>Loading Chart</div>}
+                data={chartGender}
+                options={{
+                  title: 'Summary by Gender',
+                }}
+                rootProps={{ 'data-testid': '1' }}
+                />
+                 </Col>
             </Row>
       </Tab>
       <Tab eventKey="export" title="Data Export">
-        <p> 
-          data export
-        </p>
+        <div className="col-md-4 center">
+        <ToolkitProvider
+            keyField="id"
+            data={ dataAnalysis }
+            columns={ columns }
+            exportCSV
+          >
+            {
+              props => (
+                <div>
+                  <ExportCSVButton { ...props.csvProps }>Download Data</ExportCSVButton>
+                  <hr />
+                  <BootstrapTable { ...props.baseProps } />
+                </div>
+              )
+            }
+          </ToolkitProvider>
+        </div>
       </Tab>
     </Tabs>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         </div>
         )
     };

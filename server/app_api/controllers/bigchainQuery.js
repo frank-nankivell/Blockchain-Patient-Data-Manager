@@ -285,16 +285,20 @@ const transferAssetFunction = function(req, res, data, callback) {
   // not automatically provide a list of keys
   const getKeyfromList = function(req, res, output, callback) {
 
+    console.log('output check',output, '')
+
+    if (output !=undefined) {
+
     const arr = [];
     const finalArr = [];
 
-    var inputFilePath = './server/app_api/controllers/output.csv'
+    var inputFilePath = './server/Patientdata/output.csv'
     fs.createReadStream(inputFilePath)
     .pipe(csv())
     .on('data', function(data){
         try {
           arr.push(data)
-          //console.log(arr)    
+         // console.log(arr)    
         }
         catch(err) {
          console.log(err)
@@ -318,8 +322,11 @@ const transferAssetFunction = function(req, res, data, callback) {
     console.log('KeySetCheck: ',finalArr)
     callback(req, res, finalArr)
   });
-  
-
+} else {
+  console.log("output is undefined")
+  sendJSONresponse(res, 400,PayError )
+  return;
+}
 
 };
 
@@ -335,13 +342,13 @@ const transferAssetFunction = function(req, res, data, callback) {
 
     getAssetObject(req, res, function(req, res, output) {
 
-      getKeyfromList(req,res, output, function(req, res, data) {
+      getKeyfromList(req, res, output, function(req, res, data) {
 
         transferAssetFunction(req, res, data, function(req, res, callback) {
 
-          console.log('callback', callback)
+          //console.log('callback', callback)
         
-          sendJSONresponse(res, 200, output)
+          sendJSONresponse(res, 200, callback)
 
         });
         // 
