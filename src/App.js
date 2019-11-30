@@ -5,11 +5,9 @@ import {Route, Link, Switch, BrowserRouter as Router } from 'react-router-dom'
 import {Form, Button, Navbar, Nav, NavDropdown, FormControl} from 'react-bootstrap';
 
 import Home from './screens/Home';
-import DataLogin from './screens/DataLogin';
 import ResearchRequest from './screens/ResearchRequest';
 import About from './screens/About';
 import Register from './screens/Register';
-import Research from './screens/Research';
 import Analyse from './screens/Analyse';
 import CheckRegistration from './screens/CheckRegistration';
 import NoMatch from './screens/NoMatch';
@@ -34,8 +32,6 @@ function App() {
           <Route exact path="/researchRequest" component={ResearchRequest} />
           <Route exact path="/about" component={About} />
           <Route exact path="/analyse" component={Analyse} />
-          <Route exact path="/datalogin" component={DataLogin} />
-          <Route exact path="/research" components={Research} />
           <Route component={NoMatch} />
         </Switch>
       </Router>

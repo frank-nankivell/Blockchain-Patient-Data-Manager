@@ -1,0 +1,4 @@
+pytz
+faker
+haikunator
+bigchaindb_driver==0.6.2

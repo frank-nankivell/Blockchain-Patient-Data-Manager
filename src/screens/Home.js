@@ -14,14 +14,14 @@ class Home extends Component {
     componentDidMount = async () => {};
 
     routeRequest() {
-        let path = `/researchRequest`;
+        let path = `/researchRequest:1`;
         this.props.history.push(path);
       }
 
       routeCheckRegistration() {
-        let path = `/checkRegistration`;
+        let path = `/checkRegistration:1`;
         this.props.history.push(path);
-        this.props.history.replace({pathname: '/checkRegistration'})
+        this.props.history.replace({pathname: '/checkRegistration:1'})
 
       }
 

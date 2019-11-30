@@ -1,5 +1,6 @@
 # 6. Mongo Client used to interact with data store 
 
+Date: 25.09.2019
 
 ## Status
 
@@ -7,12 +8,14 @@ Accepted
 
 ## Context
 
-I need to record the architectural decisions made on this project.
+BigchainDB has a number of drivers available to use to query the datastore, however it also allows users to make queries via a standard mongo driver. The bigchaindb driver is not as as mature as a mongodb for certain aggregate queries and therefore the mongo driver could be additionally used.
 
 ## Decision
 
-We will use Architecture Decision Records, as described by Michael Nygard in this article: http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions
+To use the mongo driver for certain queries that require aggregate functionality.
+
 
 ## Consequences
 
-See Michael Nygard's article, linked above. For a lightweight ADR toolset, see Nat Pryce's _adr-tools_ at https://github.com/npryce/adr-tools.
+MongoDB driver will be used in addition to the bighchaindb driver
+

@@ -292,13 +292,13 @@ const transferAssetFunction = function(req, res, data, callback) {
     const arr = [];
     const finalArr = [];
 
-    var inputFilePath = './server/Patientdata/output.csv'
+    var inputFilePath = 'output.csv'
     fs.createReadStream(inputFilePath)
     .pipe(csv())
     .on('data', function(data){
         try {
           arr.push(data)
-         // console.log(arr)    
+          console.log(arr)    
         }
         catch(err) {
          console.log(err)
