@@ -61,6 +61,7 @@ app.use(expressMongoDb(dbURI,options));
 // API routes
 var ctrlData = require('./app_api/controllers/mongoQuery');
 var ctrlBigChain = require('./app_api/controllers/bigchainQuery');
+var v2ctrlBigchain = require('./app_api/controllers/bigchainQuery_v2');
 
 app.get('/api/assets/searchAll',ctrlData.getAllAssets);
 app.get('/api/assets/summaryDisease',ctrlData.getDisease_Summary);
@@ -75,6 +76,8 @@ app.post('/api/bigchain/transfer',ctrlBigChain.transferAsset);
 app.post('/api/bigchain/transferAsset',ctrlBigChain.makeTransfer);
 app.post('/api/bigchain/checkOwnedData',ctrlBigChain.checkOwnedData);
 app.post('/api/bigchain/checkPreviousData',ctrlBigChain.checkPreviousAsset);
+
+app.post('/api/bigchain/v2_transfer',v2ctrlBigchain.makeTransfer);
 
 //app.get('/api/assets/searchResponse/:_id',ctrlhealthData.getResponse_ID);
 //app.get('api/assets/summaryResponse',ctrlhealthData.getResponse_Summary);
