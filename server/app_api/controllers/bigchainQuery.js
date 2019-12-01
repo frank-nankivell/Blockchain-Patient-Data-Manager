@@ -298,7 +298,7 @@ const transferAssetFunction = function(req, res, data, callback) {
     .on('data', function(data){
         try {
           arr.push(data)
-          console.log(arr)    
+         // console.log(arr)    
         }
         catch(err) {
          console.log(err)

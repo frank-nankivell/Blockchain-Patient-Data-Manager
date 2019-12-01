@@ -46,11 +46,10 @@ module.exports.makeTransfer = function(req, res) {
 
     getKeyfromList(req, res, output, function(req, res, data) {
 
-      transferAssetFunction(req, res, data, function(req, res, callback) {
+      transferloop(req, res, data, function(req, res, callback) {
 
-        //console.log('callback', callback)
-      
-        sendJSONresponse(res, 200, callback)
+        console.log('callback', callback)
+        sendJSONresponse(res, 200, callback[0])
 
       });
       // 
@@ -84,15 +83,33 @@ const getAssetObject= function(req, res, callback) {
   };
 };
 
-// new function
+
+
+function getData(input, arr) {
+  // need error checking in here
+    var i = arr.length;
+    let ownerKeySet
+    let finalArr =[];
+    while(i--) {
+    if(input == arr[i].prepared_create_tx) {
+      ownerKeySet = arr[i];
+      finalArr.push(ownerKeySet)
+        break;   
+    };
+  };
+  return finalArr;
+};
+
+
 const getKeyfromList = function(req, res, output, callback) {
-
-  console.log('output check',output, '')
-
-  if (output !=undefined) {
-
+  
   const arr = [];
   const finalArr = [];
+  const SendArr = [];
+
+  // output is array of ids
+  if (output !=undefined) {
+
 
   var inputFilePath = 'output.csv'
   fs.createReadStream(inputFilePath)
@@ -100,53 +117,67 @@ const getKeyfromList = function(req, res, output, callback) {
   .on('data', function(data){
       try {
         arr.push(data)
-       // console.log(arr)    
       }
       catch(err) {
-      // console.log(err)
-          //error handler
+       console.log(err)
       }
   })
   .on('end',function()
   {
-  // will only work for one record
-  // need to loop through it for more records 
-    var i = arr.length;
-    var ownerKeySet;
-    while(i--) {
-    if(output == arr[i].prepared_create_tx) {
-      ownerKeySet = arr[i];
-      finalArr.push(ownerKeySet)
-        break;   
-    };
-    
+    for (let b = 0; b < output.length; b++) {
+    console.log('getting private key for, ',output[b]);
+    var keysAndVals = getData(output[b],arr)
+    finalArr.push(keysAndVals)
   };
-  //console.log('KeySetCheck: ',finalArr)
-  callback(req, res, finalArr)
-});
+  console.log('KeySetCheck: ',finalArr)
+    callback(req, res, finalArr)
+  });
 } else {
-console.log("output is undefined")
-sendJSONresponse(res, 400,PayError )
-return;
-}
+  console.log("output is undefined")
+  sendJSONresponse(res, 400,PayError )
+  return;
+  }
+};
+
+const transferloop = function(req, res, data, callback) {
+
+  var transferloopArray = [];
+
+/*
+  if(req.body.pubkey==undefined || data[0][0].private_key ==undefined || data[0][0].prepared_create_tx==undefined ) {
+    sendJSONresponse(res, 400, PayError)
+    return;
+  } else {
+*/
+  for (let b = 0; b < data.length; b++) {
+    
+    console.log('Iteration per round',data[b])
+
+    transferAssetFunction(req, res, data[b][0].private_key, req.body.pubkey, data[b][0].prepared_create_tx, req.body.summary, req.body.researchStatus,
+       function(req, res, response) {
+        transferloopArray.push(response);
+       });
+
+  };
+  console.log('loop output',transferloopArray)
+  callback(req, res, transferloopArray);
+  
 
 };
 
-
 // new function  
-const transferAssetFunction = function(req, res, data, callback) {
-    var summary = req.body.summary;
-    var researchStatus = req.body.researchStatus;
-    var name_key = req.body.pubkey;
-    var privateKey = data[0].private_key;
-    var id = data[0].prepared_create_tx;
+const transferAssetFunction = function(req, res, _privatekey, _userPubKey, _prepared_create_tx, _summary, _researchstatus, _callback) {
+
+    var summary = _summary;
+    var researchStatus = _researchstatus;
+    var name_key = _userPubKey;
+    var privateKey = _privatekey;
+    var id = _prepared_create_tx;
 
     const conn = new driver.Connection(API_PATH)
 
-    if(name_key==undefined || privateKey ==undefined || id==undefined ) {
-      sendJSONresponse(res, 400, PayError)
-      return;
-    } else {
+ 
+
     if (name_key.length!=32 && privateKey.length!=32 && id!=undefined) {
         // find original transaction via the transaction ID
         conn.getTransaction(id)
@@ -179,11 +210,11 @@ const transferAssetFunction = function(req, res, data, callback) {
         })
         .then(tx => {
           console.log('Transfer Succesfull: ', tx.id)
-          callback(req, res, tx)
+          _callback(req, res, tx)
         })
         .catch(error => {
           console.log('Error in Transacaction',error)
-          res.status(400).json(error)
+          _callback(req, res, error)
           //sendJSONresponse(req, 400, error)
         })
     } 
@@ -191,8 +222,8 @@ const transferAssetFunction = function(req, res, data, callback) {
       sendJSONresponse(req, 400, PayError)
       return;
     }
-  }
-};
+  };
+
 
   // function that gets assets with IDs
   // from the selected dataset user wants to use
