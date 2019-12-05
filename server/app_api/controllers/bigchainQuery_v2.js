@@ -59,17 +59,16 @@ module.exports.makeTransfer = function(req, res) {
 
 // now gets an array of values, but not those specific ot the asset type
 const getAssetObject= function(req, res, callback) {
+  var db = req.db
 
   console.log('Search Assets: ',req.body.asset_Type)
   if (req.body.asset_Type!=null || req.body.asset_Type!=undefined) {
 
-  conn.searchAssets(req.body.asset_Type)
-      .then(assets => {
-
-      let array = assets.map(x => x.id);
-      console.log("GetassetsCheck: ",array)
-
-      callback(req, res, array)
+  db.collection('assets').find({ 'data.Disease_1': req.body.asset_Type }).toArray()
+                .then(assets => {
+              let array = assets.map(x => x.id);
+              console.log("GetassetsCheck: ",array)
+              callback(req, res, array)
       
       }).catch(error => {
         console.log('Error:'+error)

@@ -8,13 +8,9 @@ import {Button,
   Col,
   Alert,
   ProgressBar} from 'react-bootstrap';
-import {blue1,lighterWhite} from '../constants/Colors';
-import { withRouter } from 'react-router-dom';
-import Chart from "react-google-charts";
 
 import getWeb3 from '../utils/getWeb3';
 import DataAccess from '../../build/contracts/DataAccess.json'
-
 import BootstrapTable from 'react-bootstrap-table-next';
 
 
@@ -22,6 +18,7 @@ var API_url = "http://localhost:3000";
 if (process.env.NODE_ENV === 'production') {
   dbURI = 'enterProdURL';
 }
+
 const withErrorHandling = WrappedComponent => ({ showError, children }) => {
   return (
     <WrappedComponent>
@@ -37,6 +34,7 @@ const withErrorHandling = WrappedComponent => ({ showError, children }) => {
   </WrappedComponent>
   );
 };
+
 const DivWithErrorHandling = withErrorHandling(({children}) => <div>{children}</div>)
 
 const columns = [{
@@ -223,6 +221,72 @@ export default class ResearchRequest extends Component {
       let path = `/analyse`;
       this.props.history.push(path);
     }
+
+
+    async _pushFormUpdate() {
+
+      try {
+
+        let url = '/api/bigchain/v2_transfer';
+        let request = API_url + url;
+
+        let data = {
+          "pubkey": this.state.existingProject.bgChainToken,
+          "asset_Type": this.state._disease,
+          "summary": this.state.existingProject.projectSummary,
+          "researchStatus":this.state._researchStatus
+        };
+      console.log('pubkey:',data.pubkey)
+      console.log('asset_Type:',this.state._disease)
+
+      await fetch(request, {
+        method: 'POST',
+          headers: {
+           'Accept': 'application/json',
+           'Content-Type': 'application/json'
+          },
+            body: JSON.stringify(data)
+                  })
+                  .then((response) => response.json())
+                  .then((responseJson) => {
+                    console.log('_pushForm Request Made, response: ',responseJson)
+                    
+                    if(responseJson.error == "Bigchain Query Error" || responseJson.error == "Incorrect Payload" ) {
+                      this.setState({
+                        showError: true
+                      })
+                    } else if (responseJson.message == "HTTP Error: Requested page not reachable") {
+                      this.setState({
+                        assetError: true
+                      })
+                      console.log('Error - data already owned by user')
+                    }else {     
+                      this.setState({ 
+                          assetPush: true,
+                          tx: responseJson, 
+                          showError: true,
+                      });
+                    }
+                })
+                .then(() => {
+                  if (this.state.tx) {
+                  this._navAnalyse();   
+                  }
+                })
+                  .catch((error) => {
+                      console.log('_pushForm error: ',error);
+                      this.setState({...this.state, 
+                        assetPush: false,
+                        showError: true,
+                      });
+              });
+          } catch (err) {
+            console.log(err);
+
+          }
+        };
+
+  
 
     async _pushForm() {
 
