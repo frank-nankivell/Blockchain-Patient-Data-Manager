@@ -46,16 +46,18 @@ module.exports.makeTransfer = function(req, res) {
 
     getKeyfromList(req, res, output, function(req, res, data) {
 
-      transferloop(req, res, data, function(req, res, callback) {
+       transferloop(req, res, data, function(req, res, details) { 
 
-        console.log('callback', callback)
-        sendJSONresponse(res, 200, callback[0])
+        console.log('bigBackCall', details)
+        sendJSONresponse(res, 200, details)
+        });
 
       });
       // 
   });
-  });
 };
+
+
 
 // now gets an array of values, but not those specific ot the asset type
 const getAssetObject= function(req, res, callback) {
@@ -138,34 +140,37 @@ const getKeyfromList = function(req, res, output, callback) {
   }
 };
 
-const transferloop = function(req, res, data, callback) {
+var transferloopArray = [];
 
-  var transferloopArray = [];
+const transferloop = async (req, res, data, callback) => {
 
-/*
-  if(req.body.pubkey==undefined || data[0][0].private_key ==undefined || data[0][0].prepared_create_tx==undefined ) {
-    sendJSONresponse(res, 400, PayError)
-    return;
-  } else {
-*/
-  for (let b = 0; b < data.length; b++) {
-    
-    console.log('Iteration per round',data[b])
+   transferloopArray = [];
 
-    transferAssetFunction(req, res, data[b][0].private_key, req.body.pubkey, data[b][0].prepared_create_tx, req.body.summary, req.body.researchStatus,
-       function(req, res, response) {
-        transferloopArray.push(response);
-       });
+   data.forEach(element => {
+    console.log('Iteration per round_',element)
+     transferAssetFunction(req, res, element[0].private_key, req.body.pubkey, element[0].prepared_create_tx, req.body.summary, req.body.researchStatus, 
+      function(req, res, callback) {
+          console.log('timoutResponse', callback)
+      });
+  });
 
-  };
-  console.log('loop output',transferloopArray)
-  callback(req, res, transferloopArray);
-  
 
+  checkData = function() {
+  if(transferloopArray.length != data.length) {
+    setTimeout(() => checkData(), 300);
+    console.log('123')
+  }
+  else {
+    console.log('456')
+    callback(req,res,transferloopArray)
+  }
+}
+
+checkData();
 };
 
-// new function  
-const transferAssetFunction = function(req, res, _privatekey, _userPubKey, _prepared_create_tx, _summary, _researchstatus, _callback) {
+ 
+const transferAssetFunction = async(req, res, _privatekey, _userPubKey, _prepared_create_tx, _summary, _researchstatus, _callback) =>{
 
     var summary = _summary;
     var researchStatus = _researchstatus;
@@ -175,9 +180,7 @@ const transferAssetFunction = function(req, res, _privatekey, _userPubKey, _prep
 
     const conn = new driver.Connection(API_PATH)
 
- 
-
-    if (name_key.length!=32 && privateKey.length!=32 && id!=undefined) {
+ try {
         // find original transaction via the transaction ID
         conn.getTransaction(id)
         .then((result) => {
@@ -209,15 +212,17 @@ const transferAssetFunction = function(req, res, _privatekey, _userPubKey, _prep
         })
         .then(tx => {
           console.log('Transfer Succesfull: ', tx.id)
-          _callback(req, res, tx)
+          transferloopArray.push(tx)
+          callback(req, res, tx)
         })
         .catch(error => {
           console.log('Error in Transacaction',error)
-          _callback(req, res, error)
+          transferloopArray.push(error)
+          callback(req, res, error)
           //sendJSONresponse(req, 400, error)
         })
     } 
-    else {
+    catch {
       sendJSONresponse(req, 400, PayError)
       return;
     }
