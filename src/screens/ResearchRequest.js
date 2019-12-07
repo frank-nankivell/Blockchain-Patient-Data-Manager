@@ -7,11 +7,15 @@ import {Button,
   Row, 
   Col,
   Alert,
+  Spinner,
   ProgressBar} from 'react-bootstrap';
 
 import getWeb3 from '../utils/getWeb3';
 import DataAccess from '../../build/contracts/DataAccess.json'
 import BootstrapTable from 'react-bootstrap-table-next';
+import { ifError } from 'assert';
+import { Redirect, useHistory } from "react-router-dom";
+
 
 
 var API_url = "http://localhost:3000";
@@ -46,10 +50,6 @@ const columns = [{
     text: 'Disease Count'
   }];
 
-// SPA 
-// First line provides button to see counts 
-// Button provides count by disease
-// Form then required 
 
 export default class ResearchRequest extends Component {
     constructor() {
@@ -67,17 +67,27 @@ export default class ResearchRequest extends Component {
       this._handleChange = this._handleChange.bind(this)
       this._pushForm = this._pushForm.bind(this)
       this._navAnalyse=this._navAnalyse.bind(this)
+      this._pushFormUpdate=this._pushFormUpdate.bind(this)
     }
     componentDidMount() {
         this._getData();
+        if(this.props.location.state!=null) {
+          this.setState({
+            existingProject: this.props.location.state.existingProject
+          })
+        } else {
+        console.log('running load functions')
        // this.timer = setInterval(() => this._getData(), 20000);
         this._convertData();
         //this.timer = setInterval(() => this._convertData(), 5000);
         this._loadBlockchain()
+        }
 
         };
 
-      _loadBlockchain = async() => {
+
+
+      _loadBlockchain = async ()=>{
         try {
           // Get network provider and web3 instance.
           const web3 = await getWeb3();
@@ -208,19 +218,14 @@ export default class ResearchRequest extends Component {
         }
       }
 
-    async _savetransactionKey() {
-      try {
-        // this function needs to run to then save the transaction key to the blochcain
-      } catch (err) 
-      {
-          console.log(err);
-      }
-    }
-
       _navAnalyse() {
-      let path = `/analyse`;
-      this.props.history.push(path);
-    }
+        let path = `/analyse`;
+        this.props.history.push({pathname: path, state: {existingProject: this.state.existingProject}});
+
+      }
+
+
+
 
 
     async _pushFormUpdate() {
@@ -255,11 +260,11 @@ export default class ResearchRequest extends Component {
                       this.setState({
                         showError: true
                       })
-                    } else if (responseJson.message == "HTTP Error: Requested page not reachable") {
+                    } else if (responseJson.length== 0) {
                       this.setState({
                         assetError: true
                       })
-                      console.log('Error - data already owned by user')
+                      console.log('Empty response')
                     }else {     
                       this.setState({ 
                           assetPush: true,
@@ -282,6 +287,10 @@ export default class ResearchRequest extends Component {
               });
           } catch (err) {
             console.log(err);
+            this.setState({...this.state, 
+              assetPush: false,
+              showError: true,
+            });
 
           }
         };
@@ -289,6 +298,8 @@ export default class ResearchRequest extends Component {
   
 
     async _pushForm() {
+
+      this.setState({requestProgress:true})
 
       try {
 
@@ -330,6 +341,7 @@ export default class ResearchRequest extends Component {
                           assetPush: true,
                           tx: responseJson, 
                           showError: true,
+                          requestProgress:false
                       });
                     }
                 })
@@ -369,33 +381,23 @@ export default class ResearchRequest extends Component {
 
     render() {
         const diseaseSummary = this.state.data;
-        const {formStatus, chartData,dataLoadingStatus, existingProject, assetError, _disease}= this.state;
+        const {formStatus, chartData,dataLoadingStatus, existingProject, assetError, _disease,requestProgress}= this.state;
         const listItems = diseaseSummary.map((d) => 
             <li key={d._id}> {d._id}, {d.Disease_1} </li>
             );
-        if(assetError == true) 
+        if(requestProgress == true) 
         {
         return(
           <div>
             <h2>
-               Already requested these Records
+              <Spinner>
+              </Spinner>
+               Request being Made 
             </h2>
-            
-            <Col>
-            <Row>
-              You already have access to all data classified as {_disease}
-            </Row>
-            <Row>
-            <Button 
-                    variant="outline-secondary"
-                    onClick={this.analyseRequest}>
-                    View data</Button>
+            <Spinner>
+                
+            </Spinner>
 
-            </Row>
-            <Row>
-              
-            </Row>
-            </Col>
           </div>
         )
       }
@@ -482,7 +484,7 @@ export default class ResearchRequest extends Component {
                     </Form.Group>
                     <Button 
                         variant="outline-secondary"
-                        onClick={this._pushForm}>
+                        onClick={this._pushFormUpdate}>
                         Push to make Request
                         
                     </Button>

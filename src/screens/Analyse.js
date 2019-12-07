@@ -17,6 +17,8 @@ if (process.env.NODE_ENV === 'production') {
   dbURI = 'enterProdURL';
 }
 import { Chart } from "react-google-charts";
+import browserHistory from 'react-router-dom';
+
 
 
 import getWeb3 from '../utils/getWeb3';
@@ -40,6 +42,7 @@ const withErrorHandling = WrappedComponent => ({ showError, children }) => {
 const DivWithErrorHandling = withErrorHandling(({children}) => <div>{children}</div>)
 import ExportCSV from '../components/ExportCsv'
 import ToolkitProvider, { CSVExport } from 'react-bootstrap-table2-toolkit';
+import { throwStatement } from '@babel/types';
 
 
 const columns = [{
@@ -67,18 +70,20 @@ const columns = [{
   text: 'Name of Clinican'
 }];
 
+
+
 class Analyse extends Component {
     constructor(props) {
         super(props)
         this.state = {
           loaded: false,
+          refresh:false,
           assetPush: false,
           num: 0,
           dataAnalysis: [],
           fileName: "name"
         };
 
-        this.routeRequest = this.routeRequest.bind(this);
         this._validateData = this._validateData.bind(this);
         this.routeAbout = this.routeAbout.bind(this);
         this._loadBlockchain = this._loadBlockchain.bind(this);
@@ -88,13 +93,29 @@ class Analyse extends Component {
     };
 
     async componentDidMount () {
+      if(this.props.location.state){
+        this.setState({
+          existingProject: this.props.location.state.existingProject,
+          loaded: this.props.location.state.loaded,
+          isRegistered: this.props.location.state.isRegistered
+      })
+      this._getAssets(this.props.location.state.existingProject.bgChainToken)
+      } 
+      else {
       this._loadBlockchain()
+      };
     }
 
 
-    onFocusFunction = () => {
-      this._loadBlockchain()
-    }
+  componentDidUpdate(prevProps, prevState) {
+      if (prevState.dataAnalysis !== this.state.dataAnalysis) { // or compare with `prevState`
+        this._loadBlockchain()
+      } else {
+        console.log('data already loaded')
+      }
+    }; 
+
+  
     
     _loadBlockchain = async() => {
         try {
@@ -126,10 +147,6 @@ class Analyse extends Component {
         }
       };
 
-    routeRequest() {
-        let path = `/researchRequest`;
-        this.props.history.push(path);
-      }
 
       
       routeAbout() {
@@ -139,7 +156,8 @@ class Analyse extends Component {
 
       routeResearchRequest() {
         let path = `/researchRequest`;
-        this.props.history.push(path);
+        this.props.history.push({pathname: path, state: {existingProject: this.state.existingProject}});
+
       }
 
 
@@ -171,13 +189,21 @@ class Analyse extends Component {
       });
     };
 
-       _getAssets() {
-        
-          let url = '/api/bigchain/checkOwnedData';
-          let request = API_url + url;
-          let data = {
+       _getAssets(token) {
+        var data;
+        if(token) {
+           data = {
+            "pubkey": token
+          }
+        }
+        else {
+          data = {
             "pubkey": this.state.existingProject.bgChainToken,
           };
+        };
+
+          let url = '/api/bigchain/checkOwnedData';
+          let request = API_url + url;
           
           fetch(request, {
           method: 'POST',
@@ -276,10 +302,12 @@ class Analyse extends Component {
       this.setState({
         chartGender: chartDataGender
       })
+      console.log(JSON.stringify(this.state.chartGender))
 }
 
 
 render() {
+  //this._loadBlockchain()
   const {assetNum, assetPush, dataAnalysis, chartDisease, chartGender} = this.state
   const {ExportCSVButton} = CSVExport;
 
@@ -294,6 +322,7 @@ render() {
     )
   }
     return(
+
         <div>
         <DivWithErrorHandling showError={this.state.showError}></DivWithErrorHandling>
             <h2>

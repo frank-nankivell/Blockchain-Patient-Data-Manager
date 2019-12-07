@@ -103,6 +103,7 @@ class CheckRegistration extends Component {
 
         this.state = {
             loaded: false,
+            isflushed: false,
             isRegistered: false,
             showError: false,
             web3: null,
@@ -116,20 +117,41 @@ class CheckRegistration extends Component {
         this._routeAnalysis = this._routeAnalysis.bind(this)
         this._routeHome = this._routeHome.bind(this)
         this._routeRegister = this._routeRegister.bind(this)
-        this._loadBlockchain()
+        this._refreshPage = this._refreshPage.bind(this);
        // this.loadPage = this.loadPage.bind(this);
      //   this.renderAnalyis = this.renderAnalyis.bind()
      //   this.renderAnalyisEmpty = this.renderAnalyisEmpty.bind(this)
 
     };
-    
-    componentDidUpdate () {
-      this._loadBlockchain()
+
+    _refreshPage() {
+      console.log("Clicked");
+      this.setState({
+        loaded: true
+      })
+      window.location.reload();
     }
+
   
     componentDidMount() {
+      if(this.props.location.state) {
+          this.setState({
+            existingProject: this.props.location.state.existingProject,
+            loaded: this.props.location.state.loaded,
+            isRegistered: this.props.location.state.isRegistered
+
+        })
+      } else 
+      {
         this._loadBlockchain()
+      };
+
     };
+
+    componentDidUpdate(prevProps, prevState) {
+      console.log(this.props.location.pathname, 'come one');
+        this._loadBlockchain()
+      };
 
     
     _loadBlockchain = async() => {
@@ -238,10 +260,11 @@ class CheckRegistration extends Component {
         let path = `/analyse`;
         this.props.history.push({
         pathname: path,
-        state: { loaded: false,
-                  assetPush: false,
-                  num: 0,
-                  dataAnalysis: [] 
+        state: { existingProject: this.state.existingProject,
+                account: this.state.account,
+                loaded: this.state.loaded,
+                isRegistered: this.state.isRegistered
+
         }
       })
   };
@@ -250,19 +273,8 @@ class CheckRegistration extends Component {
         this.props.history.push({
           pathname: path,
           state : {
-          formStatus: false,
-          showError: false,
-          existingProject: [],
-          dataAccess: undefined,
-          account: null,
-          web3: null,
-          error: false,
-          userName: null,
-          data: [],
-          recentData: [],
-          users: [],
-          projectList: [],
-          count: '1'
+          //  dataAccess: this.state.dataAccess,
+            account: this.state.account
       }
     })
   };
@@ -279,6 +291,7 @@ render() {
     if(!loaded) {
     return(
         <div>
+        
         <DivWithErrorHandling showError={this.state.showError}></DivWithErrorHandling>
         <Button variant="secondary" disabled>
             <Spinner

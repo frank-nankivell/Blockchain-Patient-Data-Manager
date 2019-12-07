@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import {Text, StyleSheet, View} from 'react-native'
-import {Route, Link, Switch, BrowserRouter as Router } from 'react-router-dom'
+import {Route, Link, Switch, BrowserRouter as Router, browserHistory } from 'react-router-dom'
 import {Form, Button, Navbar, Nav, NavDropdown, FormControl} from 'react-bootstrap';
 
 import Home from './screens/Home';
@@ -24,8 +24,9 @@ function App() {
       <NavigationBar />
       <Jumbotron> </Jumbotron>
       <Layout>
-      <Router>
+      <Router history={browserHistory}>
         <Switch>
+
           <Route exact path="/" component={Home} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/checkRegistration" component={CheckRegistration} />

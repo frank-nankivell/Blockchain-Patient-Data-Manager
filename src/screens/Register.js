@@ -70,6 +70,7 @@ export default class Register extends Component {
           projectList: [],
           count: '1',
       };
+      this._loadBlockchain = this._loadBlockchain.bind(this)
       this._handleChange = this._handleChange.bind(this)
       this._validateData = this._validateData.bind(this)
       this._getToken = this._getToken.bind(this)
@@ -77,56 +78,67 @@ export default class Register extends Component {
   };
 
   //
-  componentDidMount = async () => {
-    try {
-      // Get network provider and web3 instance.
-      const web3 = await getWeb3();
-      // Use web3 to get the user's accounts.
-      const accounts = await web3.eth.getAccounts();
+  componentDidMount() {
+    if(this.props.location.state) {
+      this.setState({
+        dataAccess: this.props.location.state.dataAccess,
+        account: this.props.location.state.account
+      })
+      this._loadBlockchain()
+      //this._validateData(this.props.location.state.existingProject.dataAccess,this.props.location.state.account)
 
-      // connect dataAccess instance
-      const networkId = await web3.eth.net.getId();
-          const deployedNetwork = DataAccess.networks[networkId];
-          console.log('dataaccess network',DataAccess.networks[networkId])
-          const dataAccessInstance = new web3.eth.Contract(
-            DataAccess.abi,
-            deployedNetwork && deployedNetwork.address,
-          );
-   
-      // Set web3, accounts, and contract to the state, and then proceed with updating UI flag
-      this.setState({ dataAccess: dataAccessInstance, web3: web3, account: accounts[0]})
-
-      this._validateData();
- 
-    } catch (error) {
-      // Catch any errors for any of the above operations.
-      alert(
-        `Failed to load web3, accounts, or contract. You need to install MetaMask to authenticate and login`
-      );
-      console.log(error);
+    } else {
+    this._loadBlockchain()
     }
   };
 
-  routeAnalyse() {
-    let path = `/analyse`;
-    this.props.history.push(path);
-  }
-
+    _loadBlockchain = async() => {
+      try {
+        // Get network provider and web3 instance.
+        const web3 = await getWeb3();
+        // Use web3 to get the user's accounts.
+        const accounts = await web3.eth.getAccounts();
   
-  routeResearchRequest() {
-    let path = `/researchRequest`;
-    this.props.history.push(path);
-  }
+        // connect dataAccess instance
+        const networkId = await web3.eth.net.getId();
+            const deployedNetwork = DataAccess.networks[networkId];
+            console.log('dataaccess network',DataAccess.networks[networkId])
+            const dataAccessInstance = new web3.eth.Contract(
+              DataAccess.abi,
+              deployedNetwork && deployedNetwork.address,
+            );
+     
+        // Set web3, accounts, and contract to the state, and then proceed with updating UI flag
+        this.setState({ dataAccess: dataAccessInstance, web3: web3, account: accounts[0]})
+  
+        this._validateData(this.state.dataAccess);
+   
+      } catch (error) {
+        // Catch any errors for any of the above operations.
+        alert(
+          `Failed to load web3, accounts, or contract. You need to install MetaMask to authenticate and login`
+        );
+        console.log(error);
+      }
+    };
 
 
-  _validateData() {
-  this.state.dataAccess.methods.validateData(this.state.account).call()
+  _validateData(dataAccess, account) {
+    var da, ac
+    if(dataAccess && account) {
+      da = dataAccess;
+      ac = account
+    } else {
+      da = this.state.dataAccess;
+      ac = this.state.account;
+    }
+  da.methods.validateData(ac).call()
   .then((result) => {
     console.log('validateData', JSON.stringify(result))
     if (result == false) {
     this._getToken();
     } else {
-      this.state.dataAccess.methods.getData(this.state.account).call()
+      da.methods.getData(ac).call()
         .then((result) =>{
           console.log("getData: " + result);
           var a = JSON.stringify(result)
@@ -149,6 +161,21 @@ export default class Register extends Component {
     this.setState({...this.state,showError:true})
 });
 };
+
+
+routeAnalyse() {
+  let path = `/analyse`;
+  this.props.history.push({pathname: path, state: {existingProject: this.state.existingProject}});
+
+}
+
+
+routeResearchRequest() {
+  let path = `/researchRequest`;
+  this.props.history.push({pathname: path, state: {existingProject: this.state.existingProject}});
+
+}
+
 
   // function to update state from form
   _handleChange(event) {
@@ -215,8 +242,12 @@ export default class Register extends Component {
       .send({ from: this.state.account})
       .then((result) => { 
         console.log("data access insertdataLocation callback: "+ result);
-        this.setState({...this.state, formStatus: true, data: result});
+        this.setState({data: result})
+        this._validateData()
         })
+      .then(() => {
+        this.setState({...this.state, formStatus: true})
+      })
       .catch((error) => { 
         console.log('Error insertdataLocation: '+ error)
         this.setState({...this.state, showError: true});
@@ -238,7 +269,16 @@ export default class Register extends Component {
     if(!web3) {
       return<div>Loading...
         <DivWithErrorHandling showError={this.state.showError}></DivWithErrorHandling>
-        <Spinner animation="border" variant="primary" />
+        <h4>
+          To load form press here
+        </h4>
+        <Button
+                  type="submit"
+                  variant="outline-secondary"
+                  onClick={this._loadBlockchain}>
+                  Load Form
+        </Button>
+
       </div>
     }
     if(web3 && !formStatus) {

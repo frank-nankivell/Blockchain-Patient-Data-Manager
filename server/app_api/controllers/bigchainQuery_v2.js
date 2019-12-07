@@ -213,12 +213,12 @@ const transferAssetFunction = async(req, res, _privatekey, _userPubKey, _prepare
         .then(tx => {
           console.log('Transfer Succesfull: ', tx.id)
           transferloopArray.push(tx)
-          callback(req, res, tx)
+          //_callback(req, res, tx)
         })
         .catch(error => {
           console.log('Error in Transacaction',error)
           transferloopArray.push(error)
-          callback(req, res, error)
+          //_callback(req, res, error)
           //sendJSONresponse(req, 400, error)
         })
     } 
