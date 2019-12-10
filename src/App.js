@@ -31,8 +31,8 @@ function App() {
           <Route exact path="/register" component={Register} />
           <Route exact path="/checkRegistration" component={CheckRegistration} />
           <Route exact path="/researchRequest" component={ResearchRequest} />
-          <Route exact path="/about" component={About} />
           <Route exact path="/analyse" component={Analyse} />
+          <Route exact path="/about" component={About} />
           <Route component={NoMatch} />
         </Switch>
       </Router>

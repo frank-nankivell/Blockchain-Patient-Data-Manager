@@ -273,6 +273,7 @@ class CheckRegistration extends Component {
         this.props.history.push({
           pathname: path,
           state : {
+            trigger: true,
           //  dataAccess: this.state.dataAccess,
             account: this.state.account
       }
@@ -280,7 +281,7 @@ class CheckRegistration extends Component {
   };
     _routeHome() {
         let path = `/home`;
-        this.props.history.push(path);
+        this.props.history.goBack();
     }
      
 

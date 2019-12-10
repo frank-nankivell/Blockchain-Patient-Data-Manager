@@ -26,6 +26,7 @@ import {
 // custom components and development
 import Explanation from '../components/Explanation';
 import getWeb3 from '../utils/getWeb3';
+import onDemandWeb3 from '../utils/onDemandWeb3';
 
 const API_url = "http://localhost:3000";
 if (process.env.NODE_ENV === 'production') {
@@ -53,15 +54,16 @@ import DataAccess from '../../build/contracts/DataAccess.json'
 
 //  constructor and class definition
 export default class Register extends Component {
+
   constructor(props) {
       super(props)
       this.state = {
           formStatus: false,
           showError: false,
           existingProject: [],
-          dataAccess: undefined,
+          //dataAccess: undefined,
           account: null,
-          web3: null,
+          web3: true,
           error: false,
           userName: null,
           data: [],
@@ -70,32 +72,37 @@ export default class Register extends Component {
           projectList: [],
           count: '1',
       };
+      
       this._loadBlockchain = this._loadBlockchain.bind(this)
       this._handleChange = this._handleChange.bind(this)
       this._validateData = this._validateData.bind(this)
       this._getToken = this._getToken.bind(this)
       this._registerProject = this._registerProject.bind(this);
-  };
+    };
 
-  //
-  componentDidMount() {
-    if(this.props.location.state) {
-      this.setState({
-        dataAccess: this.props.location.state.dataAccess,
-        account: this.props.location.state.account
-      })
-      this._loadBlockchain()
-      //this._validateData(this.props.location.state.existingProject.dataAccess,this.props.location.state.account)
 
-    } else {
+   componentDidMount() {
     this._loadBlockchain()
+    console.log('test2')
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.profileOrError === null) {
+      console.log('test1')
+      // At this point, we're in the "commit" phase, so it's safe to load the new data.
+      this._loadBlockchain();
     }
-  };
+  }
+
+  componentWillUnmount()  {
+    this._loadBlockchain()
+  }
 
     _loadBlockchain = async() => {
+      console.log('loading blockchain')
       try {
         // Get network provider and web3 instance.
-        const web3 = await getWeb3();
+        const web3 = await onDemandWeb3();
         // Use web3 to get the user's accounts.
         const accounts = await web3.eth.getAccounts();
   
@@ -110,9 +117,11 @@ export default class Register extends Component {
      
         // Set web3, accounts, and contract to the state, and then proceed with updating UI flag
         this.setState({ dataAccess: dataAccessInstance, web3: web3, account: accounts[0]})
-  
         this._validateData(this.state.dataAccess);
-   
+        console.log(this.state.dataAccess)
+
+        return dataAccessInstance;
+  
       } catch (error) {
         // Catch any errors for any of the above operations.
         alert(
@@ -122,51 +131,43 @@ export default class Register extends Component {
       }
     };
 
-
-  _validateData(dataAccess, account) {
-    var da, ac
-    if(dataAccess && account) {
-      da = dataAccess;
-      ac = account
-    } else {
-      da = this.state.dataAccess;
-      ac = this.state.account;
-    }
-  da.methods.validateData(ac).call()
-  .then((result) => {
-    console.log('validateData', JSON.stringify(result))
-    if (result == false) {
-    this._getToken();
-    } else {
-      da.methods.getData(ac).call()
-        .then((result) =>{
-          console.log("getData: " + result);
-          var a = JSON.stringify(result)
-          console.log('object: ',a)
-          var array =[]
-          array.push(result[0]);
-          console.log('array,',array)
-          this.setState({
-            existingProject: result, 
-            formStatus: true})
-        })
-      .catch((err) => {
-        console.log("Error GetData: "+err)
+    _validateData() {
+      this.state.dataAccess.methods.validateData(this.state.account).call()
+      .then((result) => {
+        console.log("GetDataCount: " + result);
+        if(result == false) {
+          console.log("No project registered -> result:",result);
+          this._getToken()
+        } else {
+          this.state.dataAccess.methods.getData(this.state.account).call()
+          .then((result) =>{
+            console.log("getData: " + result);
+            var a = JSON.stringify(result)
+            console.log('object: ',a)
+            var array =[]
+            array.push(result[0]);
+            console.log('array,',array)
+            this.setState({
+              existingProject: result, 
+              formStatus: true})
+          })
+          .catch((err) => {
+            console.log("Error GetData: "+err)
+            this.setState({...this.state,showError:true})
+          });
+        }
+    })
+    .catch(function(err) {
+        console.log("Error GetDataCount: "+err)
         this.setState({...this.state,showError:true})
-      });
-    }
-})
-.catch((error) => {
-    console.log("Error GetDataCount: "+error);
-    this.setState({...this.state,showError:true})
-});
-};
+    });
+  };
+
 
 
 routeAnalyse() {
-  let path = `/analyse`;
-  this.props.history.push({pathname: path, state: {existingProject: this.state.existingProject}});
-
+    let path = `/analyse`;
+    this.props.history.push({pathname: path, state: {existingProject: this.state.existingProject}});
 }
 
 
@@ -182,15 +183,15 @@ routeResearchRequest() {
     switch(event.target.name) {
         case "name":
             this.setState({"name": event.target.value})
-            console.log('name is', event.target.value)
+            //console.log('name is', event.target.value)
             break;
         case "institution":
             this.setState({"institution": event.target.value})
-            console.log('email is', event.target.value)
+            //console.log('email is', event.target.value)
             break;
         case "projectSummary":
             this.setState({"projectSummary": event.target.value})
-            console.log('projectSummary is', event.target.value)
+           // console.log('projectSummary is', event.target.value)
             break;
         default:
             break;
@@ -269,16 +270,7 @@ routeResearchRequest() {
     if(!web3) {
       return<div>Loading...
         <DivWithErrorHandling showError={this.state.showError}></DivWithErrorHandling>
-        <h4>
-          To load form press here
-        </h4>
-        <Button
-                  type="submit"
-                  variant="outline-secondary"
-                  onClick={this._loadBlockchain}>
-                  Load Form
-        </Button>
-
+        <Spinner animation="border" variant="primary" />
       </div>
     }
     if(web3 && !formStatus) {

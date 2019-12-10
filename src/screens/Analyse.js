@@ -275,10 +275,12 @@ class Analyse extends Component {
     // this sets to summarise by disease
     diseaseArray = info.map(x => x.data.Disease_1);
     let counts = {};
-    diseaseArray.forEach(function(x) { counts[x] = (counts[x] || 0)+1; });
+    diseaseArray.forEach(function(x) { counts[x] = (counts[x] || 0)+1; })
     const chartData = [['Disease Name', 'Count']]
     const names = Object.keys(counts)
+    console.log('names',names)
     const Values = Object.values(counts)
+    console.log('values',Values)
 
     for (let i = 0; i < names.length; i += 1) {
       chartData.push([names[i], Values[i]])
@@ -287,6 +289,7 @@ class Analyse extends Component {
     this.setState({
       chartDisease: chartData
     })
+    console.log(JSON.stringify(chartData))
     // this summarises by Gender
     genderArry = info.map(x => x.data.Gender);
     let countsGender = {};
