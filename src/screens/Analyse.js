@@ -43,6 +43,10 @@ const DivWithErrorHandling = withErrorHandling(({children}) => <div>{children}</
 import ExportCSV from '../components/ExportCsv'
 import ToolkitProvider, { CSVExport } from 'react-bootstrap-table2-toolkit';
 import { throwStatement } from '@babel/types';
+import chartGraphDisease from '../utils/chartGraphDisease';
+import chartGraphGender from '../utils/chartGraphGender';
+
+
 
 
 const columns = [{
@@ -266,48 +270,25 @@ class Analyse extends Component {
   });
 };
 
-  _doGraphs() { 
+  _doGraphs = async() => { 
 
-    // function to convert data into graphical info
-    let genderArry, diseaseArray, info;
-    info = this.state.dataAnalysis;
-    
-    // this sets to summarise by disease
-    diseaseArray = info.map(x => x.data.Disease_1);
-    let counts = {};
-    diseaseArray.forEach(function(x) { counts[x] = (counts[x] || 0)+1; })
-    const chartData = [['Disease Name', 'Count']]
-    const names = Object.keys(counts)
-    console.log('names',names)
-    const Values = Object.values(counts)
-    console.log('values',Values)
+    try {
 
-    for (let i = 0; i < names.length; i += 1) {
-      chartData.push([names[i], Values[i]])
-    }
-    // sets state
-    this.setState({
-      chartDisease: chartData
-    })
-    console.log(JSON.stringify(chartData))
-    // this summarises by Gender
-    genderArry = info.map(x => x.data.Gender);
-    let countsGender = {};
-    genderArry.forEach(function(x) { countsGender[x] = (countsGender[x] || 0)+1; });
-    const chartDataGender = [['Gender', 'Count']]
-    const namesGender = Object.keys(countsGender)
-    const ValuesGender = Object.values(countsGender)
+      console.log('this state data analysis',this.state.dataAnalysis)
+      const chartDataDisease = await chartGraphDisease(this.state.dataAnalysis);
+      console.log('data disease',chartDataDisease)
+      this.setState({chartDisease: chartDataDisease})
 
-    for (let i = 0; i < names.length; i += 1) {
-      chartDataGender.push([namesGender[i], ValuesGender[i]])
-    }
-      // sets state
-      this.setState({
-        chartGender: chartDataGender
-      })
-      console.log(JSON.stringify(this.state.chartGender))
-}
+      const chartDataGender = await chartGraphGender(this.state.dataAnalysis);
+      console.log('chart disease',chartDataGender)
+      this.setState({chartGender: chartDataGender})
 
+      } catch {
+        this.setState({...this.state, showError: true});
+        console.log('error')
+      }
+
+  };
 
 render() {
   //this._loadBlockchain()
