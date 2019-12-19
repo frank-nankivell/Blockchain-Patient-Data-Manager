@@ -232,7 +232,7 @@ export default class ResearchRequest extends Component {
 
       try {
 
-        let url = '/api/bigchain/v2_transfer';
+        let url = '/api/bigchain/transferAsset';
         let request = API_url + url;
 
         let data = {
