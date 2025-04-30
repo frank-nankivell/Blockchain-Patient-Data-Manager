@@ -20,7 +20,7 @@
     "babel-loader": "^8.0.6",
     "babel-plugin-root-import": "^6.4.1",
     "babel-preset-react-native": "^4.0.1",
-    "base-x": "^3.0.4",
+    "base-x": "^3.0.11",
     "bigchaindb-driver": "^4.1.0",
     "bip39": "^2.5.0",
     "bootstrap": "^4.3.1",
